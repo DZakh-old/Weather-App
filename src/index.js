@@ -6,7 +6,7 @@ import './js/helpers';
 import './js/functions';
 import './js/packedges';
 
-import WeatherService from './js/weather-service';
+import WeatherService from './js/classes/weather-service';
 
 // const input = 'london';
 // const key = 'AIzaSyAv3Kya6-hZVLqTmx_OE-herfkuTQR4h1w';
