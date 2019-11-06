@@ -1,0 +1,12 @@
+@keyframes fromTopToBottom {
+	47% {
+		transform: translateY(100%);
+	}
+	50% {
+		opacity: 0;
+		transform: translateY(-100%);
+	}
+	53% {
+		opacity: 1;
+	}
+}

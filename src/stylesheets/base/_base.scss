@@ -1,0 +1,50 @@
+// -----------------------------------------------------------------------------
+// This file contains very basic styles.
+// -----------------------------------------------------------------------------
+
+
+html {
+  box-sizing: border-box;
+  font-size: 1px;
+}
+
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+	padding: 0;
+}
+
+
+body {
+  min-width: $min-width;
+}
+img {
+  // color: inherit;
+	max-width: 100%;
+	max-height: 100%;
+	width: 100%;
+}
+ul {
+	list-style: none;
+}
+a {
+  display: inline-block;
+  color: inherit;
+  text-decoration: inherit;
+}
+button {
+  // color: inherit;
+  font-size: inherit;
+  background: inherit;
+  border: inherit;
+}
+a, button {
+  pointer-events: auto;
+  cursor: pointer;
+}
+:focus {
+  outline: 0 !important;
+}
