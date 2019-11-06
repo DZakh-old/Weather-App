@@ -1,7 +1,7 @@
 {
-  "name": "whether",
+  "name": "weather",
   "version": "1.0.0",
-  "description": "\"# Whether\"",
+  "description": "\"# Weather\"",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -37,10 +37,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DZakh/Whether.git"
+    "url": "git+https://github.com/DZakh/Weather.git"
   },
   "bugs": {
-    "url": "https://github.com/DZakh/Whether/issues"
+    "url": "https://github.com/DZakh/Weather/issues"
   },
-  "homepage": "https://github.com/DZakh/Whether#readme"
+  "homepage": "https://github.com/DZakh/Weather#readme"
 }
