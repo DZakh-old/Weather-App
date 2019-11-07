@@ -52,15 +52,15 @@ export default class WeatherCard {
 
   get weather() {
     if (this._tempId === 0) {
-      // TODO: Add status
-      // return {
-      //   code: this._tempData[0].code,
-      //   status: this._tempData[0].status
-      // };
-      return this._tempData[0].code;
+      const { code, status, iconId } = this._tempData[0].weather;
+      return {
+        code,
+        status,
+        iconId
+      };
     }
 
-    const codes = this._tempData.map(tempData => tempData.code.toString().match(/\d/g));
+    const codes = this._tempData.map(tempData => tempData.weather.code.toString().match(/\d/g));
 
     const getMostFrequentCode = codes => {
       let mostFrequentCode = '';
@@ -75,12 +75,18 @@ export default class WeatherCard {
         mostFrequentCode += this._getMostFrequent(getFollowingNumbers());
       }
 
-      return mostFrequentCode;
+      return +mostFrequentCode;
     };
 
-    return getMostFrequentCode(codes);
-    // TODO: Add status and icons
-    // https://openweathermap.org/weather-conditions
+    const cardWeatherCode = getMostFrequentCode(codes);
+    const cardWeather = this._tempData.find(tempData => tempData.weather.code === cardWeatherCode);
+
+    const { code, status, iconId } = cardWeather.weather;
+    return {
+      code,
+      status,
+      iconId
+    };
   }
 
   get snatch() {

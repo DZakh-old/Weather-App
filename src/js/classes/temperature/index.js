@@ -39,12 +39,12 @@ export default class Temperature {
     return this._main.humidity;
   }
 
-  get code() {
-    return this._weather.id;
-  }
-
-  get status() {
-    return this._weather.description;
+  get weather() {
+    return {
+      code: this._weather.id,
+      status: this._weather.description,
+      iconId: this._weather.icon.slice(0, 2)
+    };
   }
 
   get clouds() {

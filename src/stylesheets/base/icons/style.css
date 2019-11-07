@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?djdzgi');
-  src:  url('fonts/icomoon.eot?djdzgi#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?djdzgi') format('truetype'),
-    url('fonts/icomoon.woff?djdzgi') format('woff'),
-    url('fonts/icomoon.svg?djdzgi#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?7zbjbm');
+  src:  url('fonts/icomoon.eot?7zbjbm#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?7zbjbm') format('truetype'),
+    url('fonts/icomoon.woff?7zbjbm') format('woff'),
+    url('fonts/icomoon.svg?7zbjbm#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,24 +25,30 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-sun:before {
+.icon-weather-03:before {
+  content: "\e908";
+}
+.icon-weather-02:before {
+  content: "\e907";
+}
+.icon-weather-01:before {
   content: "\e900";
 }
-.icon-clouds:before {
+.icon-weather-04:before {
   content: "\e901";
 }
-.icon-cloud-snowflakes:before {
+.icon-weather-13:before {
   content: "\e902";
 }
-.icon-cloud-raindrops:before {
+.icon-weather-10:before {
   content: "\e903";
 }
-.icon-cloud-fog:before {
+.icon-weather-50:before {
   content: "\e904";
 }
-.icon-cloud-rain:before {
+.icon-weather-09:before {
   content: "\e905";
 }
-.icon-cloud-lightning:before {
+.icon-weather-11:before {
   content: "\e906";
 }

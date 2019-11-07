@@ -38,7 +38,7 @@ export default class WeatherInterface {
         // <p>${curTemp.wind.speed} wind speed </p>
       })
       .then(cards => {
-        console.log(cards[0].wind);
+        console.log(cards[1].weather);
         weatherWrap.innerHTML += `
           <p>${cards[0].day} deg now </p>
           <p>${cards[1].day} deg tommorow </p>
