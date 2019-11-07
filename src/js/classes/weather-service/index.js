@@ -9,13 +9,8 @@ export default class WeatherService {
       'x-rapidapi-key': '0ac326cb26mshfed5d47e55143adp14a52bjsnc231edba1e81'
     };
     const res = await Ajax.get(apiUrl, apiHeaders);
-
     // TODO: replace in production
-    // const dataList = await res.list.map((temp, i) => new Temperature(temp, i));
-    const dataList = [];
-    for (let i = 0; i < 40; i++) {
-      dataList.push(new Temperature(res.list[0], i));
-    }
+    const dataList = await res.list.map((temp, i) => new Temperature(temp, i));
 
     // return {
     //   city,
