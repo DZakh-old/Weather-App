@@ -93,8 +93,7 @@ export default class WeatherCard {
     return this._tempData.map(tempData => {
       return {
         time: tempData.id === 0 ? 'Now' : tempData.date.time,
-        /* TODO: Use icons instead */
-        weatherCode: tempData.code,
+        iconId: tempData.weather.icon,
         temp: tempData.temp
       };
     });
