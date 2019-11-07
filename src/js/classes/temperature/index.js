@@ -5,7 +5,7 @@ export default class Temperature {
     this._clouds = temp.clouds.all;
     this._wind = temp.wind;
     this._date = new Date(temp.dt_txt);
-    this._id = id;
+    this.id = id;
   }
 
   _getWindDirection(deg) {
@@ -43,6 +43,9 @@ export default class Temperature {
       time: formatDate({
         hour: '2-digit',
         minute: '2-digit',
+        hour12: false
+      }),
+      hour: formatDate({
         hour12: false
       })
     };
