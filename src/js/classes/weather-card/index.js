@@ -80,6 +80,7 @@ export default class WeatherCard {
 
     return getMostFrequentCode(codes);
     // TODO: Add status and icons
+    // https://openweathermap.org/weather-conditions
   }
 
   get snatch() {
@@ -133,5 +134,11 @@ export default class WeatherCard {
       speed: this._getCardAverage('windSpeed'),
       direction: getWindDirectionById(this._getCardAverage('windDirection'))
     };
+  }
+
+  build() {
+    return `
+    
+    `;
   }
 }
