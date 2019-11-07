@@ -46,6 +46,7 @@ export default class Temperature {
         hour12: false
       }),
       hour: formatDate({
+        hour: 'numeric',
         hour12: false
       })
     };
@@ -61,6 +62,10 @@ export default class Temperature {
 
   get humidity() {
     return this._main.humidity;
+  }
+
+  get code() {
+    return this._weather.id;
   }
 
   get status() {

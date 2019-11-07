@@ -3,17 +3,15 @@ import WeatherCard from '../weather-card';
 
 export default class WeatherInterface {
   _createWeatherCards(tempList) {
-    console.log(tempList);
-    console.log(tempList[0].date);
-
-    const curHour = tempList[0].date.time.hour;
-    const factor = Math.ceil((24 - curHour) / 3);
+    const curHour = tempList[0].date.hour;
+    const factor = Math.ceil((24 - curHour) / 3) || 1;
     const cards = [];
 
     cards.push(new WeatherCard(tempList.slice(0, 8)));
     for (let i = 1; i <= 3; i++) {
-      cards.push(new WeatherCard(tempList.slice(factor * i, (factor + 8) * i)));
+      cards.push(new WeatherCard(tempList.slice(factor * i, factor * i + 8)));
     }
+    // console.log(cards);
 
     return cards;
   }
@@ -40,11 +38,12 @@ export default class WeatherInterface {
         // <p>${curTemp.wind.speed} wind speed </p>
       })
       .then(cards => {
+        console.log(cards[2].weather);
         weatherWrap.innerHTML += `
-          <p>${cards[0].mainTemp} deg now </p>
-          <p>${cards[1].mainTemp} deg tommorow </p>
-          <p>${cards[2].mainTemp} deg in two days </p>
-          <p>${cards[3].mainTemp} deg later </p>
+          <p>${cards[0].day} deg now </p>
+          <p>${cards[1].day} deg tommorow </p>
+          <p>${cards[2].day} deg in two days </p>
+          <p>${cards[3].day} deg later </p>
 
         `;
       });

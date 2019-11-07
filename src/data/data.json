@@ -1,0 +1,39 @@
+{
+  "cod": "200",
+  "message": 0.011,
+  "cnt": 40,
+  "list": [
+    {
+      "dt": 1570244400,
+      "main": {
+        "temp": 288.11,
+        "temp_min": 286.961,
+        "temp_max": 288.11,
+        "pressure": 1019.73,
+        "sea_level": 1019.73,
+        "grnd_level": 1011.77,
+        "humidity": 68,
+        "temp_kf": 1.15
+      },
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01n"
+        }
+      ],
+      "clouds": {
+        "all": 0
+      },
+      "wind": {
+        "speed": 3.15,
+        "deg": 275.935
+      },
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2019-11-05 03:00:00"
+    }
+  ]
+}
