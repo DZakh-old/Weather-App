@@ -93,7 +93,8 @@ export default class WeatherCard {
     return this._tempData.map(tempData => {
       return {
         time: tempData.id === 0 ? 'Now' : tempData.date.time,
-        iconId: tempData.weather.icon,
+        status: tempData.weather.status,
+        iconId: tempData.weather.iconId,
         temp: tempData.temp
       };
     });
@@ -143,7 +144,81 @@ export default class WeatherCard {
 
   build() {
     return `
-    
+      <section class="card">
+        <header class="card__head head">
+          <h2 class="head__day">
+            ${this.day}
+          </h2>
+          <div class="head__temp">
+            ${this.temp}&deg;
+          </div>
+          <div class="head__weather">
+            <span class="head__icon icon-weather-${this.weather.iconId}" aria-label="${
+      this.weather.status
+    }"></span>
+            <p class="head__status">
+              ${this.weather.status}
+            </p>
+          </div>
+        </header>
+        <main class="card__info info">
+          <ul class="info__bar">
+            ${this.snatch
+              .map(
+                snatch => `
+                <li class="info__snatch snatch">
+                  <p class="snatch__time">
+                    ${snatch.time}
+                  </p>
+                  <span class="snatch__icon icon-weather-${snatch.iconId}" aria-label="${snatch.status}"></span>
+                  <div class="snatch__temp">
+                    ${snatch.temp}&deg;
+                  </div>
+                </li>              
+              `
+              )
+              .join('')}
+          </ul>
+          <ul class="info__details details">
+            <li class="details__block">
+              <h3 class="details__title">
+                Humidity
+              </h3>
+              <div class="details__content humidity">
+                <!-- Humidity.append(this.humidity) -->
+                ${this.humidity}
+              </div>
+            </li>
+            <li class="details__block">
+              <h3 class="details__title">
+                Wind
+              </h3>
+              <div class="details__content wind">
+                <!-- Wind.append(this.wind) -->
+                ${this.wind.speed}, ${this.wind.direction}
+              </div>
+            </li>
+            <li class="details__block">
+              <h3 class="details__title">
+                Pressure
+              </h3>
+              <div class="details__content pressure">
+                <!-- Pressure.append(this.pressure) -->
+                ${this.pressure}
+              </div>
+            </li>
+            <li class="details__block">
+              <h3 class="details__title">
+                Clouds
+              </h3>
+              <div class="details__content clouds">
+                <!-- Clouds.append(this.clouds) -->
+                ${this.clouds}
+              </div>
+            </li>
+          </ul>
+        </main>
+      </section>
     `;
   }
 }

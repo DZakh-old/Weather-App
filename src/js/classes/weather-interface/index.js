@@ -11,7 +11,6 @@ export default class WeatherInterface {
     for (let i = 1; i <= 3; i++) {
       cards.push(new WeatherCard(dataList.slice(factor * i, factor * i + 8)));
     }
-    // console.log(cards);
 
     return cards;
   }
@@ -23,29 +22,9 @@ export default class WeatherInterface {
     `;
     WeatherService.cityData(cityName)
       // .then(({ city, dataList }) => {
-      .then(dataList => {
-        return this._createWeatherCards(dataList);
-        // <p>${curTemp.temp} deg now </p>
-        // <p>${curTemp.date.time} time of test </p>
-        // <p>${curTemp.date.day} date of test </p>
-        // <p>${curTemp.date.weekday} day of test </p>
-        // <p>${curTemp.date.month} month of test </p>
-        // <p>${curTemp.pressure} presure </p>
-        // <p>${curTemp.humidity} humidity </p>
-        // <p>${curTemp.status} status </p>
-        // <p>${curTemp.clouds} clouds </p>
-        // <p>${curTemp.wind.direction} wind direction </p>
-        // <p>${curTemp.wind.speed} wind speed </p>
-      })
+      .then(dataList => this._createWeatherCards(dataList))
       .then(cards => {
-        console.log(cards[1].weather);
-        weatherWrap.innerHTML += `
-          <p>${cards[0].day} deg now </p>
-          <p>${cards[1].day} deg tommorow </p>
-          <p>${cards[2].day} deg in two days </p>
-          <p>${cards[3].day} deg later </p>
-
-        `;
+        weatherWrap.innerHTML += cards[0].build();
       });
   }
 }
