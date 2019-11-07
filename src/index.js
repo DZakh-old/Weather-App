@@ -6,7 +6,7 @@ import './js/helpers';
 import './js/functions';
 import './js/packedges';
 
-import WeatherService from './js/classes/weather-service';
+import WeatherInterface from './js/classes/weather-interface';
 
 // const input = 'london';
 // const key = 'AIzaSyAv3Kya6-hZVLqTmx_OE-herfkuTQR4h1w';
@@ -26,7 +26,7 @@ import WeatherService from './js/classes/weather-service';
 
 const myCity = 'san%20francisco%2Cus';
 
-const weather = new WeatherService();
+const weather = new WeatherInterface();
 
 document.getElementById('app').innerHTML += `
   <button id="show">Показать</button>
