@@ -8,31 +8,6 @@ export default class Temperature {
     this.id = id;
   }
 
-  _getWindDirection(deg) {
-    const numSides = 8;
-    const span = 360 / numSides;
-    switch (Math.ceil((deg + span / 2) / span) % numSides) {
-      case 1:
-        return 'North';
-      case 2:
-        return 'Northeast';
-      case 3:
-        return 'East';
-      case 4:
-        return 'Southeast';
-      case 5:
-        return 'South';
-      case 6:
-        return 'Southwest';
-      case 7:
-        return 'West';
-      case 0:
-        return 'Northwest';
-      default:
-        throw new Error('Cannot count wind directoin');
-    }
-  }
-
   get date() {
     const lang = 'en-US';
     const formatDate = options => new Intl.DateTimeFormat(lang, options).format(this._date);
@@ -53,7 +28,7 @@ export default class Temperature {
   }
 
   get temp() {
-    return this._main.temp;
+    return Math.round(this._main.temp);
   }
 
   get pressure() {
@@ -76,10 +51,18 @@ export default class Temperature {
     return this._clouds;
   }
 
-  get wind() {
-    return {
-      speed: this._wind.speed,
-      direction: this._getWindDirection(this._wind.deg)
+  get windSpeed() {
+    return Math.round(this._wind.speed);
+  }
+
+  get windDirection() {
+    const getWindDirectionId = deg => {
+      const numSides = 8;
+      const span = 360 / numSides;
+
+      return Math.ceil((deg + span / 2) / span) % numSides;
     };
+
+    return getWindDirectionId(this._wind.deg);
   }
 }

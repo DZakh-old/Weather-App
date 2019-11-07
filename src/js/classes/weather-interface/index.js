@@ -2,14 +2,14 @@ import WeatherService from '../weather-service';
 import WeatherCard from '../weather-card';
 
 export default class WeatherInterface {
-  _createWeatherCards(tempList) {
-    const curHour = tempList[0].date.hour;
+  _createWeatherCards(dataList) {
+    const curHour = dataList[0].date.hour;
     const factor = Math.ceil((24 - curHour) / 3) || 1;
     const cards = [];
 
-    cards.push(new WeatherCard(tempList.slice(0, 8)));
+    cards.push(new WeatherCard(dataList.slice(0, 8)));
     for (let i = 1; i <= 3; i++) {
-      cards.push(new WeatherCard(tempList.slice(factor * i, factor * i + 8)));
+      cards.push(new WeatherCard(dataList.slice(factor * i, factor * i + 8)));
     }
     // console.log(cards);
 
@@ -22,9 +22,9 @@ export default class WeatherInterface {
       <p>Loading</p>
     `;
     WeatherService.cityData(cityName)
-      // .then(({ city, tempList }) => {
-      .then(tempList => {
-        return this._createWeatherCards(tempList);
+      // .then(({ city, dataList }) => {
+      .then(dataList => {
+        return this._createWeatherCards(dataList);
         // <p>${curTemp.temp} deg now </p>
         // <p>${curTemp.date.time} time of test </p>
         // <p>${curTemp.date.day} date of test </p>
@@ -38,7 +38,7 @@ export default class WeatherInterface {
         // <p>${curTemp.wind.speed} wind speed </p>
       })
       .then(cards => {
-        console.log(cards[2].weather);
+        console.log(cards[0].wind);
         weatherWrap.innerHTML += `
           <p>${cards[0].day} deg now </p>
           <p>${cards[1].day} deg tommorow </p>

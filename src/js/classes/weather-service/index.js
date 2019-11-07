@@ -11,17 +11,17 @@ export default class WeatherService {
     const res = await Ajax.get(apiUrl, apiHeaders);
 
     // TODO: replace in production
-    // const tempList = await res.list.map((temp, i) => new Temperature(temp, i));
-    const tempList = [];
+    // const dataList = await res.list.map((temp, i) => new Temperature(temp, i));
+    const dataList = [];
     for (let i = 0; i < 40; i++) {
-      tempList.push(new Temperature(res.list[0], i));
+      dataList.push(new Temperature(res.list[0], i));
     }
 
     // return {
     //   city,
-    //   tempList
+    //   dataList
     // };
     // TODO: Figure out what's wrong
-    return tempList;
+    return dataList;
   }
 }
