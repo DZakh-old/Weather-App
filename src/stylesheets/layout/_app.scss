@@ -1,17 +1,10 @@
-#app {
-  background: $brand-color;
+.app {
   @include real-vh-height(100);
-  display: grid;
-  grid-template-rows: 100rem 1fr 100rem;
-  grid-template-columns: 1fr;
-  grid-template-areas: 
-    "header",
-    "weather",
-    "footer";
+  background: #fff;
+
+  transition: background 1.5s;  
 }
 
-
-// TODO: remove from here
-.header__title {
-  margin: 0;  
+.active {
+  background: $brand-color;
 }

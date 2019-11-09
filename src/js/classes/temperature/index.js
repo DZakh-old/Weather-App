@@ -2,15 +2,16 @@ export default class Temperature {
   constructor(temp, id) {
     this._main = temp.main;
     [this._weather] = temp.weather;
-    this._clouds = temp.clouds.all;
     this._wind = temp.wind;
     this._date = new Date(temp.dt_txt);
+    this.clouds = temp.clouds.all;
     this.id = id;
   }
 
   get date() {
     const lang = 'en-US';
     const formatDate = options => new Intl.DateTimeFormat(lang, options).format(this._date);
+
     return {
       month: formatDate({ month: 'short' }),
       weekday: formatDate({ weekday: 'short' }),
@@ -45,10 +46,6 @@ export default class Temperature {
       status: this._weather.description,
       iconId: this._weather.icon.slice(0, 2)
     };
-  }
-
-  get clouds() {
-    return this._clouds;
   }
 
   get windSpeed() {

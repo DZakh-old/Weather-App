@@ -16,15 +16,16 @@ export default class WeatherInterface {
   }
 
   displayWeatherInCity(weatherWrap, cityName) {
-    weatherWrap.innerHTML = `
-      <h2>In ${cityName}</h2>
-      <p>Loading</p>
-    `;
+    // TODO: Add loading animation
+    // weatherWrap.innerHTML = `
+    //   <h2>In ${cityName}</h2>
+    //   <p>Loading</p>
+    // `;
     WeatherService.cityData(cityName)
       // .then(({ city, dataList }) => {
       .then(dataList => this._createWeatherCards(dataList))
       .then(cards => {
-        weatherWrap.innerHTML += cards[0].build();
+        weatherWrap.innerHTML = cards[0].build();
       });
   }
 }

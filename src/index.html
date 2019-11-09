@@ -6,14 +6,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#1d4371"/>
   <meta name="description" content="This is description"/>
-	<title>Title</title>
+	<title>Weather</title>
   <link rel="icon" href="./images/favicon.ico">
+  <link href="//fonts.googleapis.com/css?family=Liu+Jian+Mao+Cao|Roboto:100,400&display=swap&subset=cyrillic" rel="stylesheet">
 </head>
 <body class="page">
-  <section id="app"></section>
 
-  
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv3Kya6-hZVLqTmx_OE-herfkuTQR4h1w&libraries=places"></script>
+  <div id="app" class="app">
+    <div class="content">
+      <header class="header">
+        <h1 class="header__title title">
+          Weather
+        </h1>
+        <div class="header__control-bar">
+          <span class="header__search-icon icon-search"></span>
+          <input type="text" id="searchTextField" aria-label="In your town" placeholder="In your town" class="header__search">
+        </div>
+      </header>
+      <aside class="aside">
+         <h2 class="aside__title title" aria-disabled="true">
+           Weather
+         </h2>
+         <a class="aside__creator" href="//dzakh.github.io">by DZakh</a>
+      </aside>
+      <main class="main">
+        <div class="weather" id="weather">
+          
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv3Kya6-hZVLqTmx_OE-herfkuTQR4h1w&libraries=places"></script> -->
   <script src="./index.js"></script>
 </body>
 </html>

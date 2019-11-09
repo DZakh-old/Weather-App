@@ -144,7 +144,7 @@ export default class WeatherCard {
 
   build() {
     return `
-      <section class="card">
+      <section class="card current">
         <header class="card__head head">
           <h2 class="head__day">
             ${this.day}

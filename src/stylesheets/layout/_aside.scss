@@ -1,0 +1,39 @@
+.aside {
+
+  @include respond-above(sm) {
+    grid-area: aside;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #fff;
+    padding: 90rem 10rem 40rem;
+
+    &__title {
+      opacity: 0;
+      letter-spacing: 0.37em;
+      margin-left: 0.1em;
+      transition: opacity 0.6s;
+    }
+    &__creator {
+      font-family: 'Liu Jian Mao Cao', cursive;
+      text-align: center;
+      font-size: 1.2em;
+      letter-spacing: 0.1em;
+    }
+  }
+
+}
+
+.active {
+  .aside {
+
+    @include respond-above(sm) {
+      @include block-shadow;
+
+      &__title {
+        opacity: 1;
+      }
+    }
+
+  }
+}

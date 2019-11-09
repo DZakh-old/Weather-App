@@ -1,0 +1,30 @@
+.card {
+  min-height: 300rem;
+  max-width: 280px;
+
+  &__info {
+    display: none;
+  }
+}
+
+.current {
+
+  .card {
+    display: flex;
+    flex-direction: column;
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .info {
+
+    &__bar {
+      display: flex;
+      overflow-x: scroll;
+    }
+  }
+}
+

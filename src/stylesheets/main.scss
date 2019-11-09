@@ -6,7 +6,8 @@
   'abstracts/functions', 
   'abstracts/mixins', 
   'abstracts/animations',
-  'abstracts/extends';
+  'abstracts/extends',
+  'abstracts/media-queries';
 
 // 2. Vendors
 @import
@@ -22,12 +23,17 @@
 // 4. Layout-related sections
 @import
   'layout/app',
+  'layout/content',
   'layout/header',
+  'layout/main',
+  'layout/aside',
   'layout/footer';
 
 // 5. Components
 @import
-  'components/button';
+  'components/title',
+  'components/weather',
+  'components/card';
 
 // 6. Page-specific styles
 @import

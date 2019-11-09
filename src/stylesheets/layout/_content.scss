@@ -1,0 +1,32 @@
+// TODO: Remove footer
+.content {
+
+  @include respond-above(sm) {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    display: grid;
+    padding-right: 140px;
+
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 140px 1fr;
+    grid-template-areas: 
+      "aside header"
+      "aside main";
+  }
+
+}
+
+.active {
+  .content {
+
+    @include respond-above(sm) {
+      grid-template-rows: auto 1fr;
+      grid-template-columns: 140px 1fr;
+      grid-template-areas: 
+        "aside header"
+        "aside main";
+    }
+
+  }
+}

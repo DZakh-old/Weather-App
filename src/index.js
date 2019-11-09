@@ -11,29 +11,13 @@ import WeatherInterface from './js/classes/weather-interface';
 const myCity = 'san%20francisco%2Cus';
 
 const app = document.getElementById('app');
-app.innerHTML += `
-  <header class="header container">
-    <h1 class="header__title">
-      Weather in your town
-    </h1>
-    <input type="text" name="" id="searchTextField" placeholder="Doesn't work" class="main__search">
-  </header>
-  <main class="main container">
-    <div id="weather">
-      
-    </div>
-  </main>
-  <footer class="footer container">
-    <button id="show" style="width: 100%; height: 100%; background: rgba(0,0,0,0.2)">Показать</button>
-  </footer>
-`;
 
-const input = document.getElementById('searchTextField');
-const options = {
-  types: ['(cities)']
-};
+const search = document.getElementById('searchTextField');
+// const options = {
+//   types: ['(cities)']
+// };
 
-const autocomplete = new google.maps.places.Autocomplete(input, options);
+// const autocomplete = new google.maps.places.Autocomplete(input, options);
 
 const weatherWrap = document.getElementById('weather');
 
@@ -56,8 +40,9 @@ const weatherWrap = document.getElementById('weather');
 
 const weather = new WeatherInterface();
 
-document.getElementById('show').addEventListener('click', () => {
-  console.log(autocomplete.getPlace());
+search.addEventListener('change', e => {
+  // console.log(autocomplete.getPlace());
 
+  app.classList.toggle('active');
   weather.displayWeatherInCity(weatherWrap, myCity);
 });

@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?7zbjbm');
-  src:  url('fonts/icomoon.eot?7zbjbm#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?7zbjbm') format('truetype'),
-    url('fonts/icomoon.woff?7zbjbm') format('woff'),
-    url('fonts/icomoon.svg?7zbjbm#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?dj970u');
+  src:  url('fonts/icomoon.eot?dj970u#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?dj970u') format('truetype'),
+    url('fonts/icomoon.woff?dj970u') format('woff'),
+    url('fonts/icomoon.svg?dj970u#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,30 +25,33 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-weather-03:before {
-  content: "\e908";
-}
-.icon-weather-02:before {
-  content: "\e907";
-}
-.icon-weather-01:before {
+.icon-search:before {
   content: "\e900";
 }
+.icon-weather-01:before {
+  content: "\e909";
+}
 .icon-weather-04:before {
-  content: "\e901";
+  content: "\e90a";
 }
 .icon-weather-13:before {
-  content: "\e902";
+  content: "\e90b";
 }
 .icon-weather-10:before {
-  content: "\e903";
+  content: "\e90c";
+}
+.icon-weather-11:before {
+  content: "\e90d";
+}
+.icon-weather-02:before {
+  content: "\e90e";
+}
+.icon-weather-9:before {
+  content: "\e910";
+}
+.icon-weather-03:before {
+  content: "\e911";
 }
 .icon-weather-50:before {
   content: "\e904";
-}
-.icon-weather-09:before {
-  content: "\e905";
-}
-.icon-weather-11:before {
-  content: "\e906";
 }
