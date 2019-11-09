@@ -6,7 +6,7 @@
   text-align: center;
 
   &__day {
-    font-weight: 300;
+    font-weight: normal;
     letter-spacing: 0.08em;  
   }
 
@@ -20,6 +20,7 @@
   &__weather {
     @include center;
     font-size: 1.5em;
+    font-weight: 300;
     padding-bottom: 26rem;
 
     &-icon {

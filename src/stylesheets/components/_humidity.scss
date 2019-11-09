@@ -4,7 +4,6 @@
   &__value {
     position: absolute;
     font-size: 1.5em;
-    font-weight: 300;
     top: calc(50% - 0.55em);
     right: 0;
     left: 0.25em;
@@ -12,6 +11,6 @@
   }
   
   &__progress-bar {
-    padding: 0.4em 0.7em 0;
+    padding: 0.5em 0.1em 0;
   }
 }

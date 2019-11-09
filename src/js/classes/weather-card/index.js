@@ -103,23 +103,24 @@ export default class WeatherCard {
 
   get wind() {
     const getWindDirectionById = id => {
+      id = 4;
       switch (id) {
         case 1:
           return 'North';
         case 2:
-          return 'Northeast';
+          return 'North-east';
         case 3:
           return 'East';
         case 4:
-          return 'Southeast';
+          return 'South-east';
         case 5:
           return 'South';
         case 6:
-          return 'Southwest';
+          return 'South-west';
         case 7:
           return 'West';
         case 0:
-          return 'Northwest';
+          return 'North-west';
         default:
           throw new Error('Cannot count wind directoin');
       }
@@ -152,9 +153,9 @@ export default class WeatherCard {
 
   buildHumidity() {
     return `
-      <p class="humidity__value">
+      <div class="humidity__value">
         ${this.humidity}%
-      </p>
+      </div>
       <div class="humidity__progress-bar progress-bar" aria-lable="Humidity progress bar">
         <svg class="progress-bar__svg" viewBox="-1 -1 34 34">
           <circle cx="16" cy="16" r="15.9155"
@@ -162,6 +163,24 @@ export default class WeatherCard {
           <circle cx="16" cy="16" r="15.9155" stroke-dashoffset="${100 - this.humidity}"
                   class="progress-bar__progress js-progress-bar" id="progress-bar"/>
         </svg>  
+      </div>
+    `;
+  }
+  buildWind() {
+    return `
+      <div class="wind__speed">
+        ${this.wind.speed}
+        <span class="wind__speed-measure">
+          km/h
+        </span>
+      </div>
+      <div class="wind__icon">
+        <svg class="wind__icon-svg" fill="rgba(114, 184, 214, 0.35)" x="0" y="0" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+          <g><path d="M288.7,396.2c70.4,0,148.5-21.4,229.7-79.6c222-159.3,399.7,7.7,419.6,27.6c12.3,12.2,30.6,12.2,42.9,0c12.3-12.3,12.3-30.6,0-42.9c-23-23-235.8-222-499.2-33.7C259.6,426.8,82,259.9,62.1,240c-12.2-12.2-30.6-12.2-42.9,0c-12.3,12.3-12.3,30.6,0,42.9C71.3,336.5,169.3,396.2,288.7,396.2z"/><path d="M481.6,469.7c-125.6,90.3-237.3,73.5-307.8,45.9c-15.3-6.1-33.7,1.5-39.8,16.8c-6.1,15.3,1.5,33.7,16.8,39.8c36.8,15.3,84.2,27.6,136.3,27.6c67.4,0,147-19.9,229.7-79.6c222-159.3,399.7,7.7,419.6,27.6c12.3,12.3,30.6,12.3,42.9,0c12.2-12.2,12.2-30.6,0-42.9C957.8,480.4,746.5,281.4,481.6,469.7z"/><path d="M847.6,632c-85.8-33.7-217.4-53.6-366,52.1c-222,159.3-399.7-7.7-419.6-27.6c-12.2-12.3-30.6-12.3-42.9,0c-12.3,12.3-12.3,30.6,0,42.9C71.3,753,169.3,812.7,288.7,812.7c70.4,0,148.5-21.4,229.7-79.6c125.6-90.3,237.3-75,307.8-45.9c15.3,6.1,33.7-1.5,39.8-16.8C872.1,655,864.4,638.1,847.6,632z"/></g>
+        </svg>
+      </div>
+      <div class="wind__direction">
+        ${this.wind.direction}
       </div>
     `;
   }
@@ -205,8 +224,7 @@ export default class WeatherCard {
                 Wind
               </h3>
               <div class="details__content wind">
-                <!-- Wind.append(this.wind) -->
-                ${this.wind.speed}, ${this.wind.direction}
+                ${this.buildWind()}
               </div>
             </li>
             <li class="details__block">

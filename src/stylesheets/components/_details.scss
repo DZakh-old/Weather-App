@@ -1,6 +1,7 @@
 .details {
   padding-top: 7rem;
   display: grid;
+  gap: 1em;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: 
@@ -8,6 +9,6 @@
     "pressure clouds";
 
   &__block {
-    padding: 0.3em 0.5em 0;
+    padding: 0.7em 0.5em 0;
   }
 }
