@@ -1,7 +1,7 @@
 export default class WeatherCard {
   constructor(arr) {
     this._tempData = arr;
-    this._tempId = arr[0].id;
+    this.tempId = arr[0].id;
   }
 
   _getSum(prop) {
@@ -13,7 +13,7 @@ export default class WeatherCard {
   }
 
   _getCardAverage(prop) {
-    if (this._tempId === 0) {
+    if (this.tempId === 0) {
       return this._tempData[0][prop];
     }
     return Math.round(this._getAverage(prop));
@@ -38,10 +38,10 @@ export default class WeatherCard {
   }
 
   get day() {
-    if (this._tempId === 0) {
+    if (this.tempId === 0) {
       return 'Today';
     }
-    if (this._tempId === 7) {
+    if (this.tempId === 7) {
       return 'Tomorrow';
     }
 
@@ -51,7 +51,7 @@ export default class WeatherCard {
   }
 
   get weather() {
-    if (this._tempId === 0) {
+    if (this.tempId === 0) {
       const { code, status, iconId } = this._tempData[0].weather;
       return {
         code,
@@ -87,17 +87,6 @@ export default class WeatherCard {
       status,
       iconId
     };
-  }
-
-  get snatch() {
-    return this._tempData.map(tempData => {
-      return {
-        time: tempData.id === 0 ? 'Now' : tempData.date.time,
-        status: tempData.weather.status,
-        iconId: tempData.weather.iconId,
-        temp: tempData.temp
-      };
-    });
   }
 
   get humidity() {
@@ -142,6 +131,25 @@ export default class WeatherCard {
     };
   }
 
+  buildSnatches() {
+    return this._tempData
+      .map(({ id, date, weather, temp }) => {
+        const time = id === 0 ? 'Now' : date.time;
+        return `
+          <li class="snatches__item">
+            <p class="snatches__time">
+              ${time}
+            </p>
+            <span class="snatches__icon icon-weather-${weather.iconId}" aria-label="${weather.status}"></span>
+            <div class="snatches__temp">
+              ${temp}&deg;
+            </div>
+          </li>              
+        `;
+      })
+      .join('');
+  }
+
   build() {
     return `
       <section class="card">
@@ -164,21 +172,7 @@ export default class WeatherCard {
         <main class="card__info">
           <div class="card__snatches snatches">
             <ul class="snatches__bar">
-              ${this.snatch
-                .map(
-                  snatch => `
-                    <li class="snatches__item">
-                      <p class="snatches__time">
-                        ${snatch.time}
-                      </p>
-                      <span class="snatches__icon icon-weather-${snatch.iconId}" aria-label="${snatch.status}"></span>
-                      <div class="snatches__temp">
-                        ${snatch.temp}&deg;
-                      </div>
-                    </li>              
-                  `
-                )
-                .join('')}
+              ${this.buildSnatches()}
             </ul>
           </div>
           <ul class="card__details details">
