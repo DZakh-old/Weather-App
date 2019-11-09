@@ -15,36 +15,14 @@
       font-size: 24rem;
       letter-spacing: 1.8em;
       margin-left: 1em;      
-      transform: translateY(calc(20vh - 75rem));
-
-      transition: all 0.6s cubic-bezier(0.2, 0.9, 0, 1);
+      transform: translateY(calc(20vh - 70rem));
+      // TODO: check if it's really an in and not an out
+      transition: all 0.6s $fast-in;
     }
 
-    &__control-bar {
-      position: relative;
+    &__control {
       transform: translateY(calc(45vh - 75rem));
-
-      transition: transform 0.5s cubic-bezier(0.2, 0.9, 0, 1);
-    }
-    
-    &__search {
-      width: 400px;
-      padding: 1.6em 3.8em;
-      border: 1rem solid $gray-color;
-      border-radius: 666rem;
-      
-
-      &-icon {
-        font-family: 'icomoon';
-        display: flex;
-        @include center;
-        content: "\e900";
-        position: absolute;
-        height: 100%;
-        margin-left: 0.6em;
-        // Useless things that I tryed
-        font-size: 2em;
-      }
+      transition: transform 0.5s $fast-in;
     }
   } 
 
@@ -57,13 +35,9 @@
       &__title {
         transform: translateY(0);
       }
-      &__control-bar {
+      &__control {
         transform: translateY(0);        
       }
-      &__search {
-        border: none;
-        @include block-shadow;
-      } 
     }
 
   }

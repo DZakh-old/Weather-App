@@ -32,8 +32,11 @@
 // 5. Components
 @import
   'components/title',
+  'components/control',
   'components/weather',
-  'components/card';
+  'components/card',
+  'components/snatches',
+  'components/details';
 
 // 6. Page-specific styles
 @import

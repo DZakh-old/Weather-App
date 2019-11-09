@@ -42,17 +42,7 @@ $gray-color: rgb(21, 21, 21) !default;
 /// @type Length
 $min-width: 320px !default;
 
-/// Container's maximum width
-/// @type Length
-$max-width: 1180px !default;
 
 
-
-/// Breakpoints map
-/// @prop {String} keys - Keys are identifiers mapped to a given length
-/// @prop {Map} values - Values are actual breakpoints expressed in pixels
-$breakpoints: (
-  'small': 320px,
-  'medium': 768px,
-  'large': 1024px,
-) !default;
+/// Fast start, slow finish - animation flow
+$fast-in: cubic-bezier(0.2, 0.9, 0, 1);

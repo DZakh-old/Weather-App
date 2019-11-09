@@ -1,30 +1,40 @@
 .card {
   min-height: 300rem;
-  max-width: 280px;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 
-  &__info {
+  &__day {
+    font-weight: 100;
+    letter-spacing: 0.08em;  
+  }
+
+  &__temp {
+    font-weight: 100;
+    font-size: 80rem;
+    padding: 36rem 0 5rem 21rem;
+    line-height: 0.8em;
+  }
+
+  &__weather {
+    @include center;
+    font-size: 1.5em;
+    padding-bottom: 26rem;
+
+    &-icon {
+      font-size: 2em;
+    }
+
+    &-status {
+      text-transform: capitalize;
+      padding-right: 1.9em;
+    }
+  }
+}
+
+.side {
+  .card__info {
     display: none;
   }
 }
-
-.current {
-
-  .card {
-    display: flex;
-    flex-direction: column;
-
-    &__info {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-
-  .info {
-
-    &__bar {
-      display: flex;
-      overflow-x: scroll;
-    }
-  }
-}
-

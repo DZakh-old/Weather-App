@@ -1,0 +1,12 @@
+.details {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+    "humidity wind"
+    "pressure clouds";
+
+  &__block {
+    padding: 1em;
+  }
+}

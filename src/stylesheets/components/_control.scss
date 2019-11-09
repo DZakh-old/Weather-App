@@ -1,0 +1,41 @@
+.control {
+  
+  @include respond-above(sm) {
+    position: relative;
+    
+    &__search {
+      font-size: 1.3em;
+      letter-spacing: 0.05em;
+      width: 400px;
+      padding: 1.2em 3.1em;
+      border: 1rem solid $gray-color;
+      border-radius: 666rem;
+      
+      &-icon {
+        pointer-events: none;
+        font-family: 'icomoon';
+        display: flex;
+        @include center;
+        content: "\e900";
+        position: absolute;
+        height: 100%;
+        margin-left: 0.65em;
+        font-size: 2em;
+      }
+    }
+  } 
+
+}
+
+.active {
+  .control {
+
+    @include respond-above(sm) {
+      &__search {
+        border: none;
+        @include block-shadow;
+      } 
+    }
+
+  }
+}

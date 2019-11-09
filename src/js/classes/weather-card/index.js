@@ -144,42 +144,44 @@ export default class WeatherCard {
 
   build() {
     return `
-      <section class="card current">
-        <header class="card__head head">
-          <h2 class="head__day">
+      <section class="card">
+        <header class="card__head">
+          <h2 class="card__day">
             ${this.day}
           </h2>
-          <div class="head__temp">
+          <div class="card__temp">
             ${this.temp}&deg;
           </div>
-          <div class="head__weather">
-            <span class="head__icon icon-weather-${this.weather.iconId}" aria-label="${
+          <div class="card__weather">
+            <span class="card__weather-icon icon-weather-${this.weather.iconId}" aria-label="${
       this.weather.status
     }"></span>
-            <p class="head__status">
+            <p class="card__weather-status">
               ${this.weather.status}
             </p>
           </div>
         </header>
-        <main class="card__info info">
-          <ul class="info__bar">
-            ${this.snatch
-              .map(
-                snatch => `
-                <li class="info__snatch snatch">
-                  <p class="snatch__time">
-                    ${snatch.time}
-                  </p>
-                  <span class="snatch__icon icon-weather-${snatch.iconId}" aria-label="${snatch.status}"></span>
-                  <div class="snatch__temp">
-                    ${snatch.temp}&deg;
-                  </div>
-                </li>              
-              `
-              )
-              .join('')}
-          </ul>
-          <ul class="info__details details">
+        <main class="card__info">
+          <div class="card__snatches snatches">
+            <ul class="snatches__bar">
+              ${this.snatch
+                .map(
+                  snatch => `
+                    <li class="snatches__item">
+                      <p class="snatches__time">
+                        ${snatch.time}
+                      </p>
+                      <span class="snatches__icon icon-weather-${snatch.iconId}" aria-label="${snatch.status}"></span>
+                      <div class="snatches__temp">
+                        ${snatch.temp}&deg;
+                      </div>
+                    </li>              
+                  `
+                )
+                .join('')}
+            </ul>
+          </div>
+          <ul class="card__details details">
             <li class="details__block">
               <h3 class="details__title">
                 Humidity
