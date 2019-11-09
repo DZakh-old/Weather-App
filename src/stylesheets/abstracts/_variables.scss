@@ -20,21 +20,22 @@ $base-font-size: 16rem;
 
 
 
-/// Text color
 /// @type Color
 $text-color: rgb(21, 21, 21) !default;
 
-/// Main brand color
 /// @type Color
 $brand-color: rgb(29, 67, 113) !default;
 
-/// Main brand color
 /// @type Color
-$second-brand-color: rgb(35, 170, 226) !default;
+$second-brand-color: rgb(113, 198, 235);
 
-/// Main brand color
+
+// TODO: Chenge to dark-color
 /// @type Color
 $gray-color: rgb(21, 21, 21) !default;
+
+/// @type Color
+$light-gray-color: rgb(230, 230, 230) !default;
 
 
 

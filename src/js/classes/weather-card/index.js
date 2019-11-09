@@ -150,6 +150,22 @@ export default class WeatherCard {
       .join('');
   }
 
+  buildHumidity() {
+    return `
+      <p class="humidity__value">
+        ${this.humidity}%
+      </p>
+      <div class="humidity__progress-bar progress-bar" aria-lable="Humidity progress bar">
+        <svg class="progress-bar__svg" viewBox="-1 -1 34 34">
+          <circle cx="16" cy="16" r="15.9155"
+                  class="progress-bar__background" />
+          <circle cx="16" cy="16" r="15.9155" stroke-dashoffset="${100 - this.humidity}"
+                  class="progress-bar__progress js-progress-bar" id="progress-bar"/>
+        </svg>  
+      </div>
+    `;
+  }
+
   build() {
     return `
       <section class="card">
@@ -181,8 +197,7 @@ export default class WeatherCard {
                 Humidity
               </h3>
               <div class="details__content humidity">
-                <!-- Humidity.append(this.humidity) -->
-                ${this.humidity}
+                ${this.buildHumidity()}
               </div>
             </li>
             <li class="details__block">

@@ -1,0 +1,20 @@
+// TODO: Replace color to variables
+$progress-bar-stroke-width: 1.8;
+
+.progress-bar__svg {
+  transform: rotate(90deg);
+}
+
+.progress-bar__background {
+  fill: none;
+  stroke: $light-gray-color;
+  stroke-width: $progress-bar-stroke-width;
+}
+
+.progress-bar__progress {
+  fill: none;
+  stroke: $second-brand-color;
+  stroke-dasharray: 100;
+  stroke-linecap: round;
+  stroke-width: $progress-bar-stroke-width;
+}
