@@ -1,8 +1,8 @@
 .details {
   padding-top: 7rem;
   display: grid;
-  gap: 1em;
-  grid-template-rows: 1fr 1fr;
+  gap: 0.8em 1em;
+  grid-template-rows: auto auto;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: 
     "humidity wind"

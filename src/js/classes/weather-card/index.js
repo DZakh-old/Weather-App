@@ -200,6 +200,14 @@ export default class WeatherCard {
     `;
   }
 
+  buildClouds() {
+    return `
+      <div class="clouds__value">
+        ${this.clouds}
+      </div>
+    `;
+  }
+
   build() {
     return `
       <section class="card">
@@ -255,8 +263,7 @@ export default class WeatherCard {
                 Clouds
               </h3>
               <div class="details__content clouds">
-                <!-- Clouds.append(this.clouds) -->
-                ${this.clouds}
+                ${this.buildClouds()}
               </div>
             </li>
           </ul>
