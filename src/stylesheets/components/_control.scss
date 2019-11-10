@@ -10,6 +10,7 @@
       padding: 1.2em 3.1em;
       border: 1rem solid $gray-color;
       border-radius: 666rem;
+      transition: box-shadow 0.5s;
       
       &-icon {
         pointer-events: none;

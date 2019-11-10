@@ -36,11 +36,11 @@ const search = document.getElementById('searchTextField');
 //     console.log(`Finishing promise ${res}`);
 //   });
 
-const weather = new WeatherInterface();
+// const weather = new WeatherInterface();
 
-search.addEventListener('change', e => {
+search.addEventListener('change', () => {
   // console.log(autocomplete.getPlace());
 
   app.classList.toggle('active');
-  weather.displayWeatherInCity(myCity);
+  WeatherInterface.displayWeatherInCity(myCity);
 });

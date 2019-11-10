@@ -21,14 +21,21 @@ export default class WeatherCard {
 
   _getMostFrequent(arr) {
     const counterObj = {};
-    arr.forEach(number => (number in counterObj ? counterObj[number]++ : (counterObj[number] = 1)));
+    arr.forEach(number => {
+      if (number in counterObj) {
+        counterObj[number] += 1;
+      } else {
+        counterObj[number] = 1;
+      }
+    });
 
     let mostFrequent;
-    for (let key in counterObj) {
+
+    Object.keys(counterObj).forEach(key => {
       if (counterObj[key] > (counterObj[mostFrequent] || 0)) {
         mostFrequent = key;
       }
-    }
+    });
 
     return mostFrequent;
   }
@@ -62,17 +69,16 @@ export default class WeatherCard {
 
     const codes = this._tempData.map(tempData => tempData.weather.code.toString().match(/\d/g));
 
-    const getMostFrequentCode = codes => {
+    const getMostFrequentCode = codesList => {
       let mostFrequentCode = '';
+      const getFollowingNumbers = i => {
+        return codesList
+          .filter(code => (i ? code[i - 1] === mostFrequentCode.slice(i - 1) : true))
+          .map(code => code[i]);
+      };
 
       for (let i = 0; i < 3; i++) {
-        const getFollowingNumbers = () => {
-          return codes
-            .filter(code => (i ? code[i - 1] === mostFrequentCode.slice(i - 1) : true))
-            .map(code => code[i]);
-        };
-
-        mostFrequentCode += this._getMostFrequent(getFollowingNumbers());
+        mostFrequentCode += this._getMostFrequent(getFollowingNumbers(i));
       }
 
       return +mostFrequentCode;
@@ -103,7 +109,6 @@ export default class WeatherCard {
 
   get wind() {
     const getWindDirectionById = id => {
-      id = 4;
       switch (id) {
         case 1:
           return 'North';

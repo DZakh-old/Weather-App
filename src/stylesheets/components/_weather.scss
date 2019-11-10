@@ -1,7 +1,23 @@
 .weather {
 
   @include respond-above(sm) {
-    display: none;
+    @include center(horizontal);
+    width: 488rem;
+    height: 484rem;
+    padding: 4rem 0;
+    display: flex;
+    background: #fff;
+    color: $brand-color;
+    border-radius: 40rem;
+    transition: box-shadow 1s;
+
+    &__separator {
+      min-width: 0;
+      margin: 20rem 0;
+      width: 2.2rem;
+      border-radius: 50%;
+      background: $brand-color;
+    }
   }
 
 }
@@ -11,21 +27,6 @@
 
     @include respond-above(sm) {
       @include block-shadow;
-      padding: 5rem 3rem;
-      display: flex;
-      flex-basis: 2rem;
-      background: #fff;
-      color: $brand-color;
-      margin: auto;
-      border-radius: 40rem;
-
-      &__separator {
-        min-width: 0;
-        margin: 20rem 0;
-        width: 2.2rem;
-        border-radius: 50%;
-        background: $brand-color;
-      }
     }
 
   }

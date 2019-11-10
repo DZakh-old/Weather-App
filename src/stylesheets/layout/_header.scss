@@ -1,10 +1,6 @@
 .header {
   position: relative;
 
-  &__title {
-    margin: 0;
-  }
-
   @include respond-above(sm) {
     @include center;
     padding-top: 75rem;
@@ -15,7 +11,7 @@
       font-size: 24rem;
       letter-spacing: 1.8em;
       margin-left: 1em;      
-      transform: translateY(calc(20vh - 70rem));
+      transform: translateY(calc(20vh - 90rem));
       // TODO: check if it's really an in and not an out
       transition: all 0.6s $fast-in;
     }
@@ -23,6 +19,18 @@
     &__control {
       transform: translateY(calc(45vh - 75rem));
       transition: transform 0.5s $fast-in;
+    }
+
+    @media screen and (max-height: 700rem) {
+      padding-top: 35rem;
+
+      &__title {    
+        transform: translateY(calc(20vh - 50rem));
+      }
+  
+      &__control {
+        transform: translateY(calc(45vh - 35rem));
+      }
     }
   } 
 

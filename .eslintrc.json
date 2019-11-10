@@ -6,7 +6,9 @@
   "extends": ["airbnb-base", "prettier"],
   "plugins": ["prettier"],
   "rules": {
-    "allowAfterThis": true,
+    "class-methods-use-this": "off",
+    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "prettier/prettier": "error"
   }
 }

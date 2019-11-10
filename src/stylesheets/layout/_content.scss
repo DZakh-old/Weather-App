@@ -1,4 +1,3 @@
-// TODO: Remove footer
 .content {
 
   @include respond-above(sm) {
@@ -6,14 +5,16 @@
     margin: 0 auto;
     height: 100%;
     display: grid;
-    padding-right: 140px;
-
     grid-template-rows: auto 1fr;
     grid-template-columns: 140px 1fr;
     grid-template-areas: 
       "aside header"
       "aside main";
   }
+  @include respond-above(md) {
+    padding-right: 140px;
+  }
+  
 
 }
 
