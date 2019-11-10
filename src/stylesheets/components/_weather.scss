@@ -1,4 +1,6 @@
 .weather {
+  // TODO: Maybe delete it 
+  padding-right: 5rem;
 
   @include respond-above(sm) {
     visibility: hidden;
@@ -17,6 +19,13 @@
       color: $brand-color;
       margin: auto;
       border-radius: 40rem;
+
+      &__separator {
+        margin: 20rem 0;
+        width: 1.8rem;
+        border-radius: 50%;
+        background: $brand-color;
+      }
     }
 
   }

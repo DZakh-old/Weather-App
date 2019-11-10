@@ -132,6 +132,10 @@ export default class WeatherCard {
     };
   }
 
+  minusCompensator(str) {
+    return str.slice(0, 1) === '-' ? `${str}&nbsp;` : str;
+  }
+
   buildSnatches() {
     return this._tempData
       .map(({ id, date, weather, temp }) => {
@@ -141,9 +145,11 @@ export default class WeatherCard {
             <p class="snatches__time">
               ${time}
             </p>
-            <span class="snatches__icon icon-weather-${weather.iconId}" aria-label="${weather.status}"></span>
+            <span class="snatches__icon icon-weather-${weather.iconId}" aria-label="${
+          weather.status
+        }"></span>
             <div class="snatches__temp">
-              ${temp}&deg;
+              ${this.minusCompensator(`${temp}&deg;`)}
             </div>
           </li>              
         `;
@@ -210,16 +216,16 @@ export default class WeatherCard {
 
   build() {
     return `
-      <section class="card">
-        <header class="card__head">
-          <h2 class="card__day">
-            <span class="card__weather-icon icon-weather-${this.weather.iconId}" aria-label="${
+      <section class="card${this.tempId === 0 ? '' : ' side'}">
+      <header class="card__head">
+          <span class="card__weather-icon icon-weather-${this.weather.iconId}" aria-label="${
       this.weather.status
     }"></span>
+          <h2 class="card__day">
             ${this.day}
           </h2>
           <div class="card__temp">
-            ${this.temp}&deg;
+            ${this.minusCompensator(`${this.temp}&deg;`)}
           </div>
           <p class="card__weather-status">
             ${this.weather.status}
