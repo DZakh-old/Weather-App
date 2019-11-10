@@ -2,12 +2,14 @@
   
   @include respond-above(sm) {
     position: relative;
+    display: flex;
+    font-size: 1.3em;
+    margin-left: -37rem;
     
     &__search {
-      font-size: 1.3em;
       letter-spacing: 0.05em;
-      width: 400px;
-      padding: 1.2em 3.1em;
+      width: 360rem;
+      padding: 1.2em 3.2em;
       border: 1rem solid $gray-color;
       border-radius: 666rem;
       transition: box-shadow 0.5s;
@@ -20,8 +22,33 @@
         content: "\e900";
         position: absolute;
         height: 100%;
-        margin-left: 0.65em;
+        margin-left: 0.4em;
         font-size: 2em;
+      }
+    }
+
+    &__light {
+      @include center;
+      width: 54.5rem;
+      margin-left: 40rem;
+      position: relative;
+      background: #fff;
+      border: 1rem solid $gray-color;
+      border-radius: 50%;
+      transition: box-shadow 0.5s;
+      cursor: pointer;
+
+      &-checkbox {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+
+      &-icon {
+        position: absolute;
+        font-size: 3em;
       }
     }
   } 
@@ -36,6 +63,11 @@
         border: none;
         @include block-shadow;
       } 
+
+      &__light {
+        border: none;
+        @include block-shadow;
+      }
     }
 
   }
