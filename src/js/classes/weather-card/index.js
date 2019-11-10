@@ -213,19 +213,17 @@ export default class WeatherCard {
       <section class="card">
         <header class="card__head">
           <h2 class="card__day">
+            <span class="card__weather-icon icon-weather-${this.weather.iconId}" aria-label="${
+      this.weather.status
+    }"></span>
             ${this.day}
           </h2>
           <div class="card__temp">
             ${this.temp}&deg;
           </div>
-          <div class="card__weather">
-            <span class="card__weather-icon icon-weather-${this.weather.iconId}" aria-label="${
-      this.weather.status
-    }"></span>
-            <p class="card__weather-status">
-              ${this.weather.status}
-            </p>
-          </div>
+          <p class="card__weather-status">
+            ${this.weather.status}
+          </p>
         </header>
         <main class="card__info">
           <div class="card__snatches snatches">

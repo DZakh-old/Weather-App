@@ -2,13 +2,20 @@
   min-height: 300rem;
   max-width: 220px;
   padding: 20rem;
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
   text-align: center;
+  position: relative;
+
+  &__weather-icon {
+    font-size: 1.5em;
+    padding-right: 0.2em;
+  }
 
   &__day {
+    @include center;
     font-weight: normal;
     letter-spacing: 0.08em;  
+    padding-right: 1.3em;
   }
 
   &__temp {
@@ -18,20 +25,13 @@
     line-height: 0.8em;
   }
 
-  &__weather {
+  &__weather-status {
     @include center;
-    font-size: 1.5em;
+    height: 50rem;
+    font-size: 1.2em;
     font-weight: 300;
-    padding-bottom: 26rem;
-
-    &-icon {
-      font-size: 2em;
-    }
-
-    &-status {
-      text-transform: capitalize;
-      padding-right: 1.9em;
-    }
+    padding: 0.2em 1em 1em;
+    text-transform: capitalize;
   }
 }
 
