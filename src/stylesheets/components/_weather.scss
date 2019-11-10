@@ -1,7 +1,8 @@
 .weather {
 
   @include respond-above(sm) {
-    @include center(horizontal);
+    @include center;
+    align-items: stretch;
     width: 488rem;
     height: 484rem;
     padding: 4rem 0;

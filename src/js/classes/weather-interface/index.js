@@ -28,6 +28,11 @@ export default class WeatherInterface {
     container.innerHTML = cards.map(card => card.render()).join(separator);
   }
 
+  _renderLoader() {
+    const container = document.getElementById('weather');
+    container.innerHTML = `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`;
+  }
+
   _addCardsSwitchListener() {
     const cards = [...document.querySelectorAll('.card')];
     const disableCards = () => cards.forEach(card => card.classList.add('side'));
@@ -39,13 +44,16 @@ export default class WeatherInterface {
     });
   }
 
+  _toggleAppState() {
+    const app = document.getElementById('app');
+    app.classList.toggle('active');
+  }
+
   displayWeatherInCity(location) {
     this.state = 'active';
-    // TODO: Add loading animation
-    // weatherWrap.innerHTML = `
-    //   <h2>In ${location}</h2>
-    //   <p>Loading</p>
-    // `;
+    this._toggleAppState();
+    this._renderLoader();
+
     WeatherService.getWeatherDataInCity(location)
       // .then(({ city, dataList }) => {
       .then(dataList => this._createWeatherCards(dataList))
@@ -55,7 +63,10 @@ export default class WeatherInterface {
       });
   }
 
-  clear() {
+  disable() {
+    this._toggleAppState();
+    this.state = 'disabled';
+
     document.getElementById('weather').innerHTML = '';
   }
 }

@@ -10,10 +10,8 @@ import WeatherInterface from './js/classes/weather-interface';
 
 const weather = new WeatherInterface();
 
-const app = document.getElementById('app');
 const search = document.getElementById('searchTextField');
 
-let location;
 function initialize() {
   const options = {
     types: ['(cities)']
@@ -22,11 +20,9 @@ function initialize() {
   autocomplete.setFields(['geometry']);
   google.maps.event.addListener(autocomplete, 'place_changed', () => {
     const place = autocomplete.getPlace();
-    location = place.geometry.location;
+    const { location } = place.geometry;
 
-    console.log(location);
     search.blur();
-    app.classList.toggle('active');
     weather.displayWeatherInCity(location);
   });
 }
@@ -42,8 +38,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 search.addEventListener('focus', () => {
   if (weather.state === 'active') {
     search.value = '';
-    app.classList.toggle('active');
-    weather.clear();
-    weather.state = 'disabled';
+    weather.disable();
   }
 });
