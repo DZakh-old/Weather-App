@@ -41,7 +41,7 @@ export default class WeatherCard {
     if (this.tempId === 0) {
       return 'Today';
     }
-    if (this.tempId === 7) {
+    if (this.tempId <= 8) {
       return 'Tomorrow';
     }
 

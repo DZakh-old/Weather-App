@@ -11,14 +11,12 @@
 
     @include respond-above(sm) {
       @include block-shadow;
+      display: flex;
       visibility: visible;
       background: #fff;
       color: $brand-color;
       margin: auto;
       border-radius: 40rem;
-      padding: 20rem;
-      // TODO: add next days
-      // display: grid;
     }
 
   }
