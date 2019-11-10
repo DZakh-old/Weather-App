@@ -6,7 +6,7 @@ export default class WeatherInterface {
     this.state = false;
   }
 
-  static createWeatherCards(dataList) {
+  _createWeatherCards(dataList) {
     const curHour = dataList[0].date.hour;
     let factor = Math.ceil((24 - curHour) / 3) || 8;
     const cards = [];
@@ -20,7 +20,7 @@ export default class WeatherInterface {
     return cards;
   }
 
-  static renderWeatherCards(cards) {
+  _renderWeatherCards(cards) {
     const container = document.getElementById('weather');
     const separator = `
       <div class="weather__separator" aria-disabled="true"></div>
@@ -28,7 +28,7 @@ export default class WeatherInterface {
     container.innerHTML = cards.map(card => card.render()).join(separator);
   }
 
-  static addCardsSwitchListener() {
+  _addCardsSwitchListener() {
     const cards = [...document.querySelectorAll('.card')];
     const disableCards = () => cards.forEach(card => card.classList.add('side'));
     cards.forEach(card => {
@@ -39,7 +39,8 @@ export default class WeatherInterface {
     });
   }
 
-  static displayWeatherInCity(cityName) {
+  displayWeatherInCity(cityName) {
+    this.state = 'active';
     // TODO: Add loading animation
     // weatherWrap.innerHTML = `
     //   <h2>In ${cityName}</h2>
@@ -47,10 +48,14 @@ export default class WeatherInterface {
     // `;
     WeatherService.getWeatherDataInCity(cityName)
       // .then(({ city, dataList }) => {
-      .then(dataList => WeatherInterface.createWeatherCards(dataList))
+      .then(dataList => this._createWeatherCards(dataList))
       .then(cards => {
-        WeatherInterface.renderWeatherCards(cards);
-        WeatherInterface.addCardsSwitchListener();
+        this._renderWeatherCards(cards);
+        this._addCardsSwitchListener();
       });
+  }
+
+  clear() {
+    document.getElementById('weather').innerHTML = '';
   }
 }

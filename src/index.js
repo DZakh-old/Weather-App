@@ -36,11 +36,19 @@ const search = document.getElementById('searchTextField');
 //     console.log(`Finishing promise ${res}`);
 //   });
 
-// const weather = new WeatherInterface();
+const weather = new WeatherInterface();
 
 search.addEventListener('change', () => {
   // console.log(autocomplete.getPlace());
-
+  search.blur();
   app.classList.toggle('active');
-  WeatherInterface.displayWeatherInCity(myCity);
+  weather.displayWeatherInCity(myCity);
+});
+
+search.addEventListener('focus', () => {
+  if (weather.state === 'active') {
+    app.classList.toggle('active');
+    weather.clear();
+    weather.state = 'disabled';
+  }
 });
