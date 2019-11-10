@@ -1,8 +1,23 @@
 .pressure {
-  &__icon {
-    padding: 0.8em 1.5em 0;
-  }
+  position: relative;
+  padding: 0.8em 0.5em 0 2.5em;
+
+  // &__icon {
+  //   padding-top: 0.8em;
+  // }
   &__value {
-    padding-left: 5rem;
+    position: absolute;
+    font-size: 2em;
+    top: 12.5rem;
+    right: 17rem;
+    font-weight: bold;
+
+    &-measure {
+      color: $second-brand-color;
+      position: absolute;
+      bottom: -19rem;
+      right: -13rem;
+      font-size: 0.4em;
+    }
   }
 }
