@@ -3,9 +3,11 @@
   min-height: 650rem;
   background: #fff;
 
-  transition: background 1.5s;  
+  transition: background 1s;  
 }
 
 .active {
   background: $brand-color;
 }
+
+//TODO: Check 781px height

@@ -39,14 +39,14 @@ export default class WeatherInterface {
     });
   }
 
-  displayWeatherInCity(cityName) {
+  displayWeatherInCity(location) {
     this.state = 'active';
     // TODO: Add loading animation
     // weatherWrap.innerHTML = `
-    //   <h2>In ${cityName}</h2>
+    //   <h2>In ${location}</h2>
     //   <p>Loading</p>
     // `;
-    WeatherService.getWeatherDataInCity(cityName)
+    WeatherService.getWeatherDataInCity(location)
       // .then(({ city, dataList }) => {
       .then(dataList => this._createWeatherCards(dataList))
       .then(cards => {

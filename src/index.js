@@ -8,45 +8,40 @@ import './js/packedges';
 
 import WeatherInterface from './js/classes/weather-interface';
 
-const myCity = 'san%20francisco%2Cus';
-
-const app = document.getElementById('app');
-
-const search = document.getElementById('searchTextField');
-// const options = {
-//   types: ['(cities)']
-// };
-
-// const autocomplete = new google.maps.places.Autocomplete(input, options);
-
-// Google server-side map API
-// const input = 'london';
-// const key = 'AIzaSyAv3Kya6-hZVLqTmx_OE-herfkuTQR4h1w';
-// // const mapUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${input}&inputtype=textquery&fields=formatted_address,name&key=${key}`;
-
-// Ajax.get(mapUrl)
-//   .then(res => {
-//     console.log(res);
-
-//     document.getElementById('app').innerHTML += `
-//       ${JSON.stringify(res)}
-//     `;
-//   })
-//   .finally(res => {
-//     console.log(`Finishing promise ${res}`);
-//   });
-
 const weather = new WeatherInterface();
 
-search.addEventListener('change', () => {
-  // console.log(autocomplete.getPlace());
-  search.blur();
-  app.classList.toggle('active');
-  weather.displayWeatherInCity(myCity);
-});
+const app = document.getElementById('app');
+const search = document.getElementById('searchTextField');
+
+let location;
+function initialize() {
+  const options = {
+    types: ['(cities)']
+  };
+  const autocomplete = new google.maps.places.Autocomplete(search, options);
+  autocomplete.setFields(['geometry']);
+  google.maps.event.addListener(autocomplete, 'place_changed', () => {
+    const place = autocomplete.getPlace();
+    location = place.geometry.location;
+
+    console.log(location);
+    search.blur();
+    app.classList.toggle('active');
+    weather.displayWeatherInCity(location);
+  });
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+
+// search.addEventListener('change', () => {
+//   console.log(location);
+//   search.blur();
+//   app.classList.toggle('active');
+//   weather.displayWeatherInCity(location);
+// });
 
 search.addEventListener('focus', () => {
   if (weather.state === 'active') {
+    search.value = '';
     app.classList.toggle('active');
     weather.clear();
     weather.state = 'disabled';

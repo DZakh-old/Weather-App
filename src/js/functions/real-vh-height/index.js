@@ -5,10 +5,17 @@ function correctSizing() {
 }
 
 function firstViewportCorrection() {
-  correctSizing();
-  window.addEventListener('resize', e => {
+  /* If mobile */
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     correctSizing();
-  });
+    window.addEventListener('orientationchange', () => {
+      const afterOrientationChange = () => {
+        correctSizing();
+        window.removeEventListener('resize', afterOrientationChange);
+      };
+      window.addEventListener('resize', afterOrientationChange);
+    });
+  }
 }
 
 setTimeout(firstViewportCorrection(), 0);
