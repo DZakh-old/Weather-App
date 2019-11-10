@@ -19,8 +19,6 @@ const search = document.getElementById('searchTextField');
 
 // const autocomplete = new google.maps.places.Autocomplete(input, options);
 
-const weatherWrap = document.getElementById('weather');
-
 // Google server-side map API
 // const input = 'london';
 // const key = 'AIzaSyAv3Kya6-hZVLqTmx_OE-herfkuTQR4h1w';
@@ -44,5 +42,5 @@ search.addEventListener('change', e => {
   // console.log(autocomplete.getPlace());
 
   app.classList.toggle('active');
-  weather.displayWeatherInCity(weatherWrap, myCity);
+  weather.displayWeatherInCity(myCity);
 });

@@ -2,7 +2,7 @@ import Ajax from '../ajax';
 import Temperature from '../temperature';
 
 export default class WeatherService {
-  static async cityData(cityName) {
+  static async getWeatherDataInCity(cityName) {
     const apiUrl = `https://community-open-weather-map.p.rapidapi.com/forecast?q=${cityName}&units=metric`;
     const apiHeaders = {
       'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com',

@@ -16,21 +16,37 @@ export default class WeatherInterface {
     return cards;
   }
 
-  displayWeatherInCity(weatherWrap, cityName) {
+  _renderWeatherCards(cards) {
+    const container = document.getElementById('weather');
+    const separator = `
+      <div class="weather__separator" aria-disabled="true"></div>
+    `;
+    container.innerHTML = cards.map(card => card.render()).join(separator);
+  }
+
+  _addCardsSwitchListener() {
+    const cards = [...document.querySelectorAll('.card')];
+    const disableCards = () => cards.forEach(card => card.classList.add('side'));
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', e => {
+        disableCards();
+        card.classList.remove('side');
+      });
+    });
+  }
+
+  displayWeatherInCity(cityName) {
     // TODO: Add loading animation
     // weatherWrap.innerHTML = `
     //   <h2>In ${cityName}</h2>
     //   <p>Loading</p>
     // `;
-    WeatherService.cityData(cityName)
+    WeatherService.getWeatherDataInCity(cityName)
       // .then(({ city, dataList }) => {
       .then(dataList => this._createWeatherCards(dataList))
       .then(cards => {
-        const separator = `
-          <div class="weather__separator" aria-disabled="true"></div>
-        `;
-        // weatherWrap.innerHTML = cards[3].build();
-        weatherWrap.innerHTML = cards.map(card => card.build()).join(separator);
+        this._renderWeatherCards(cards);
+        this._addCardsSwitchListener();
       });
   }
 }
