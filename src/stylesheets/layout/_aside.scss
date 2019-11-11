@@ -30,7 +30,7 @@
 
       &:hover,
       &:focus {
-        border-color: transparentize(get(gray-color), 0.8);
+        border-color: transparentize(v-get(gray-color), 0.8);
       }
 
     }

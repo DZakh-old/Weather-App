@@ -2,6 +2,9 @@
 // This file contains very basic styles.
 // -----------------------------------------------------------------------------
 
+:root {
+  @include v-local($v-globals);
+}
 
 html {
   box-sizing: border-box;

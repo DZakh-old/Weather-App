@@ -2,8 +2,7 @@
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
 
-
-$root-vars: (
+$v-globals: (
 
   /// Regular font family
   text-font-stack: ('Roboto', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif),
@@ -30,28 +29,6 @@ $root-vars: (
   
 
   /// Fast start, slow finish - animation flow
-  fast-in: cubic-bezier(0.2, 0.9, 0, 1)
-);
+  fast-in: cubic-bezier(0.2, 0.9, 0, 1),
 
-@mixin variables($vars) {
-  @each $property, $value in $vars {
-    --#{$property}: #{$value};
-  }
-}
-
-:root {
-  @include variables($root-vars)
-}
-
-
-@function v($variable, $callback: '_') {
-  @if ($callback != '_') {
-    @return var(--#{$variable}, $callback);
-  } @else {
-    @return var(--#{$variable});
-  }
-}
-
-@function get($variable) {
-  @return map-get($root-vars, $variable);
-}
+) !default;

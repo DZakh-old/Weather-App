@@ -10,7 +10,7 @@
       letter-spacing: 0.05em;
       width: 360rem;
       padding: 1.2em 3.2em;
-      border: 1rem solid v(gray-color);
+      border: 1rem solid v-get(gray-color);
       border-radius: 666rem;
       transition: box-shadow 0.5s;
       

@@ -28,3 +28,19 @@
 @function font($path, $base: $base-url) {
   @return asset($base, 'fonts/', $path);
 }
+
+
+@function v($var, $callback: '_') {
+  @if ($callback != '_') {
+    @return var(--#{$var}, $callback);
+  } @else {
+    @return var(--#{$var});
+  }
+}
+
+@function v-get($var) {
+  @if map-has-key($v-globals, $var) {
+    @return map-get($v-globals, $var);
+  }
+  @error 'Global variable #{$var} doesn\'t exist';
+}
