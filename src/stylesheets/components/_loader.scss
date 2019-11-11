@@ -6,7 +6,7 @@
   height: 74px;
 }
 .lds-ring div {
-  $color: $brand-color;
+  $color: v(brand-color);
   box-sizing: border-box;
   display: block;
   position: absolute;

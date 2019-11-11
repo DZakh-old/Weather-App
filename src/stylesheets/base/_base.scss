@@ -19,7 +19,7 @@ html {
 
 
 body {
-  min-width: $min-width;
+  min-width: v(min-width);
 }
 img {
   // color: inherit;

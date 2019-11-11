@@ -13,7 +13,7 @@
     font-weight: bold;
 
     &-measure {
-      color: $second-brand-color;
+      color: v(second-brand-color);
       position: absolute;
       bottom: -19rem;
       right: -13rem;

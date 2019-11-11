@@ -1,7 +1,7 @@
 .snatches {
   position: relative;
-  border-top: 1px solid $brand-color;
-  border-bottom: 1px solid $brand-color;
+  border-top: 1px solid v(brand-color);
+  border-bottom: 1px solid v(brand-color);
   pointer-events: none;
   
   &::after {

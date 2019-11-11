@@ -3,47 +3,55 @@
 // -----------------------------------------------------------------------------
 
 
+$root-vars: (
 
-/// Regular font family
-/// @type List
-$text-font-stack: 'Roboto', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !default;
+  /// Regular font family
+  text-font-stack: ('Roboto', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif),
+  
+  /// Code (monospace) font family
+  code-font-stack: ('Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', monospace),
+  
+  
+  /// Base font size
+  base-font-size: 16rem,
+  
+  
+  /// Colors
+  text-color: rgb(21, 21, 21),
+  brand-color: rgb(29, 67, 113),
+  second-brand-color: rgb(125, 172, 192),
+  // TODO: Chenge to dark-color
+  gray-color: rgb(21, 21, 21),
+  light-gray-color: rgb(230, 230, 230),
+  
 
-/// Code (monospace) font family
-/// @type List
-$code-font-stack: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', monospace !default;
+  /// Container's minimum width
+  min-width: 320px,
+  
 
+  /// Fast start, slow finish - animation flow
+  fast-in: cubic-bezier(0.2, 0.9, 0, 1)
+);
 
+@mixin variables($vars) {
+  @each $property, $value in $vars {
+    --#{$property}: #{$value};
+  }
+}
 
-/// Base font size
-/// @type Number
-$base-font-size: 16rem;
-
-
-
-/// @type Color
-$text-color: rgb(21, 21, 21) !default;
-
-/// @type Color
-$brand-color: rgb(29, 67, 113) !default;
-
-/// @type Color
-$second-brand-color: rgb(125, 172, 192);
-
-
-// TODO: Chenge to dark-color
-/// @type Color
-$gray-color: rgb(21, 21, 21) !default;
-
-/// @type Color
-$light-gray-color: rgb(230, 230, 230) !default;
-
-
-
-/// Container's minimum width
-/// @type Length
-$min-width: 320px !default;
-
+:root {
+  @include variables($root-vars)
+}
 
 
-/// Fast start, slow finish - animation flow
-$fast-in: cubic-bezier(0.2, 0.9, 0, 1);
+@function v($variable, $callback: '_') {
+  @if ($callback != '_') {
+    @return var(--#{$variable}, $callback);
+  } @else {
+    @return var(--#{$variable});
+  }
+}
+
+@function get($variable) {
+  @return map-get($root-vars, $variable);
+}

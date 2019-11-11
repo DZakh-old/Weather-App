@@ -7,13 +7,13 @@ $progress-bar-stroke-width: 1.8;
 
 .progress-bar__background {
   fill: none;
-  stroke: $light-gray-color;
+  stroke: v(light-gray-color);
   stroke-width: $progress-bar-stroke-width;
 }
 
 .progress-bar__progress {
   fill: none;
-  stroke: $second-brand-color;
+  stroke: v(second-brand-color);
   stroke-dasharray: 100;
   stroke-linecap: round;
   stroke-width: $progress-bar-stroke-width;

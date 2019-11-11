@@ -1,5 +1,5 @@
 
  body {
-  color: $text-color;
-  font: normal $base-font-size / 1.4 $text-font-stack;
+  color: v(text-color);
+  font: normal get(base-font-size) / 1.4 v(text-font-stack);
 }

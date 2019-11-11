@@ -10,15 +10,14 @@
       letter-spacing: 0.05em;
       width: 360rem;
       padding: 1.2em 3.2em;
-      border: 1rem solid $gray-color;
+      border: 1rem solid v(gray-color);
       border-radius: 666rem;
       transition: box-shadow 0.5s;
       
       &-icon {
+        @include center;
         pointer-events: none;
         font-family: 'icomoon';
-        display: flex;
-        @include center;
         content: "\e900";
         position: absolute;
         height: 100%;
@@ -33,7 +32,7 @@
       margin-left: 40rem;
       position: relative;
       background: #fff;
-      border: 1rem solid $gray-color;
+      border: 1rem solid v(gray-color);
       border-radius: 50%;
       transition: box-shadow 0.5s;
       cursor: pointer;
