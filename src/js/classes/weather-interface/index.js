@@ -1,5 +1,6 @@
 import WeatherService from '../weather-service';
 import WeatherCard from '../weather-card';
+import { async } from 'q';
 
 export default class WeatherInterface {
   constructor() {
@@ -54,13 +55,12 @@ export default class WeatherInterface {
     this._toggleAppState();
     this._renderLoader();
 
-    WeatherService.getWeatherDataInCity(location)
-      // .then(({ city, dataList }) => {
-      .then(dataList => this._createWeatherCards(dataList))
-      .then(cards => {
-        this._renderWeatherCards(cards);
-        this._addCardsSwitchListener();
-      });
+    (async () => {
+      const dataList = await WeatherService.getWeatherDataInCity(location);
+      const cards = this._createWeatherCards(dataList);
+      this._renderWeatherCards(cards);
+      this._addCardsSwitchListener();
+    })();
   }
 
   disable() {
