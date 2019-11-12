@@ -38,7 +38,13 @@
   }
 }
 
-@function v-get($var) {
+@function v-get($var, $v-map: '_') {
+  @if $v-map != '_' {
+    @if map-has-key($v-map, $var) {
+      @return map-get($v-map, $var);
+    } 
+    @error 'Local variable #{$var} doesn\'t exist';
+  }
   @if map-has-key($v-globals, $var) {
     @return map-get($v-globals, $var);
   }

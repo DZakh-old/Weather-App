@@ -57,8 +57,8 @@
   box-shadow: 0 0 10rem rgba(0, 0, 0, 0.6);
 }
 
-@mixin v-local($vars) {
-  @each $property, $value in $vars {
+@mixin v-init($vs) {
+  @each $property, $value in $vs {
     --#{$property}: #{$value};
   }
 }
