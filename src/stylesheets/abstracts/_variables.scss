@@ -16,12 +16,12 @@ $v-globals: (
   
   
   /// Colors
-  text-color: rgb(21, 21, 21),
-  brand-color: rgb(29, 67, 113),
-  second-brand-color: rgb(125, 172, 192),
-  // TODO: Chenge to dark-color
-  gray-color: rgb(21, 21, 21),
-  light-gray-color: rgb(230, 230, 230),
+  bg-clr: rgb(255, 255, 255),
+  second-bg-clr: rgb(18, 42, 68),
+  brand-clr: rgb(29, 67, 113),
+  second-brand-clr: rgb(125, 172, 192),
+  strong-clr: rgb(21, 21, 21),
+  soft-clr: rgb(230, 230, 230),
   
 
   /// Container's minimum width

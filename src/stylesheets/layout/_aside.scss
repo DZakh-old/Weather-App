@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: #fff;
+    background: v(bg-clr);
     padding: 90rem 10rem 40rem;
     transition: box-shadow 1s;
 
@@ -18,19 +18,31 @@
     }
 
     &__creator {
+      position: relative;
       margin: 0 auto;
-      padding: 0.4em 0.8em 0.6em;
+      padding: 0.5em 0.9em 0.7em;
       font-family: 'Liu Jian Mao Cao', cursive;
-      border: 1px solid transparent;
       border-radius: 666rem;
       text-align: center;
       font-size: 1.2em;
       letter-spacing: 0.1em;
-      transition: border 0.5s;
 
-      &:hover,
-      &:focus {
-        border-color: transparentize(v-get(gray-color), 0.8);
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: inherit;
+        box-shadow: 0 0 0 3rem v(strong-clr);
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+
+      &:hover::after,
+      &:hover::after {
+        opacity: 0.1;
       }
 
     }

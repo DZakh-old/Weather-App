@@ -1,7 +1,7 @@
 .snatches {
   position: relative;
-  border-top: 1px solid v(brand-color);
-  border-bottom: 1px solid v(brand-color);
+  border-top: 1px solid v(brand-clr);
+  border-bottom: 1px solid v(brand-clr);
   pointer-events: none;
   
   &::after {
@@ -11,8 +11,8 @@
     right: 0;
     height: 100%;
     width: 100%;
-    background: rgb(255,255,255);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, transparent 20%, transparent 80%, rgba(255,255,255,1) 100%);
+    background: v(bg-clr);
+    background: linear-gradient(90deg, v(bg-clr) 0%, transparent 20%, transparent 80%, v(bg-clr) 100%);
   }
 
   &__bar {
@@ -24,7 +24,7 @@
     &::-webkit-scrollbar{
       height: 0;
       width: 0;
-      background: #fff;
+      background: v(bg-clr);
     }
   }
 
@@ -38,6 +38,8 @@
   }
 
   &__icon {
+    display: block;
+    padding: 1rem 0 3rem;
     font-size: 2.2em;
   }
 

@@ -1,13 +1,13 @@
 .app {
   @include real-vh-height(100);
   min-height: 650rem;
-  background: #fff;
+  background: v(bg-clr);
 
   transition: background 1s;  
 }
 
 .active {
-  background: v(brand-color);
+  background: v(second-bg-clr);
 }
 
 //TODO: Check 781px height

@@ -3,6 +3,7 @@
   margin-top: 2rem;
 
   &__speed {
+      z-index: 3;
       position: absolute;
       font-size: 4em;
       font-weight: bold;
