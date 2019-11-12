@@ -15,6 +15,7 @@
     "@babel/polyfill": "^7.6.0",
     "express": "^4.17.1",
     "lazysizes": "^5.1.2",
+    "node-fetch": "^2.6.0",
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {
