@@ -33,28 +33,21 @@
       }
     }
 
-    &__light {
+    &__dark-mode {
       @include center;
       width: 54.5rem;
       margin-left: 40rem;
       position: relative;
       background: v(bg-clr);
       border: 1rem solid v(strong-clr);
+      color: v(strong-clr);
       border-radius: 50%;
       transition: box-shadow 0.5s;
-      cursor: pointer;
-
-      &-checkbox {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-        height: 0;
-        width: 0;
-      }
 
       &-icon {
         font-size: 2.8em;
-        margin-bottom: 3rem;
+        margin-bottom: 1rem;
+        margin-right: 1rem;
       }
     }
   } 
@@ -70,7 +63,7 @@
         @include block-shadow;
       } 
 
-      &__light {
+      &__dark-mode {
         border: none;
         @include block-shadow;
       }

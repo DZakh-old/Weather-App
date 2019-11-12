@@ -5,3 +5,13 @@
  .overflow-hidden {
   overflow: hidden;
 }
+
+.darkmode {
+  @include v-init((  
+    bg-clr: rgb(21, 21, 21),
+    second-bg-clr: rgb(15, 21, 27),
+    brand-clr: rgb(187, 204, 224),
+    second-brand-clr: rgb(84, 113, 124),
+    strong-clr: #fff,
+  ));
+}

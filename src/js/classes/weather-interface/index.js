@@ -1,6 +1,5 @@
 import WeatherService from '../weather-service';
 import WeatherCard from '../weather-card';
-import { async } from 'q';
 
 export default class WeatherInterface {
   constructor() {

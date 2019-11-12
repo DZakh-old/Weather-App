@@ -7,9 +7,11 @@ import './js/functions';
 import './js/packedges';
 
 import WeatherInterface from './js/classes/weather-interface';
+import DarkMode from './js/classes/dark-mode';
 
 const weather = new WeatherInterface();
 
+//
 const search = document.getElementById('searchTextField');
 
 function initialize() {
@@ -41,3 +43,6 @@ search.addEventListener('focus', () => {
     weather.disable();
   }
 });
+//
+
+DarkMode.activate();
