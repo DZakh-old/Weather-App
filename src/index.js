@@ -33,11 +33,15 @@ const search = document.getElementById('searchTextField');
 search.addEventListener('change', async () => {
   search.blur();
   const input = encodeURIComponent(search.value);
-  // TODO: handle errors
-  const res = await fetch(`/location/${input}`);
-  const { weatherData, name } = await res.json();
-  search.value = name;
-  weather.displayWeather(weatherData);
+  const res = await fetch(`/api/${input}`);
+  if (res.status < 400) {
+    const { weatherData, name } = await res.json();
+    search.value = name;
+    weather.displayWeather(weatherData);
+  } else {
+    // TODO: Specify only for 404 error
+    search.value = 'Not Found!';
+  }
 });
 
 search.addEventListener('focus', () => {
