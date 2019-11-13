@@ -12,7 +12,7 @@ export default class WeatherService {
     // const res = await Ajax.get(apiUrl, apiHeaders);
     const lat = location.lat().toFixed(2);
     const lon = location.lng().toFixed(2);
-    const res = await fetch(`/api/lat=${lat}&lon=${lon}`);
+    const res = await fetch(`/api/${lat},${lon}`);
     const jsonRes = await res.json();
     const dataList = await jsonRes.list.map((temp, i) => new Temperature(temp, i));
 
