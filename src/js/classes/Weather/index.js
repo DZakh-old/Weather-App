@@ -1,4 +1,4 @@
-export default class Temperature {
+export default class Weather {
   constructor(temp, id) {
     this._main = temp.main;
     [this._weather] = temp.weather;

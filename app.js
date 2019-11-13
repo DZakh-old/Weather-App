@@ -6,21 +6,24 @@ const app = express();
 
 app.use(express.static('dist'));
 
-const WeatherApi = require('./server/weather-api');
+const WeatherApi = require('./server/WeatherApi');
 
 app.get('/location/:input', async (req, res) => {
   try {
     const apiUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(
       req.params.input
-    )}%20city&inputtype=textquery&fields=geometry&key=${process.env.GOOGLE_API_KEY}`;
-    const placeRes = await fetch(apiUrl);
-    const placeData = await placeRes.json();
+    )}&inputtype=textquery&fields=geometry,name&key=${process.env.GOOGLE_API_KEY}`;
 
-    const { geometry } = placeData.candidates[0];
+    const placeApiRes = await fetch(apiUrl);
+    const placeApiData = await placeApiRes.json();
+
+    const { geometry, name } = placeApiData.candidates[0];
+
     if (geometry) {
       const { lat, lng: lon } = geometry.location;
-      const weatherRes = await WeatherApi.get(lat, lon);
-      res.json(weatherRes);
+      const weatherData = await WeatherApi.get(lat, lon);
+
+      res.json({ weatherData, name });
     } else {
       throw new Error("The place hasn't found");
     }

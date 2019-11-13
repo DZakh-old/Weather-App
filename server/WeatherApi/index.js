@@ -9,11 +9,12 @@ module.exports = class WeatherApi {
         'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com',
         'x-rapidapi-key': process.env.WEATHER_API_KEY
       };
-      const res = await fetch(apiUrl, {
+      const weatherApiRes = await fetch(apiUrl, {
         method: 'GET',
         headers
       });
-      return res.json();
+      const weatherApiData = await weatherApiRes.json();
+      return weatherApiData.list;
     } catch (err) {
       throw new Error(`Error! ${err}!`);
     }

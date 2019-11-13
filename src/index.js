@@ -6,8 +6,8 @@ import './js/helpers';
 import './js/functions';
 import './js/packedges';
 
-import WeatherInterface from './js/classes/weather-interface';
-import DarkMode from './js/classes/dark-mode';
+import WeatherInterface from './js/classes/WeatherInterface';
+import DarkMode from './js/classes/DarkMode';
 
 const weather = new WeatherInterface();
 
@@ -32,12 +32,12 @@ const search = document.getElementById('searchTextField');
 
 search.addEventListener('change', async () => {
   search.blur();
-  // weather.displayWeatherInCity(location);
   const input = encodeURIComponent(search.value);
-  //TODO: handle error
+  // TODO: handle errors
   const res = await fetch(`/location/${input}`);
-  const jsonRes = await res.json();
-  console.log(jsonRes);
+  const { weatherData, name } = await res.json();
+  search.value = name;
+  weather.displayWeather(weatherData);
 });
 
 search.addEventListener('focus', () => {
