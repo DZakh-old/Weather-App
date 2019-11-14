@@ -27,7 +27,7 @@
   .weather {
 
     @include respond-above(sm) {
-      @include block-shadow;
+      box-shadow: block-shadow();
     }
 
   }

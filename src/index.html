@@ -19,8 +19,13 @@
           Weather
         </h1>
         <div class="header__control control">
-          <span class="control__search-icon icon-search"></span>
-          <input type="text" id="searchTextField" aria-label="In your city" placeholder="In your city" class="control__search">
+          <div class="control__search search">
+            <span class="search__icon icon-search"></span>
+            <input type="text" id="searchTextField" aria-label="In your city" placeholder="In your city" class="search__input">
+            <ul class="search__autocomplete">
+              <li></li>
+            </ul>
+          </div>
           <button aria-label="Swithc dark mode" id="dark-mode" class="control__dark-mode">
             <span class="control__dark-mode-icon icon-weather-01"></span>
           </button>

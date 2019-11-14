@@ -53,11 +53,6 @@
   height: calc(v(vh, 1vh) * #{$height});
 }
 
-@mixin block-shadow() {
-  box-shadow: 0 0 15rem -10rem v(strong-clr);
-}
-
-
 @mixin v-init($vs) {
   @each $property, $value in $vs {
     --#{$property}: #{$value};

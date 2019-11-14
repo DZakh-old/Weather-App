@@ -7,30 +7,9 @@
     margin-left: -37rem;
     
     &__search {
-      letter-spacing: 0.05em;
       width: 360rem;
-      padding: 1.2em 3.2em;
-      border: 1rem solid v(strong-clr);
-      color: v(strong-clr);
-      background: v(bg-clr);
-      border-radius: 666rem;
       transition: box-shadow 0.5s;
-      
-      &::placeholder {
-        color: v(strong-clr);
-        opacity: 0.6;
-      }
-
-      &-icon {
-        @include center;
-        pointer-events: none;
-        font-family: 'icomoon';
-        content: "\e900";
-        position: absolute;
-        height: 100%;
-        margin-left: 0.5em;
-        font-size: 1.8em;
-      }
+      border-radius: 666rem;
     }
 
     &__dark-mode {
@@ -43,6 +22,11 @@
       color: v(strong-clr);
       border-radius: 50%;
       transition: box-shadow 0.5s;
+
+      &:hover,
+      &:focus {
+        box-shadow: shadow-border();
+      }
 
       &-icon {
         font-size: 2.8em;
@@ -58,14 +42,14 @@
   .control {
 
     @include respond-above(sm) {
-      &__search {
-        border: none;
-        @include block-shadow;
-      } 
-
       &__dark-mode {
         border: none;
-        @include block-shadow;
+        box-shadow: block-shadow();
+
+        &:hover,
+        &:focus {
+          box-shadow: shadow-border(strong-clr, bg-clr), block-shadow();
+        }
       }
     }
 
