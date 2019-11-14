@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+
 import WeatherService from '../WeatherService';
 
 // TODO: Make class for API requests
@@ -32,6 +33,7 @@ export default class Interface {
       if (apiRes.status === 404) {
         return { weatherData: undefined, placeName: 'Not Found!' };
       }
+      // TODO: Handle other errors
 
       return apiRes.json();
     };
@@ -39,7 +41,7 @@ export default class Interface {
     const processSubmit = async (inputData, mainPrediction) => {
       searchBar.blur();
 
-      const { weatherData, placeName } = await getWeatherData(inputData, mainPrediction); // TODO: searchBar.value -> inputData
+      const { weatherData, placeName } = await getWeatherData(inputData, mainPrediction);
 
       searchBar.value = placeName;
 
@@ -48,6 +50,7 @@ export default class Interface {
       }
     };
 
+    /* ___ Main script ___ */
     (() => {
       let mainPrediction;
 
