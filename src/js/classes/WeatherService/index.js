@@ -1,7 +1,7 @@
 import WeatherCard from '../WeatherCard';
 import Weather from '../Weather';
 
-export default class WeatherInterface {
+export default class WeatherService {
   constructor() {
     this.state = false;
   }

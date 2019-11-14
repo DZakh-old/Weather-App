@@ -1,31 +1,72 @@
-const fetch = require('node-fetch');
 const createError = require('http-errors');
 const express = require('express');
-require('dotenv').config();
+// require('dotenv').config();
 
 const app = express();
 
 app.use(express.static('dist'));
 
 const WeatherApi = require('./server/WeatherApi');
+const GoogleApi = require('./server/GoogleApi');
 
-app.get('/api/:input', async (req, res) => {
+app.get('/api/findplacefromtext/:input', async (req, res) => {
   try {
     const apiUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(
       req.params.input
-    )}&inputtype=textquery&fields=geometry,name&key=${process.env.GOOGLE_API_KEY}`;
+    )}&inputtype=textquery&fields=geometry,name`;
 
-    const placeApiRes = await fetch(apiUrl);
-    const placeApiData = await placeApiRes.json();
+    const placeData = await GoogleApi.get(apiUrl);
 
-    const place = placeApiData.candidates[0];
-    if (place) {
-      const { geometry, name } = place;
-      const { lat, lng: lon } = geometry.location;
-      const weatherData = await WeatherApi.get(lat, lon);
-      res.json({ weatherData, name });
-    } else {
+    const [place] = placeData.candidates;
+    if (!place) {
       res.status(404).send(createError(404, 'This location does not exist!'));
+    }
+
+    // TODO: function for it
+    const { geometry, name: placeName } = place;
+    const { lat, lng: lon } = geometry.location;
+
+    const weatherData = await WeatherApi.get(lat, lon);
+    res.json({ weatherData, placeName });
+  } catch (err) {
+    res.status(400).send(createError(400, 'Something went wrong!'));
+  }
+});
+
+app.get('/api/detailsbyplaceid/:place_id', async (req, res) => {
+  try {
+    const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${encodeURIComponent(
+      req.params.place_id
+    )}&fields=geometry,name`;
+
+    const placeData = await GoogleApi.get(apiUrl);
+
+    const { geometry, name: placeName } = placeData.result;
+    const { lat, lng: lon } = geometry.location;
+
+    const weatherData = await WeatherApi.get(lat, lon);
+    res.json({ weatherData, placeName });
+  } catch (err) {
+    res.status(400).send(createError(400, 'Something went wrong!'));
+  }
+});
+
+app.get('/api/autocomplete/:input', async (req, res) => {
+  try {
+    const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
+      req.params.input
+    )}&types=(cities)&offset=3`;
+
+    // TODO: Sessions
+    // TODO: Maybe back this stuff from the class
+    const autocompleteData = await GoogleApi.get(apiUrl);
+
+    if (autocompleteData.status === 'OK') {
+      const autocompleteList = autocompleteData.predictions.map(({ description, place_id }) => ({
+        description,
+        place_id
+      }));
+      res.json(autocompleteList);
     }
   } catch (err) {
     res.status(400).send(createError(400, 'Something went wrong!'));
@@ -38,4 +79,5 @@ app.get('/api/:input', async (req, res) => {
 //   res.json(weatherRes);
 // });
 
+// TODO: add port
 app.listen(3000, () => console.log('listening at http://localhost:3000/'));
