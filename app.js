@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const createError = require('http-errors');
 const express = require('express');
 // require('dotenv').config();
@@ -59,6 +60,7 @@ app.get('/api/autocomplete/:input', async (req, res) => {
 
     // TODO: Sessions
     // TODO: Maybe back this stuff from the class
+    // TODO: Fix error with fast typing
     const autocompleteData = await GoogleApi.get(apiUrl);
 
     if (autocompleteData.status === 'OK') {

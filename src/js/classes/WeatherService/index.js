@@ -53,7 +53,7 @@ export default class WeatherService {
     app.classList.toggle('active');
   }
 
-  displayWeather(weatherData) {
+  renderWeather(weatherData) {
     this.state = 'active';
     this._toggleAppState();
     this._renderLoader();

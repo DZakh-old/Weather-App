@@ -36,10 +36,10 @@ export default class Interface {
       return apiRes.json();
     };
 
-    const processSubmit = async (searchBar, mainPrediction) => {
+    const processSubmit = async (inputData, mainPrediction) => {
       searchBar.blur();
 
-      const { weatherData, placeName } = await getWeatherData(searchBar.value, mainPrediction); // TODO: searchBar.value -> inputData
+      const { weatherData, placeName } = await getWeatherData(inputData, mainPrediction); // TODO: searchBar.value -> inputData
 
       searchBar.value = placeName;
 
@@ -52,10 +52,11 @@ export default class Interface {
       let mainPrediction;
 
       searchBar.addEventListener('keyup', async e => {
+        const inputData = searchBar.value;
         if (e.key === 'Enter') {
-          await processSubmit(searchBar, mainPrediction); //
-        } else if (searchBar.value.length > 3) {
-          const predictions = await getPredictions(searchBar.value);
+          await processSubmit(inputData, mainPrediction);
+        } else if (inputData.length > 3) {
+          const predictions = await getPredictions(inputData);
           [mainPrediction] = predictions;
           // TODO: Show predictions
         } else {
