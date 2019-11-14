@@ -40,6 +40,7 @@
     left: 0;
     width: 100%;
     z-index: -1;
+    // TODO: Use specific radius
     border-radius: 666rem;  
     transition: box-shadow 0.5s;  
   }
@@ -58,4 +59,9 @@
       border: none;
     }
   }
+}
+
+.active-autocomplete {
+  height: 200%;
+  background: red;
 }

@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 
 import WeatherService from '../WeatherService';
+import Autocomplete from '../Autocomplete';
 
 // TODO: Make class for API requests
 
@@ -61,9 +62,12 @@ export default class Interface {
         } else if (inputData.length > 3) {
           const predictions = await getPredictions(inputData);
           [mainPrediction] = predictions;
-          // TODO: Show predictions
+          const predictionDescriptions = predictions.map(prediction => prediction.description);
+          Autocomplete.renderPredictions(predictionDescriptions);
+          console.log(predictionDescriptions);
         } else {
           mainPrediction = undefined;
+          // TODO: Hide autocomplete
         }
       });
     })();
