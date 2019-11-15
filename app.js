@@ -52,13 +52,13 @@ app.get('/api/detailsbyplaceid/:place_id', async (req, res) => {
   }
 });
 
-app.get('/api/autocomplete/:input', async (req, res) => {
+app.get('/api/autocomplete/:request', async (req, res) => {
   try {
+    const [input, session] = req.params.request.split('&');
     const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
-      req.params.input
-    )}&types=(cities)&offset=3`;
+      input
+    )}&types=(cities)&offset=3&session=${session}`;
 
-    // TODO: Sessions
     // TODO: Maybe back this stuff from the class
     // TODO: Fix error with fast typing
     const autocompleteData = await GoogleApi.get(apiUrl);

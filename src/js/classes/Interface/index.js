@@ -9,9 +9,9 @@ export default class Interface {
   static activate(searchBar) {
     const weather = new WeatherService();
 
-    const getPredictions = async inputData => {
+    const getPredictions = async (inputData, session) => {
       const encodedInputData = encodeURIComponent(inputData);
-      const apiRes = await fetch(`/api/autocomplete/${encodedInputData}`);
+      const apiRes = await fetch(`/api/autocomplete/${encodedInputData}&${session}`);
       return apiRes.json();
     };
 
@@ -54,13 +54,15 @@ export default class Interface {
     /* ___ Main script ___ */
     (() => {
       let mainPrediction;
+      let session = new Date().getTime();
 
       searchBar.addEventListener('keyup', async e => {
         const inputData = searchBar.value;
         if (e.key === 'Enter') {
           await processSubmit(inputData, mainPrediction);
+          session = new Date().getTime();
         } else if (inputData.length > 3) {
-          const predictions = await getPredictions(inputData);
+          const predictions = await getPredictions(inputData, session);
           [mainPrediction] = predictions;
           const predictionDescriptions = predictions.map(prediction => prediction.description);
           Autocomplete.renderPredictions(predictionDescriptions);

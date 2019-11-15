@@ -1,11 +1,13 @@
 .search {
   position: relative;
+  $height: 55rem;
 
   &__input {
+    height: $height;
     padding: 1.2em 3.2em;
     width: 100%;
     border: 1rem solid v(strong-clr);
-    border-radius: 666rem;
+    border-radius: $height / 2;
     color: v(strong-clr);
     background: v(bg-clr);
     letter-spacing: 0.05em;
@@ -41,7 +43,7 @@
     width: 100%;
     z-index: -1;
     // TODO: Use specific radius
-    border-radius: 666rem;  
+    border-radius: $height / 2;  
     transition: box-shadow 0.5s;  
   }
 }
