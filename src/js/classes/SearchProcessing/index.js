@@ -34,8 +34,9 @@ export default class SearchProcessing {
 
     /* ___ Main script ___ */
     searchBar.blur();
-
     searchBar.value = prediction ? prediction.description : '...';
+    WeatherService.toggleAppState();
+    WeatherService.renderLoader();
 
     const { weatherData, placeName } = await getWeatherData();
 

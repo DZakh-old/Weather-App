@@ -13,11 +13,11 @@ export default class WeatherService {
     return !!app.classList.contains('active');
   }
 
-  static renderWeather(weatherData) {
-    const renderLoader = () => {
-      container.innerHTML = `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`;
-    };
+  static renderLoader() {
+    container.innerHTML = `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`;
+  }
 
+  static renderWeather(weatherData) {
     const getParsedWeatherList = weatherDataArr => {
       return weatherDataArr.map((temp, i) => new Weather(temp, i));
     };
@@ -58,9 +58,6 @@ export default class WeatherService {
     };
 
     /* ___ Main script ___ */
-    WeatherService.toggleAppState();
-    renderLoader();
-
     const weatherList = getParsedWeatherList(weatherData);
     const cards = createWeatherCards(weatherList);
 
