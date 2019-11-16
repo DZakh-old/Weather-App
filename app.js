@@ -1,16 +1,14 @@
-/* eslint-disable camelcase */
 const createError = require('http-errors');
 const express = require('express');
-const dotenv = require('dotenv');
 
-dotenv.config();
+const { port } = require('./server/config');
+
+const WeatherApi = require('./server/WeatherApi');
+const GoogleApi = require('./server/GoogleApi');
 
 const app = express();
 
 app.use(express.static('dist'));
-
-const WeatherApi = require('./server/WeatherApi');
-const GoogleApi = require('./server/GoogleApi');
 
 app.get('/api/findplacefromtext/:input', async (req, res) => {
   try {
@@ -79,11 +77,4 @@ app.get('/api/autocomplete/:request', async (req, res) => {
   }
 });
 
-// app.get('/api/:latlon', async (req, res) => {
-//   const { lat, lon } = req.params.latlon.split(',');
-//   const weatherRes = await WeatherApi.get(lat, lon);
-//   res.json(weatherRes);
-// });
-
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`listening at http://localhost:${port}/`));
+app.listen(port || 3000, () => console.log(`listening at http://localhost:${port || 3000}/`));
