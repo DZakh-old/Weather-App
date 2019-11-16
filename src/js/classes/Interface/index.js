@@ -7,6 +7,7 @@ import Autocomplete from '../Autocomplete';
 
 export default class Interface {
   static activate(searchBar) {
+    const autocomplete = new Autocomplete();
     const weather = new WeatherService();
 
     const getPredictions = async (inputData, session) => {
@@ -60,24 +61,36 @@ export default class Interface {
         const inputData = searchBar.value;
         if (e.key === 'Enter') {
           await processSubmit(inputData, mainPrediction);
+          autocomplete.clear();
           session = new Date().getTime();
         } else if (inputData.length > 3) {
           const predictions = await getPredictions(inputData, session);
           [mainPrediction] = predictions;
           const predictionDescriptions = predictions.map(prediction => prediction.description);
-          Autocomplete.renderPredictions(predictionDescriptions);
-          console.log(predictionDescriptions);
+          autocomplete.renderPredictions(predictionDescriptions);
         } else {
           mainPrediction = undefined;
-          // TODO: Hide autocomplete
+          autocomplete.clear();
         }
       });
     })();
+
+    // TODO: Show autocomplete when predictions are focused
+    searchBar.addEventListener('blur', () => {
+      autocomplete.hide();
+    });
 
     searchBar.addEventListener('focus', () => {
       if (weather.state === 'active') {
         searchBar.value = '';
         weather.disable();
+      }
+      if (searchBar.value === 'Not Found!') {
+        searchBar.value = '';
+        autocomplete.clear();
+      }
+      if (autocomplete.hasPredictions()) {
+        autocomplete.show();
       }
     });
   }

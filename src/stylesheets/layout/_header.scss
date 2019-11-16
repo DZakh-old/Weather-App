@@ -13,13 +13,12 @@
       padding-right: 140rem;
       margin-left: 1em;      
       transform: translateY(calc(20vh - 90rem));
-      // TODO: check if it's really an in and not an out
-      transition: all 0.6s v(fast-in);
+      transition: all 0.6s v(my-ease);
     }
 
     &__control {
       transform: translateY(calc(45vh - 75rem));
-      transition: transform 0.5s v(fast-in);
+      transition: transform 0.5s v(my-ease);
     }
 
     @media (max-height: 700px) {

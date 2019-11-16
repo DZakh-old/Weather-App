@@ -1,6 +1,7 @@
+$height: 55rem;
+
 .search {
   position: relative;
-  $height: 55rem;
 
   &__input {
     height: $height;
@@ -38,13 +39,49 @@
     position: absolute;
     top: 0;
     right: 0;
-    bottom: 0;
     left: 0;
     width: 100%;
+    height: $height;
     z-index: -1;
-    // TODO: Use specific radius
     border-radius: $height / 2;  
-    transition: box-shadow 0.5s;  
+    transition: all 0.5s v(my-ease);  
+    overflow: hidden;
+    padding-top: 0;
+
+    &-prediction {
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      display: block;
+      width: 100%;
+      text-align: left;
+      font-weight: 300;
+      font-size: 0.85em;
+      padding: 1.2em 2em 1.2em 48rem;
+
+      &::before {
+        position: absolute;
+        display: block;
+        left: 1em;
+        top: 0.75em;
+        font-size: 1.4em;
+        font-family: 'icomoon';
+        content: "\e903";
+        transition: transform 0.2s;
+      }
+
+      &:hover::before,
+      &:focus::before {
+        transform: scale(1.2);
+      }
+    }
+
+    &-separator {
+      margin: 0 20rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      background: v(strong-clr);
+    }
   }
 }
 
@@ -64,6 +101,9 @@
 }
 
 .active-autocomplete {
-  height: 200%;
-  background: red;
+  box-shadow: shadow-border();
+  padding-top: $height + 3rem;
+  padding-bottom: 3rem;
+  height: auto;
+  background: v(bg-clr);
 }

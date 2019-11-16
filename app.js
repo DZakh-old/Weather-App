@@ -16,7 +16,7 @@ app.get('/api/findplacefromtext/:input', async (req, res) => {
       req.params.input
     )}&inputtype=textquery&fields=geometry,name`;
 
-    const placeData = await GoogleApi.get(apiUrl);
+    const placeData = await GoogleApi.get(apiUrl).catch(e => console.error(e));
 
     const [place] = placeData.candidates;
     if (!place) {
@@ -27,7 +27,7 @@ app.get('/api/findplacefromtext/:input', async (req, res) => {
     const { geometry, name: placeName } = place;
     const { lat, lng: lon } = geometry.location;
 
-    const weatherData = await WeatherApi.get(lat, lon);
+    const weatherData = await WeatherApi.get(lat, lon).catch(e => console.error(e));
     res.json({ weatherData, placeName });
   } catch (err) {
     res.status(400).send(createError(400, 'Something went wrong!'));
@@ -40,12 +40,12 @@ app.get('/api/detailsbyplaceid/:place_id', async (req, res) => {
       req.params.place_id
     )}&fields=geometry,name`;
 
-    const placeData = await GoogleApi.get(apiUrl);
+    const placeData = await GoogleApi.get(apiUrl).catch(e => console.error(e));
 
     const { geometry, name: placeName } = placeData.result;
     const { lat, lng: lon } = geometry.location;
 
-    const weatherData = await WeatherApi.get(lat, lon);
+    const weatherData = await WeatherApi.get(lat, lon).catch(e => console.error(e));
     res.json({ weatherData, placeName });
   } catch (err) {
     res.status(400).send(createError(400, 'Something went wrong!'));
@@ -61,7 +61,7 @@ app.get('/api/autocomplete/:request', async (req, res) => {
 
     // TODO: Maybe back this stuff from the class
     // TODO: Fix error with fast typing
-    const autocompleteData = await GoogleApi.get(apiUrl);
+    const autocompleteData = await GoogleApi.get(apiUrl).catch(e => console.error(e));
 
     if (autocompleteData.status === 'OK') {
       const autocompleteList = autocompleteData.predictions.map(({ description, place_id }) => ({
