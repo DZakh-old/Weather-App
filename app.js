@@ -77,4 +77,4 @@ app.get('/api/autocomplete/:request', async (req, res) => {
   }
 });
 
-app.listen(port || 3000, () => console.log(`listening at http://localhost:${port || 3000}/`));
+app.listen(port || 3000, () => console.log(`listening to http://localhost:${port || 3000}/`));

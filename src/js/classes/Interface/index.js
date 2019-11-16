@@ -1,7 +1,5 @@
 import elements from '../../app-elements';
-import WeatherService from '../WeatherService';
-import SearchProcessing from '../SearchProcessing';
-import Autocomplete from '../Autocomplete';
+import { WeatherService, SearchProcessing, Autocomplete } from '..';
 
 const { searchBar } = elements;
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 
 import elements from '../../app-elements';
-import WeatherService from '../WeatherService';
+import { WeatherService } from '..';
 
 // TODO: Make class for API requests
 

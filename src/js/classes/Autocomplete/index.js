@@ -1,5 +1,5 @@
 import elements from '../../app-elements';
-import SearchProcessing from '../SearchProcessing';
+import { SearchProcessing } from '..';
 
 const { autocomplete: container } = elements;
 
