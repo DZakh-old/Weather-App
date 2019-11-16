@@ -19,7 +19,7 @@
       border: 1rem solid v(strong-clr);
       color: v(strong-clr);
       border-radius: 50%;
-      transition: box-shadow 0.5s;
+      transition: box-shadow 0.5s v(my-ease);
 
       &:hover,
       &:focus {

@@ -56,5 +56,5 @@
 }
 
 @function shadow-border($inside-clr: 'bg-clr', $outside-clr: 'strong-clr') {
-  @return (0 0 0 1.5rem v($inside-clr), 0 0 0 2.5rem v($outside-clr));
+  @return (0 0 0 1.5rem v($inside-clr), 0 0 0 2.3rem v($outside-clr));
 }
