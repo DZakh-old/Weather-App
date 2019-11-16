@@ -1,42 +1,63 @@
+import elements from '../../app-elements';
+import SearchProcessing from '../SearchProcessing';
+
+const { autocomplete: container } = elements;
+
 export default class Autocomplete {
-  constructor(container = 'autocomplete') {
-    this.container = document.getElementById(container);
-  }
+  static renderPredictions(predictions) {
+    const activatePredictionsEventListeners = () => {
+      const predictionElements = [...document.querySelectorAll('.search__autocomplete-prediction')];
+      predictionElements.forEach((prediction, i) => {
+        prediction.addEventListener('blur', () => {
+          this.hide();
+        });
+        prediction.addEventListener('focus', () => {
+          this.show();
+        });
+        prediction.addEventListener('click', () => {
+          SearchProcessing.submit(predictions[i]);
+          Autocomplete.clear();
+        });
+      });
+    };
 
-  renderPredictions(predictions) {
+    const renderPredictionsHtml = (/* predictions */) => {
+      const separator = `
+        <div class="search__autocomplete-separator" aria-disabled="true"></div>
+      `;
+      const predictionsHtml = predictions
+        .map(({ description }) => {
+          return `
+            <button class="search__autocomplete-prediction">${description}</button>
+          `;
+        })
+        .join(separator);
+      container.innerHTML = predictionsHtml;
+    };
+
+    /* ___ Main script ___ */
     this.show();
-    const separator = `
-      <div class="search__autocomplete-separator" aria-disabled="true"></div>
-    `;
-    const predictionsHtml = predictions
-      .map(prediction => {
-        // TODO: add data atribute with place_id
-        return `
-          <button class="search__autocomplete-prediction">${prediction}</button>
-        `;
-      })
-      .join(separator);
-
-    this.container.innerHTML = predictionsHtml;
+    renderPredictionsHtml(container, predictions);
+    activatePredictionsEventListeners();
   }
 
-  hide() {
-    this.container.classList.remove('active-autocomplete');
+  static hide() {
+    container.classList.remove('active-autocomplete');
   }
 
-  show() {
-    this.container.classList.add('active-autocomplete');
+  static show() {
+    container.classList.add('active-autocomplete');
   }
 
-  clear() {
+  static clear() {
     this.hide();
 
     while (this.hasPredictions()) {
-      this.container.removeChild(this.container.firstChild);
+      container.removeChild(container.firstChild);
     }
   }
 
-  hasPredictions() {
-    return !!this.container.firstChild;
+  static hasPredictions() {
+    return !!container.firstChild;
   }
 }

@@ -9,8 +9,6 @@ import './js/packedges';
 import DarkMode from './js/classes/DarkMode';
 import Interface from './js/classes/Interface';
 
-const searchInput = document.getElementById('searchTextField');
-
-Interface.activate(searchInput);
+Interface.activate();
 
 DarkMode.activate();

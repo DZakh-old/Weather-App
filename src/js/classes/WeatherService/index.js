@@ -1,21 +1,21 @@
+import elements from '../../app-elements';
 import WeatherCard from '../WeatherCard';
 import Weather from '../Weather';
 
-export default class WeatherService {
-  constructor(container = 'weather') {
-    this.state = 'disabled';
-    this.container = document.getElementById(container);
-  }
+const { app, weather: container } = elements;
 
-  toggleAppState() {
-    this.state = this.state === 'active' ? 'disabled' : 'active';
-    const app = document.getElementById('app');
+export default class WeatherService {
+  static toggleAppState() {
     app.classList.toggle('active');
   }
 
-  renderWeather(weatherData) {
+  static weatherIsShown() {
+    return !!app.classList.contains('active');
+  }
+
+  static renderWeather(weatherData) {
     const renderLoader = () => {
-      this.container.innerHTML = `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`;
+      container.innerHTML = `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`;
     };
 
     const getParsedWeatherList = weatherDataArr => {
@@ -40,7 +40,7 @@ export default class WeatherService {
       const separator = `
         <div class="weather__separator" aria-disabled="true"></div>
       `;
-      this.container.innerHTML = cards.map(card => card.render()).join(separator);
+      container.innerHTML = cards.map(card => card.render()).join(separator);
     };
 
     const addCardsSwitchListener = () => {
@@ -58,7 +58,7 @@ export default class WeatherService {
     };
 
     /* ___ Main script ___ */
-    this.toggleAppState();
+    WeatherService.toggleAppState();
     renderLoader();
 
     const weatherList = getParsedWeatherList(weatherData);
@@ -68,8 +68,8 @@ export default class WeatherService {
     addCardsSwitchListener();
   }
 
-  disable() {
-    this.toggleAppState();
-    this.container.innerHTML = '';
+  static disable() {
+    WeatherService.toggleAppState();
+    container.innerHTML = '';
   }
 }

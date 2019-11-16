@@ -64,10 +64,12 @@ app.get('/api/autocomplete/:request', async (req, res) => {
     const autocompleteData = await GoogleApi.get(apiUrl).catch(e => console.error(e));
 
     if (autocompleteData.status === 'OK') {
-      const autocompleteList = autocompleteData.predictions.map(({ description, place_id }) => ({
-        description,
-        place_id
-      }));
+      const autocompleteList = autocompleteData.predictions.map(
+        ({ description, place_id: placeId }) => ({
+          description,
+          placeId
+        })
+      );
       res.json(autocompleteList);
     }
   } catch (err) {

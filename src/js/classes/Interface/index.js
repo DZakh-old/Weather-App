@@ -1,96 +1,53 @@
-/* eslint-disable no-param-reassign */
-
+import elements from '../../app-elements';
 import WeatherService from '../WeatherService';
+import SearchProcessing from '../SearchProcessing';
 import Autocomplete from '../Autocomplete';
 
-// TODO: Make class for API requests
+const { searchBar } = elements;
 
 export default class Interface {
-  static activate(searchBar) {
-    const autocomplete = new Autocomplete();
-    const weather = new WeatherService();
-
+  static activate() {
     const getPredictions = async (inputData, session) => {
       const encodedInputData = encodeURIComponent(inputData);
       const apiRes = await fetch(`/api/autocomplete/${encodedInputData}&${session}`);
       return apiRes.json();
     };
 
-    const buildApiRequestUrl = (inputData, predictedPlace) => {
-      let apiType = 'findplacefromtext';
-      let apiRequestData = inputData;
-      if (predictedPlace) {
-        apiType = 'detailsbyplaceid';
-        // TODO: Send name from autocomplete
-        apiRequestData = predictedPlace.place_id;
-      }
-      const encodedApiRequestData = encodeURIComponent(apiRequestData);
-      return `/api/${apiType}/${encodedApiRequestData}`;
-    };
-
-    const getWeatherData = async (inputData, mainPrediction) => {
-      const apiUrl = buildApiRequestUrl(inputData, mainPrediction);
-      const apiRes = await fetch(apiUrl);
-
-      if (apiRes.status === 404) {
-        return { weatherData: undefined, placeName: 'Not Found!' };
-      }
-      // TODO: Handle other errors
-
-      return apiRes.json();
-    };
-
-    const processSubmit = async (inputData, mainPrediction) => {
-      searchBar.blur();
-
-      const { weatherData, placeName } = await getWeatherData(inputData, mainPrediction);
-
-      searchBar.value = placeName;
-
-      if (weatherData) {
-        weather.renderWeather(weatherData);
-      }
-    };
-
     /* ___ Main script ___ */
-    (() => {
-      let mainPrediction;
-      let session = new Date().getTime();
+    let mainPrediction;
+    let session = new Date().getTime();
 
-      searchBar.addEventListener('keyup', async e => {
-        const inputData = searchBar.value;
-        if (e.key === 'Enter') {
-          await processSubmit(inputData, mainPrediction);
-          autocomplete.clear();
-          session = new Date().getTime();
-        } else if (inputData.length > 3) {
-          const predictions = await getPredictions(inputData, session);
-          [mainPrediction] = predictions;
-          const predictionDescriptions = predictions.map(prediction => prediction.description);
-          autocomplete.renderPredictions(predictionDescriptions);
-        } else {
-          mainPrediction = undefined;
-          autocomplete.clear();
-        }
-      });
-    })();
+    searchBar.addEventListener('keyup', async e => {
+      const inputData = searchBar.value;
+      if (e.key === 'Enter') {
+        await SearchProcessing.submit(mainPrediction, inputData);
+        Autocomplete.clear();
+      } else if (inputData.length > 3) {
+        const predictions = await getPredictions(inputData, session);
+        [mainPrediction] = predictions;
+        Autocomplete.renderPredictions(predictions);
+      } else {
+        mainPrediction = undefined;
+        Autocomplete.clear();
+      }
+    });
 
-    // TODO: Show autocomplete when predictions are focused
     searchBar.addEventListener('blur', () => {
-      autocomplete.hide();
+      Autocomplete.hide();
     });
 
     searchBar.addEventListener('focus', () => {
-      if (weather.state === 'active') {
+      if (WeatherService.weatherIsShown()) {
         searchBar.value = '';
-        weather.disable();
+        WeatherService.disable();
+        session = new Date().getTime();
       }
       if (searchBar.value === 'Not Found!') {
         searchBar.value = '';
-        autocomplete.clear();
+        Autocomplete.clear();
       }
-      if (autocomplete.hasPredictions()) {
-        autocomplete.show();
+      if (Autocomplete.hasPredictions()) {
+        Autocomplete.show();
       }
     });
   }
