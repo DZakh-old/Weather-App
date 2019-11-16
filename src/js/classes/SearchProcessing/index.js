@@ -25,6 +25,7 @@ export default class SearchProcessing {
       const apiRes = await fetch(apiUrl);
 
       if (apiRes.status === 404) {
+        WeatherService.disable();
         return { weatherData: undefined, placeName: 'Not Found!' };
       }
       // TODO: Handle other errors
