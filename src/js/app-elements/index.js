@@ -1,9 +1,13 @@
-const elements = {
-  app: document.getElementById('app'),
-  weather: document.getElementById('weather'),
-  searchBar: document.getElementById('search-bar'),
-  autocomplete: document.getElementById('autocomplete')
+const elementsAndThereIdsFromTemplate = {
+  app: 'app',
+  weather: 'weather',
+  searchBar: 'search-bar',
+  autocomplete: 'autocomplete'
 };
-// TODO: Make a function to make it DRY
 
-export default elements;
+export default Object.fromEntries(
+  Object.entries(elementsAndThereIdsFromTemplate).map(([name, id]) => [
+    name,
+    document.getElementById(id)
+  ])
+);

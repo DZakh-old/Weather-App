@@ -50,3 +50,4 @@ export default class Interface {
     });
   }
 }
+// TODO: Would be nice to refactor it, but like this it's also ok -_-
