@@ -8,21 +8,20 @@ import WeatherService from '../WeatherService';
 const { searchBar } = elements;
 
 export default class SearchProcessing {
-  static async submit(mainPrediction, inputData = '') {
-    const buildApiRequestUrl = prediction => {
+  static async submit(prediction, inputData = '') {
+    const buildApiRequestUrl = (/* prediction, inputData */) => {
       let apiType = 'findplacefromtext';
       let apiRequestData = inputData;
       if (prediction) {
         apiType = 'detailsbyplaceid';
-        // TODO: Send name from autocomplete
         apiRequestData = prediction.placeId;
       }
       const encodedApiRequestData = encodeURIComponent(apiRequestData);
       return `/api/${apiType}/${encodedApiRequestData}`;
     };
 
-    const getWeatherData = async prediction => {
-      const apiUrl = buildApiRequestUrl(prediction);
+    const getWeatherData = async (/* prediction, inputData */) => {
+      const apiUrl = buildApiRequestUrl();
       const apiRes = await fetch(apiUrl);
 
       if (apiRes.status === 404) {
@@ -34,12 +33,15 @@ export default class SearchProcessing {
     };
 
     /* ___ Main script ___ */
-    console.log('hi');
     searchBar.blur();
 
-    const { weatherData, placeName } = await getWeatherData(mainPrediction);
+    searchBar.value = prediction ? prediction.description : '...';
 
-    searchBar.value = placeName;
+    const { weatherData, placeName } = await getWeatherData();
+
+    if (searchBar.value === '...') {
+      searchBar.value = placeName;
+    }
 
     if (weatherData) {
       WeatherService.renderWeather(weatherData);
