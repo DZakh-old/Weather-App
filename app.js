@@ -1,7 +1,9 @@
 /* eslint-disable camelcase */
 const createError = require('http-errors');
 const express = require('express');
-// require('dotenv').config();
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
 
@@ -83,5 +85,5 @@ app.get('/api/autocomplete/:request', async (req, res) => {
 //   res.json(weatherRes);
 // });
 
-// TODO: add port
-app.listen(3000, () => console.log('listening at http://localhost:3000/'));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`listening at http://localhost:${port}/`));
