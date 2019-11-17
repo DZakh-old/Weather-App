@@ -11,9 +11,16 @@ router.get('/:input', async (req, res, next) => {
     )}&inputtype=textquery&fields=geometry,name`;
 
     const weather = await GoogleApi.getProcessedWeather(url);
-    // TODO: Make a function for this \|/
     const { status } = weather;
-    if (status && status !== 'OK' && status >= 400) {
+    if (status === 'ZERO_RESULTS') {
+      return res.status(204).end();
+    }
+    if (status === 'OVER_QUERY_LIMIT') {
+      // TODO: Fix error with fast typing
+      return next(createError(429, status));
+    }
+    // TODO: Make a function for this \|/
+    if (status && status !== 'OK' && (!+status || status >= 400)) {
       return next(createError(weather));
     }
 

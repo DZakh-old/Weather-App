@@ -1,5 +1,6 @@
-// import { WeatherService } from '..';
 import WeatherService from '../WeatherService';
+import Ajax from '../Ajax';
+
 import elements from '../../app-elements';
 
 // TODO: Make class for API requests
@@ -20,19 +21,23 @@ export default class SearchProcessing {
     };
 
     const getWeatherData = async (/* prediction, inputData */) => {
-      const apiUrl = buildApiRequestUrl();
-      const apiRes = await fetch(apiUrl);
+      try {
+        const apiUrl = buildApiRequestUrl();
+        const apiRes = await Ajax.get(apiUrl);
 
-      if (apiRes.status === 204) {
-        WeatherService.disable();
-        return { weatherData: undefined, placeName: 'Not Found!' };
-      }
-      if (apiRes.status >= 400) {
-        WeatherService.disable();
-        return { weatherData: undefined, placeName: 'Error!' };
-      }
+        const { status } = apiRes;
+        if (status > 200) {
+          WeatherService.disable();
+          searchBar.value = '...';
+          return status < 400
+            ? { weatherData: undefined, placeName: 'Not Found!' }
+            : { weatherData: undefined, placeName: 'Error!' };
+        }
 
-      return apiRes.json();
+        return apiRes;
+      } catch (err) {
+        throw new Error(err);
+      }
     };
 
     /* ___ Main script ___ */
@@ -46,7 +51,7 @@ export default class SearchProcessing {
     if (searchBar.value === '...') {
       searchBar.value = placeName;
     }
-
+    console.log(weatherData);
     if (weatherData) {
       WeatherService.renderWeather(weatherData);
     }

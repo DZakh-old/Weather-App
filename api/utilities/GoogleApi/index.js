@@ -19,7 +19,7 @@ class GoogleApi {
     try {
       const autocompleteRes = await GoogleApi.get(url);
       const { status } = autocompleteRes;
-      if (status && status !== 'OK' && status >= 400) {
+      if (status && status !== 'OK' && (!+status || status >= 400)) {
         return autocompleteRes;
       }
 
@@ -40,7 +40,8 @@ class GoogleApi {
     try {
       const placeDataRes = await GoogleApi.get(url);
       const { status } = placeDataRes;
-      if (status && status !== 'OK' && status >= 400) {
+
+      if (status && status !== 'OK' && (!+status || status >= 400)) {
         return placeDataRes;
       }
 
@@ -56,7 +57,8 @@ class GoogleApi {
       const { lat, lng: lon } = geometry.location;
 
       const { cod, list } = await WeatherApi.get(lat, lon);
-      return { status: +cod || cod, weatherData: list, placeName };
+      // TODO: Error 406 - Weather api limit
+      return { status: +cod || cod || 406, weatherData: list, placeName };
     } catch (err) {
       throw createError(err);
     }

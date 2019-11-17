@@ -10,7 +10,8 @@ class WeatherApi {
         'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com',
         'x-rapidapi-key': weatherApiKey
       };
-      return Ajax.get(url, headers);
+      const res = await Ajax.get(url, headers);
+      return res;
     } catch (err) {
       throw new Error(err);
     }

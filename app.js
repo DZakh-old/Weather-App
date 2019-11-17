@@ -24,7 +24,7 @@ app.use((req, res, next) => {
   );
   if (req.method === 'OPTIONS') {
     res.header('Access-Control-Allow-Method', 'GET');
-    return res.status(200).json({});
+    return res.status(200).json({ data: [] });
   }
   return next();
 });

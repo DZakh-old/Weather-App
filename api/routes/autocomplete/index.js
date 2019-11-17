@@ -19,10 +19,10 @@ router.get('/:request', async (req, res, next) => {
         case 'OVER_QUERY_LIMIT':
           // TODO: Fix error with fast typing
           console.log('Try again');
-          return next(createError(status));
+          return next(createError(429, status));
         case 'ZERO_RESULTS':
           // TODO: Handle it on client side
-          return res.status(204).json({});
+          return res.status(204).end();
         case 'OK':
           break;
         default:

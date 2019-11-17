@@ -9,9 +9,13 @@ const { searchBar } = elements;
 export default class Interface {
   static activate() {
     const getPredictions = async (inputData, session) => {
-      const encodedInputData = encodeURIComponent(inputData);
-      const apiRes = await fetch(`/api/autocomplete/${encodedInputData}&${session}`);
-      return apiRes.json();
+      try {
+        const encodedInputData = encodeURIComponent(inputData);
+        const apiRes = await fetch(`/api/autocomplete/${encodedInputData}&${session}`);
+        return apiRes.json();
+      } catch (err) {
+        throw new Error(err);
+      }
     };
 
     /* ___ Main script ___ */
@@ -27,8 +31,10 @@ export default class Interface {
         // TODO: check if e.key is letter
         // TODO: change focus if e.keyes are arrows
         const predictions = await getPredictions(inputData, session);
-        [mainPrediction] = predictions;
-        Autocomplete.renderPredictions(predictions);
+        if (!WeatherService.weatherIsShown()) {
+          [mainPrediction] = predictions;
+          Autocomplete.renderPredictions(predictions);
+        }
       } else {
         mainPrediction = undefined;
         Autocomplete.clear();

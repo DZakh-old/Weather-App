@@ -12,7 +12,12 @@ router.get('/:place_id', async (req, res, next) => {
 
     const weather = await GoogleApi.getProcessedWeather(url);
     const { status } = weather;
-    if (status && status !== 'OK' && status >= 400) {
+    console.log(status);
+    if (status === 'OVER_QUERY_LIMIT') {
+      // TODO: Fix error with fast typing
+      return next(createError(429, status));
+    }
+    if (status && status !== 'OK' && (!+status || status >= 400)) {
       return next(createError(weather));
     }
 
