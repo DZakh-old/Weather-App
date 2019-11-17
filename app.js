@@ -1,5 +1,6 @@
 // const createError = require('http-errors'); TODO: Decide the destiny of the package later
 const express = require('express');
+const morgan = require('morgan');
 
 const { port } = require('./api/config');
 
@@ -12,6 +13,8 @@ const {
 const app = express();
 
 app.use(express.static('dist'));
+
+app.use(morgan('dev'));
 
 app.use('/api/findplacefromtext', findPlaceFromTextRoutes);
 
