@@ -1,5 +1,5 @@
-import elements from '../../app-elements';
 import { WeatherCard, Weather } from '..';
+import elements from '../../app-elements';
 
 const { app, weather: container } = elements;
 

@@ -1,22 +1,22 @@
 // const createError = require('http-errors'); TODO: Decide the destiny of the package later
 const express = require('express');
 
-const { port } = require('./server/config');
+const { port } = require('./api/config');
 
 const {
-  findPlaceFromTextMiddleware,
-  detailsByPlaceId,
-  autocomplete
-} = require('./server/middlewares');
+  findPlaceFromTextRoutes,
+  detailsByPlaceIdRoutes,
+  autocompleteRoutes
+} = require('./api/routes');
 
 const app = express();
 
 app.use(express.static('dist'));
 
-app.get('/api/findplacefromtext/:input', findPlaceFromTextMiddleware);
+app.use('/api/findplacefromtext', findPlaceFromTextRoutes);
 
-app.get('/api/detailsbyplaceid/:place_id', detailsByPlaceId);
+app.use('/api/detailsbyplaceid', detailsByPlaceIdRoutes);
 
-app.get('/api/autocomplete/:request', autocomplete);
+app.use('/api/autocomplete', autocompleteRoutes);
 
 app.listen(port || 3000, () => console.log(`listening to http://localhost:${port || 3000}/`));
