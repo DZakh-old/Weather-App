@@ -16,6 +16,19 @@ app.use(express.static('dist'));
 
 app.use(morgan('dev'));
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://weather.dzakh.dev');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Access, Authorizatinon'
+  );
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Method', 'GET');
+    return res.status(200).json({});
+  }
+  next();
+});
+
 app.use('/api/findplacefromtext', findPlaceFromTextRoutes);
 app.use('/api/detailsbyplaceid', detailsByPlaceIdRoutes);
 app.use('/api/autocomplete', autocompleteRoutes);
