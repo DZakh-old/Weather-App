@@ -45,7 +45,7 @@ export default class Interface {
         WeatherService.disable();
         session = new Date().getTime();
       }
-      if (searchBar.value === 'Not Found!') {
+      if (searchBar.value === 'Not Found!' || searchBar.value === 'Error!') {
         searchBar.value = '';
         Autocomplete.clear();
       }

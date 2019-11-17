@@ -11,15 +11,14 @@ router.get('/:input', async (req, res, next) => {
     )}&inputtype=textquery&fields=geometry,name`;
 
     const weather = await GoogleApi.getProcessedWeather(url);
+    // TODO: Make a function for this \|/
     const { status } = weather;
-    // console.log(status);
     if (status && status !== 'OK' && status >= 400) {
       return next(createError(weather));
     }
 
-    return res.status(200).json(weather);
+    return res.status(status || 200).json(weather);
   } catch (err) {
-    // console.log(err);
     return next(createError(err));
   }
 });

@@ -12,14 +12,12 @@ router.get('/:place_id', async (req, res, next) => {
 
     const weather = await GoogleApi.getProcessedWeather(url);
     const { status } = weather;
-    console.log(weather);
     if (status && status !== 'OK' && status >= 400) {
       return next(createError(weather));
     }
 
     return res.status(status || 200).json(weather);
   } catch (err) {
-    console.log(err);
     return next(createError(err));
   }
 });

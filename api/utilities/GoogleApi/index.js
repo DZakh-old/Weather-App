@@ -9,7 +9,6 @@ class GoogleApi {
     try {
       const apiUrlWithKey = `${url}&key=${googleApiKey}`;
       const res = Ajax.get(apiUrlWithKey);
-      console.log(res);
       return res;
     } catch (err) {
       throw createError(err);
@@ -31,7 +30,7 @@ class GoogleApi {
         })
       );
 
-      return predictionList;
+      return { status, predictionList };
     } catch (err) {
       throw createError(err);
     }
@@ -40,7 +39,6 @@ class GoogleApi {
   static async getProcessedWeather(url) {
     try {
       const placeDataRes = await GoogleApi.get(url);
-      console.log(placeDataRes);
       const { status } = placeDataRes;
       if (status && status !== 'OK' && status >= 400) {
         return placeDataRes;
@@ -57,9 +55,8 @@ class GoogleApi {
       const { geometry, name: placeName } = placeDataRes.result;
       const { lat, lng: lon } = geometry.location;
 
-      const weatherData = await WeatherApi.get(lat, lon);
-
-      return { weatherData, placeName };
+      const { cod, list } = await WeatherApi.get(lat, lon);
+      return { status: +cod || cod, weatherData: list, placeName };
     } catch (err) {
       throw createError(err);
     }
