@@ -17,9 +17,22 @@ app.use(express.static('dist'));
 app.use(morgan('dev'));
 
 app.use('/api/findplacefromtext', findPlaceFromTextRoutes);
-
 app.use('/api/detailsbyplaceid', detailsByPlaceIdRoutes);
-
 app.use('/api/autocomplete', autocompleteRoutes);
+
+app.use((req, res, next) => {
+  const err = new Error('Not Found!');
+  err.status = 404;
+  next(err);
+});
+
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.json({
+    error: {
+      message: err.message
+    }
+  });
+});
 
 app.listen(port || 3000, () => console.log(`listening to http://localhost:${port || 3000}/`));
