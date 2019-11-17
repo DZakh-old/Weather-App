@@ -1,5 +1,8 @@
 import elements from '../../app-elements';
-import { WeatherService, SearchProcessing, Autocomplete } from '..';
+// import { WeatherService, SearchProcessing, Autocomplete } from '..';
+import WeatherService from '../WeatherService';
+import SearchProcessing from '../SearchProcessing';
+import Autocomplete from '../Autocomplete';
 
 const { searchBar } = elements;
 
@@ -21,6 +24,8 @@ export default class Interface {
         await SearchProcessing.submit(mainPrediction, inputData);
         Autocomplete.clear();
       } else if (inputData.length > 3) {
+        // TODO: check if e.key is letter
+        // TODO: change focus if e.keyes are arrows
         const predictions = await getPredictions(inputData, session);
         [mainPrediction] = predictions;
         Autocomplete.renderPredictions(predictions);

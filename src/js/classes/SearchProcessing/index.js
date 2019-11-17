@@ -1,4 +1,5 @@
 import { WeatherService } from '..';
+// import WeatherService from '../WeatherService';
 import elements from '../../app-elements';
 
 // TODO: Make class for API requests
@@ -22,11 +23,14 @@ export default class SearchProcessing {
       const apiUrl = buildApiRequestUrl();
       const apiRes = await fetch(apiUrl);
 
-      if (apiRes.status === 404) {
+      if (apiRes.status === 204) {
         WeatherService.disable();
         return { weatherData: undefined, placeName: 'Not Found!' };
       }
-      // TODO: Handle other errors
+      if (apiRes.status >= 400) {
+        WeatherService.disable();
+        return { weatherData: undefined, placeName: 'Error!' };
+      }
 
       return apiRes.json();
     };

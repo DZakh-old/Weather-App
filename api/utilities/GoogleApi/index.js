@@ -1,33 +1,30 @@
+const createError = require('http-errors');
 const Ajax = require('../Ajax');
-// const { Ajax } = require('..'); // TODO: Learn why it doesn't work
 
 const { googleApiKey } = require('../../config');
 
 class GoogleApi {
-  static async get(apiUrl) {
+  static get(apiUrl) {
     try {
       const apiUrlWithKey = `${apiUrl}&key=${googleApiKey}`;
       return Ajax.get(apiUrlWithKey);
     } catch (err) {
-      throw new Error(err);
+      throw createError(err);
     }
   }
 
   static async processAutocomplete(apiUrl) {
     try {
-      const autocompleteData = await GoogleApi.get(apiUrl);
-      if (autocompleteData.status === 'OK') {
-        const predictionsList = autocompleteData.predictions.map(
-          ({ description, place_id: placeId }) => ({
-            description,
-            placeId
-          })
-        );
-        return predictionsList;
+      const autocompleteRes = await GoogleApi.get(apiUrl);
+      if (autocompleteRes.status !== 'OK') {
+        return autocompleteRes;
       }
-      throw new Error('No predictions');
+      return autocompleteRes.predictions.map(({ description, place_id: placeId }) => ({
+        description,
+        placeId
+      }));
     } catch (err) {
-      return new Error(err);
+      throw createError(err);
     }
   }
 }

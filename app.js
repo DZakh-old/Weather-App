@@ -1,5 +1,5 @@
-// const createError = require('http-errors'); TODO: Decide the destiny of the package later
 const express = require('express');
+const createError = require('http-errors');
 const morgan = require('morgan');
 
 const { port } = require('./api/config');
@@ -34,18 +34,12 @@ app.use('/api/detailsbyplaceid', detailsByPlaceIdRoutes);
 app.use('/api/autocomplete', autocompleteRoutes);
 
 app.use((req, res, next) => {
-  const err = new Error('Not Found!');
-  err.status = 404;
-  next(err);
+  next(createError(404, 'Not Found!'));
 });
 
-app.use((err, req, res, next) => {
-  res.status(err.status || 500);
-  res.json({
-    error: {
-      message: err.message
-    }
-  });
+app.use((error, req, res, next) => {
+  const { status } = error;
+  res.status(status).json({ status, error });
 });
 
 app.listen(port || 3000, () => console.log(`listening to http://localhost:${port || 3000}/`));

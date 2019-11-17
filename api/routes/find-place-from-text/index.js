@@ -1,4 +1,5 @@
 const express = require('express');
+const createError = require('http-errors');
 const { GoogleApi, WeatherApi } = require('../../utilities');
 
 const router = express.Router();
@@ -9,25 +10,24 @@ router.get('/:input', async (req, res, next) => {
       req.params.input
     )}&inputtype=textquery&fields=geometry,name`;
 
-    const placeData = await GoogleApi.get(apiUrl).catch(err =>
-      console.log('\n\n\n\n' + err + '\n\n\n')
-    );
+    const placeData = await GoogleApi.get(apiUrl);
+    if (placeData.status !== 'OK') {
+      return next(createError(placeData));
+    }
 
     const [place] = placeData.candidates;
     if (!place) {
-      res.status(404).send('This location does not exist!');
+      return res.status(204).json({});
     }
 
     // TODO: function for it
     const { geometry, name: placeName } = place;
     const { lat, lng: lon } = geometry.location;
 
-    const weatherData = await WeatherApi.getWeatherDataByLocation(lat, lon).catch(err =>
-      console.log('\n\n\n\n' + err + '\n\n\n')
-    );
-    res.status(200).json({ weatherData, placeName });
+    const weatherData = await WeatherApi.getWeatherDataByLocation(lat, lon);
+    return res.status(200).json({ weatherData, placeName });
   } catch (err) {
-    res.status(400).send('Something went wrong!');
+    return next(createError(err));
   }
 });
 

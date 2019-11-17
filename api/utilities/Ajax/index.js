@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const createError = require('http-errors');
 
 class Ajax {
   static async get(url, headers = '') {
@@ -9,7 +10,7 @@ class Ajax {
       });
       return res.json();
     } catch (err) {
-      throw new Error(err);
+      throw createError(err);
     }
   }
 }

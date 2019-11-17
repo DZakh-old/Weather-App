@@ -1,4 +1,5 @@
 const express = require('express');
+const createError = require('http-errors');
 const { GoogleApi } = require('../../utilities');
 
 const router = express.Router();
@@ -10,14 +11,29 @@ router.get('/:request', async (req, res, next) => {
       input
     )}&types=(cities)&offset=3&session=${session}`;
 
-    // TODO: Maybe back this stuff from the class
-    // TODO: Fix error with fast typing
-    const autocompleteRes = await GoogleApi.processAutocomplete(apiUrl);
-    // if (autocompleteRes entities ?
-    res.status(200).json(autocompleteRes);
-    // res.status(200).json(predictionsList);
+    const predictionListRes = await GoogleApi.processAutocomplete(apiUrl);
+
+    const { status } = predictionListRes;
+    if (status) {
+      switch (status) {
+        case 'OVER_QUERY_LIMIT':
+          // TODO: Fix error with fast typing
+          console.log('Try again');
+          return next(createError(predictionListRes));
+        case 'ZERO_RESULTS':
+          // TODO: Handle it on client side
+          return res.status(204).json({});
+        case 'OK':
+          break;
+        default:
+          return status < 400
+            ? res.status(status).json(predictionListRes)
+            : next(createError(predictionListRes));
+      }
+    }
+    return res.status(200).json(predictionListRes);
   } catch (err) {
-    res.status(400).send('Something went wrong!');
+    return next(createError(err));
   }
 });
 

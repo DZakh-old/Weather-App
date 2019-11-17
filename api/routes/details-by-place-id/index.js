@@ -1,4 +1,5 @@
 const express = require('express');
+const createError = require('http-errors');
 const { GoogleApi, WeatherApi } = require('../../utilities');
 
 const router = express.Router();
@@ -13,9 +14,9 @@ router.get('/:place_id', async (req, res, next) => {
     const { geometry, name: placeName } = placeData.result;
     const { lat, lng: lon } = geometry.location;
     const weatherData = await WeatherApi.getWeatherDataByLocation(lat, lon);
-    res.status(200).json({ weatherData, placeName });
+    return res.status(200).json({ weatherData, placeName });
   } catch (err) {
-    res.status(400).send('Something went wrong!');
+    return next(createError(err));
   }
 });
 
