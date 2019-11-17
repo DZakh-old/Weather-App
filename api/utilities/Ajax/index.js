@@ -10,7 +10,7 @@ class Ajax {
       });
       return res.json();
     } catch (err) {
-      throw createError(err);
+      return createError(err);
     }
   }
 }

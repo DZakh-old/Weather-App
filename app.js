@@ -26,7 +26,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Method', 'GET');
     return res.status(200).json({});
   }
-  next();
+  return next();
 });
 
 app.use('/api/findplacefromtext', findPlaceFromTextRoutes);

@@ -1,5 +1,5 @@
-import { WeatherService } from '..';
-// import WeatherService from '../WeatherService';
+// import { WeatherService } from '..';
+import WeatherService from '../WeatherService';
 import elements from '../../app-elements';
 
 // TODO: Make class for API requests
