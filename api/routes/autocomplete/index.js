@@ -12,24 +12,20 @@ router.get('/:request', async (req, res, next) => {
     )}&types=(cities)&offset=3&session=${session}`;
 
     const predictionRes = await GoogleApi.processAutocomplete(apiUrl);
-
-    const { status, predictionList } = predictionRes;
-    if (status) {
-      switch (status) {
-        case 'OVER_QUERY_LIMIT':
-          // TODO: Fix error with fast typing
-          console.log('Try again');
-          return next(createError(429, status));
-        case 'ZERO_RESULTS':
-          // TODO: Handle it on client side
-          return res.status(204).end();
-        case 'OK':
-          break;
-        default:
-          return status < 400 ? res.status(status).json(predictionList) : next(createError(status));
-      }
+    const { statusCode, predictionList } = predictionRes;
+    switch (statusCode) {
+      case 429:
+        // TODO: Fix error with fast typing
+        console.log('Try again');
+        return next(createError(429, statusCode));
+      case 204:
+        // TODO: Handle it on client side
+        return res.status(204).end();
+      default:
+        return statusCode < 400
+          ? res.status(statusCode).json(predictionList)
+          : next(createError(statusCode));
     }
-    return res.status(200).json(predictionList);
   } catch (err) {
     return next(createError(err));
   }

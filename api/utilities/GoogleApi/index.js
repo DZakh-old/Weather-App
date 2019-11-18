@@ -4,12 +4,32 @@ const WeatherApi = require('../WeatherApi');
 
 const { googleApiKey } = require('../../config');
 
+const getGoogleUrlWithKey = url => {
+  return `${url}&key=${googleApiKey}`;
+};
+const getGoogleStatusCode = ({ status }) => {
+  switch (status) {
+    case 'OK':
+      return 200;
+    case 'ZERO_RESULTS':
+      return 204;
+    case 'OVER_QUERY_LIMIT':
+      return 429;
+    default:
+      return 500;
+  }
+};
+
 class GoogleApi {
-  static get(url) {
+  static async get(url, timesRepeated = 0, delay = 125) {
     try {
-      const apiUrlWithKey = `${url}&key=${googleApiKey}`;
-      const res = Ajax.get(apiUrlWithKey);
-      return res;
+      const urlWithKey = getGoogleUrlWithKey(url);
+      const data = await Ajax.get(urlWithKey);
+      data.statusCode = getGoogleStatusCode(data);
+      if (data.statusCode === 429) {
+        // TODO: Try again;
+      }
+      return data;
     } catch (err) {
       throw createError(err);
     }
@@ -18,8 +38,8 @@ class GoogleApi {
   static async processAutocomplete(url) {
     try {
       const autocompleteRes = await GoogleApi.get(url);
-      const { status } = autocompleteRes;
-      if (status && status !== 'OK' && (!+status || status >= 400)) {
+      const { statusCode } = autocompleteRes;
+      if (statusCode >= 400) {
         return autocompleteRes;
       }
 
@@ -30,7 +50,7 @@ class GoogleApi {
         })
       );
 
-      return { status, predictionList };
+      return { statusCode, predictionList };
     } catch (err) {
       throw createError(err);
     }

@@ -7,7 +7,8 @@ const { port } = require('./api/config');
 const {
   findPlaceFromTextRoutes,
   detailsByPlaceIdRoutes,
-  autocompleteRoutes
+  autocompleteRoutes,
+  testRoutes
 } = require('./api/routes');
 
 const app = express();
@@ -33,13 +34,21 @@ app.use('/api/findplacefromtext', findPlaceFromTextRoutes);
 app.use('/api/detailsbyplaceid', detailsByPlaceIdRoutes);
 app.use('/api/autocomplete', autocompleteRoutes);
 
+app.use('/test', testRoutes, async (err, req, res, next) => {
+  console.log(req);
+  console.log(err);
+  res.status(400).end();
+});
+
 app.use((req, res, next) => {
   next(createError(404, 'Not Found!'));
 });
 
 app.use((error, req, res, next) => {
   const { status } = error;
-  res.status(status).json({ status, error });
+  console.error(error);
+  // TODO: check if UserFacingError
+  res.status(status || 500).json({ error });
 });
 
 app.listen(port || 3000, () => console.log(`listening to http://localhost:${port || 3000}/`));
