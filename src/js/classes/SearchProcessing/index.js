@@ -3,19 +3,13 @@ import Ajax from '../Ajax';
 
 import elements from '../../app-elements';
 
-// TODO: Make class for API requests
-
 const { searchBar } = elements;
 
 export default class SearchProcessing {
   static async submit(prediction, inputData = '') {
     const buildApiRequestUrl = (/* prediction, inputData */) => {
-      let apiType = 'findplacefromtext';
-      let apiRequestData = inputData;
-      if (prediction) {
-        apiType = 'detailsbyplaceid';
-        apiRequestData = prediction.placeId;
-      }
+      const apiType = prediction ? 'detailsbyplaceid' : 'findplacefromtext';
+      const apiRequestData = prediction ? inputData : prediction.placeId;
       const encodedApiRequestData = encodeURIComponent(apiRequestData);
       return `/api/${apiType}/${encodedApiRequestData}`;
     };
@@ -25,13 +19,18 @@ export default class SearchProcessing {
         const apiUrl = buildApiRequestUrl();
         const apiRes = await Ajax.get(apiUrl);
 
-        const { status } = apiRes;
-        if (status > 200) {
+        const { statusCode } = apiRes;
+        if (statusCode > 200) {
           WeatherService.disable();
           searchBar.value = '...';
-          return status < 400
-            ? { weatherData: undefined, placeName: 'Not Found!' }
-            : { weatherData: undefined, placeName: 'Error!' };
+          switch (statusCode < 400) {
+            case 204:
+              return { weatherData: undefined, placeName: 'Not Found!' };
+            case 429:
+              return { weatherData: undefined, placeName: 'Try in a day!' };
+            default:
+              return { weatherData: undefined, placeName: 'Error!' };
+          }
         }
 
         return apiRes;
@@ -51,7 +50,7 @@ export default class SearchProcessing {
     if (searchBar.value === '...') {
       searchBar.value = placeName;
     }
-    console.log(weatherData);
+
     if (weatherData) {
       WeatherService.renderWeather(weatherData);
     }

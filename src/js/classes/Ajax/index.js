@@ -5,9 +5,8 @@ export default class Ajax {
         method: 'GET',
         headers
       });
-      const { status } = res;
-      // TODO: 429
-      if (status === 204) return { status };
+      const { statusCode } = res;
+      if (statusCode === 204 || statusCode === 429) return { statusCode };
       return res.json();
     } catch (err) {
       throw new Error(err);

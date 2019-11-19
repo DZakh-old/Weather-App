@@ -12,7 +12,7 @@ router.get('/:request', async (req, res, next) => {
     )}&types=(cities)&offset=3&session=${session}`;
 
     const predictionRes = await GoogleApi.processAutocomplete(url);
-    const { statusCode, predictionList } = predictionRes;
+    const { statusCode } = predictionRes;
     switch (statusCode) {
       case 200:
         return res.status(200).json(predictionRes);

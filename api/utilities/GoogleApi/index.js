@@ -48,7 +48,7 @@ class GoogleApi {
     try {
       const autocompleteData = await GoogleApi.get(url);
       const { statusCode } = autocompleteData;
-      console.log(autocompleteData);
+
       if (statusCode !== 200) {
         return autocompleteData;
       }
