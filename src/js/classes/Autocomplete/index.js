@@ -32,7 +32,7 @@ export default class Autocomplete {
           `;
         })
         .join(separator);
-      container.innerHTML = predictionsHtml;
+      this.renderAutocomplete(predictionsHtml);
     };
 
     /* ___ Main script ___ */
@@ -51,7 +51,6 @@ export default class Autocomplete {
 
   static clear() {
     this.hide();
-
     while (this.hasPredictions()) {
       container.removeChild(container.firstChild);
     }
@@ -59,5 +58,9 @@ export default class Autocomplete {
 
   static hasPredictions() {
     return !!container.firstChild;
+  }
+
+  static renderAutocomplete(html) {
+    container.innerHTML = html;
   }
 }
