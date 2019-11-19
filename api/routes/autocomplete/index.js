@@ -15,7 +15,7 @@ router.get('/:request', async (req, res, next) => {
     const { statusCode, predictionList } = predictionRes;
     switch (statusCode) {
       case 200:
-        return res.status(200).json(predictionList);
+        return res.status(200).json(predictionRes);
       case 204:
       case 429:
         return res.status(statusCode).end();
