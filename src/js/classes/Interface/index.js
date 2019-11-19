@@ -13,12 +13,11 @@ export default class Interface {
         const encodedInputData = encodeURIComponent(inputData);
         const apiUrl = `/api/autocomplete/${encodedInputData}&${session}`;
         const apiRes = await Ajax.get(apiUrl);
-        const { status } = apiRes;
-        console.log(apiRes);
-        if (status !== 200) {
+        const { statusCode } = apiRes;
+        if (statusCode !== 200) {
           return undefined;
         }
-        return apiRes;
+        return apiRes.predictionList;
       } catch (err) {
         throw new Error(err);
       }

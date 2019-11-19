@@ -3,13 +3,14 @@ import Ajax from '../Ajax';
 
 import elements from '../../app-elements';
 
+// TODO: Replace with class with methods: replace value and get value
 const { searchBar } = elements;
 
 export default class SearchProcessing {
   static async submit(prediction, inputData = '') {
     const buildApiRequestUrl = (/* prediction, inputData */) => {
       const apiType = prediction ? 'detailsbyplaceid' : 'findplacefromtext';
-      const apiRequestData = prediction ? inputData : prediction.placeId;
+      const apiRequestData = prediction ? prediction.placeId : inputData;
       const encodedApiRequestData = encodeURIComponent(apiRequestData);
       return `/api/${apiType}/${encodedApiRequestData}`;
     };
