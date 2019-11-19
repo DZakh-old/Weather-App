@@ -6,6 +6,7 @@ export default class Ajax {
         headers
       });
       const { status } = res;
+      // TODO: 429
       if (status === 204) return { status };
       return res.json();
     } catch (err) {

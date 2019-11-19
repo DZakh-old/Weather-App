@@ -11,6 +11,7 @@ router.get('/:place_id', async (req, res, next) => {
     )}&fields=geometry,name`;
 
     const weather = await GoogleApi.getProcessedWeather(url);
+    console.log(weather);
     const { status } = weather;
     console.log(status);
     if (status === 'OVER_QUERY_LIMIT') {

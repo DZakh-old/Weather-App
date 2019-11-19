@@ -34,12 +34,6 @@ app.use('/api/findplacefromtext', findPlaceFromTextRoutes);
 app.use('/api/detailsbyplaceid', detailsByPlaceIdRoutes);
 app.use('/api/autocomplete', autocompleteRoutes);
 
-app.use('/test', testRoutes, async (err, req, res, next) => {
-  console.log(req);
-  console.log(err);
-  res.status(400).end();
-});
-
 app.use((req, res, next) => {
   next(createError(404, 'Not Found!'));
 });

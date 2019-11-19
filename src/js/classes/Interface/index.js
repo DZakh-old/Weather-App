@@ -1,8 +1,8 @@
 import elements from '../../app-elements';
-// import { WeatherService, SearchProcessing, Autocomplete } from '..';
 import WeatherService from '../WeatherService';
 import SearchProcessing from '../SearchProcessing';
 import Autocomplete from '../Autocomplete';
+import Ajax from '../Ajax';
 
 const { searchBar } = elements;
 
@@ -11,8 +11,14 @@ export default class Interface {
     const getPredictions = async (inputData, session) => {
       try {
         const encodedInputData = encodeURIComponent(inputData);
-        const apiRes = await fetch(`/api/autocomplete/${encodedInputData}&${session}`);
-        return apiRes.json();
+        const apiUrl = `/api/autocomplete/${encodedInputData}&${session}`;
+        const apiRes = await Ajax.get(apiUrl);
+        const { status } = apiRes;
+        console.log(apiRes);
+        if (status !== 200) {
+          return undefined;
+        }
+        return apiRes;
       } catch (err) {
         throw new Error(err);
       }

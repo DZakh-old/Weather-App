@@ -1,12 +1,15 @@
 const createError = require('http-errors');
 const Ajax = require('../Ajax');
 const WeatherApi = require('../WeatherApi');
+const { sleep } = require('../../helpers');
 
 const { googleApiKey } = require('../../config');
 
+/* --- Functions --- */
 const getGoogleUrlWithKey = url => {
   return `${url}&key=${googleApiKey}`;
 };
+
 const getGoogleStatusCode = ({ status }) => {
   switch (status) {
     case 'OK':
@@ -20,15 +23,22 @@ const getGoogleStatusCode = ({ status }) => {
   }
 };
 
+const unifyDifferentApiPlaceData = place => {
+  return place.candidates ? place.candidates[0] : place.result;
+};
+
+/* --- Main --- */
 class GoogleApi {
-  static async get(url, timesRepeated = 0, delay = 125) {
+  static async get(url, timesRepeated = 0, delay = 200) {
     try {
       const urlWithKey = getGoogleUrlWithKey(url);
       const data = await Ajax.get(urlWithKey);
       data.statusCode = getGoogleStatusCode(data);
-      if (data.statusCode === 429) {
-        // TODO: Try again;
+      if (data.statusCode >= 400 && timesRepeated < 3) {
+        await sleep(delay);
+        return GoogleApi.get(url, timesRepeated + 1, delay * 2);
       }
+      console.log(data);
       return data;
     } catch (err) {
       throw createError(err);
@@ -58,27 +68,21 @@ class GoogleApi {
 
   static async getProcessedWeather(url) {
     try {
-      const placeDataRes = await GoogleApi.get(url);
-      const { status } = placeDataRes;
+      const placeData = await GoogleApi.get(url);
+      const { statusCode } = placeData;
 
-      if (status && status !== 'OK' && (!+status || status >= 400)) {
-        return placeDataRes;
+      if (statusCode !== 200) {
+        return placeData;
       }
 
-      const placeFromText = placeDataRes.candidates;
-      if (placeFromText) {
-        [placeDataRes.result] = placeFromText;
-      } else if (placeFromText !== undefined) {
-        placeDataRes.status = 204;
-        return placeDataRes;
-      }
+      const curPlaceData = unifyDifferentApiPlaceData(placeData);
 
-      const { geometry, name: placeName } = placeDataRes.result;
+      const { geometry, name } = curPlaceData;
       const { lat, lng: lon } = geometry.location;
 
       const { cod, list } = await WeatherApi.get(lat, lon);
       // TODO: Error 406 - Weather api limit
-      return { status: +cod || cod || 406, weatherData: list, placeName };
+      return { statusCode: +cod || cod || 406, weatherData: list, placeName: name };
     } catch (err) {
       throw createError(err);
     }
