@@ -7,24 +7,20 @@ const router = express.Router();
 router.get('/:request', async (req, res, next) => {
   try {
     const [input, session] = req.params.request.split('&');
-    const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
+    const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
       input
     )}&types=(cities)&offset=3&session=${session}`;
 
-    const predictionRes = await GoogleApi.processAutocomplete(apiUrl);
+    const predictionRes = await GoogleApi.processAutocomplete(url);
     const { statusCode, predictionList } = predictionRes;
     switch (statusCode) {
-      case 429:
-        // TODO: Fix error with fast typing
-        console.log('Try again');
-        return next(createError(429, statusCode));
+      case 200:
+        return res.status(200).json(predictionList);
       case 204:
-        // TODO: Handle it on client side
-        return res.status(204).end();
+      case 429:
+        return res.status(statusCode).end();
       default:
-        return statusCode < 400
-          ? res.status(statusCode).json(predictionList)
-          : next(createError(statusCode));
+        return next(createError(predictionRes));
     }
   } catch (err) {
     return next(createError(err));

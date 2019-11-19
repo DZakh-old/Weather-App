@@ -38,7 +38,6 @@ class GoogleApi {
         await sleep(delay);
         return GoogleApi.get(url, timesRepeated + 1, delay * 2);
       }
-      console.log(data);
       return data;
     } catch (err) {
       throw createError(err);
@@ -47,13 +46,14 @@ class GoogleApi {
 
   static async processAutocomplete(url) {
     try {
-      const autocompleteRes = await GoogleApi.get(url);
-      const { statusCode } = autocompleteRes;
-      if (statusCode >= 400) {
-        return autocompleteRes;
+      const autocompleteData = await GoogleApi.get(url);
+      const { statusCode } = autocompleteData;
+      console.log(autocompleteData);
+      if (statusCode !== 200) {
+        return autocompleteData;
       }
 
-      const predictionList = await autocompleteRes.predictions.map(
+      const predictionList = autocompleteData.predictions.map(
         ({ description, place_id: placeId }) => ({
           description,
           placeId

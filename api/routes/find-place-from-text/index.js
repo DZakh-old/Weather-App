@@ -10,21 +10,19 @@ router.get('/:input', async (req, res, next) => {
       req.params.input
     )}&inputtype=textquery&fields=geometry,name`;
 
-    const weather = await GoogleApi.getProcessedWeather(url);
-    const { status } = weather;
-    if (status === 'ZERO_RESULTS') {
-      return res.status(204).end();
+    // TODO: DRY!
+    const weatherRes = await GoogleApi.getProcessedWeather(url);
+    const { statusCode } = weatherRes;
+    switch (statusCode) {
+      case 200:
+        return res.status(200).json(weatherRes);
+      case 204:
+        return res.status(204).end();
+      case 429:
+        return next(createError(429, 'Over quota limit! Try again in a day...'));
+      default:
+        return next(createError(weatherRes));
     }
-    if (status === 'OVER_QUERY_LIMIT') {
-      // TODO: Fix error with fast typing
-      return next(createError(429, status));
-    }
-    // TODO: Make a function for this \|/
-    if (status && status !== 'OK' && (!+status || status >= 400)) {
-      return next(createError(weather));
-    }
-
-    return res.status(status || 200).json(weather);
   } catch (err) {
     return next(createError(err));
   }
