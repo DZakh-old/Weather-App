@@ -19,12 +19,11 @@ export default class SearchProcessing {
       try {
         const apiUrl = buildApiRequestUrl();
         const apiRes = await Ajax.get(apiUrl);
-
-        const { statusCode } = apiRes;
-        if (statusCode > 200) {
+        const { status } = apiRes;
+        if (status !== 200) {
           WeatherService.disable();
           searchBar.value = '...';
-          switch (statusCode < 400) {
+          switch (status) {
             case 204:
               return { weatherData: undefined, placeName: 'Not Found!' };
             case 429:

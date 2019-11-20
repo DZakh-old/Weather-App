@@ -7,8 +7,7 @@ const { port } = require('./api/config');
 const {
   findPlaceFromTextRoutes,
   detailsByPlaceIdRoutes,
-  autocompleteRoutes,
-  testRoutes
+  autocompleteRoutes
 } = require('./api/routes');
 
 const app = express();
