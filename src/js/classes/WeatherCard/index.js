@@ -1,22 +1,76 @@
+const parseProp = (objList, prop) => objList.map(obj => obj[prop]);
+
+const getCur = cardData => cardData[0];
+
+const isFirstCard = cardData => getCur(cardData).id === 0;
+
+const areFirstTwoCards = cardData => getCur(cardData).id <= 8;
+
+const getArrSum = arr => arr.reduce((acc, cur) => acc + cur, 0);
+
+const getArrAverage = arr => getArrSum(arr) / arr.length;
+
+const getCardDataAverage = (cardData, prop) => {
+  const propList = parseProp(cardData, prop);
+  if (isFirstCard(cardData)) {
+    return getCur(propList);
+  }
+  const cardAverage = getArrAverage(propList);
+  return cardAverage;
+};
+
+const getRoundedCardAverage = (cardData, prop) => Math.round(getCardDataAverage(cardData, prop));
+
+const getWindDirectionById = id => {
+  switch (id) {
+    case 1:
+      return 'North';
+    case 2:
+      return 'North-east';
+    case 3:
+      return 'East';
+    case 4:
+      return 'South-east';
+    case 5:
+      return 'South';
+    case 6:
+      return 'South-west';
+    case 7:
+      return 'West';
+    case 0:
+      return 'North-west';
+    default:
+      throw new Error("Can't find wind directoin");
+  }
+};
+
+const getDay = cardData => {
+  if (isFirstCard(cardData)) {
+    return 'Today';
+  }
+  if (areFirstTwoCards(cardData)) {
+    return 'Tomorrow';
+  }
+  const { weekday, day, month } = getCur(cardData).date;
+  return `${weekday}, ${day} ${month}`;
+};
+
 export default class WeatherCard {
-  constructor(arr) {
-    this._tempData = arr;
-    this.tempId = arr[0].id;
-  }
+  constructor(cardData) {
+    this.temp = getRoundedCardAverage(cardData, 'temp');
+    this.humidity = getRoundedCardAverage(cardData, 'humidity');
+    this.pressure = getRoundedCardAverage(cardData, 'pressure');
+    this.clouds = getRoundedCardAverage(cardData, 'clouds');
+    const windDirectionId = getRoundedCardAverage(cardData, 'windDirection');
+    this.wind = {
+      speed: getRoundedCardAverage(cardData, 'windSpeed'),
+      direction: getWindDirectionById(windDirectionId)
+    };
+    this.day = getDay(cardData);
 
-  _getSum(prop) {
-    return this._tempData.reduce((acc, cur) => acc + cur[prop], 0);
-  }
-
-  _getAverage(prop) {
-    return this._getSum(prop) / this._tempData.length;
-  }
-
-  _getCardAverage(prop) {
-    if (this.tempId === 0) {
-      return this._tempData[0][prop];
-    }
-    return Math.round(this._getAverage(prop));
+    // Legacy
+    this._tempData = cardData;
+    this.tempId = cardData[0].id;
   }
 
   _getMostFrequent(arr) {
@@ -38,23 +92,6 @@ export default class WeatherCard {
     });
 
     return mostFrequent;
-  }
-
-  get temp() {
-    return this._getCardAverage('temp');
-  }
-
-  get day() {
-    if (this.tempId === 0) {
-      return 'Today';
-    }
-    if (this.tempId <= 8) {
-      return 'Tomorrow';
-    }
-
-    const { weekday, day, month } = this._tempData[0].date;
-
-    return `${weekday}, ${day} ${month}`;
   }
 
   get weather() {
@@ -92,48 +129,6 @@ export default class WeatherCard {
       code,
       status,
       iconId
-    };
-  }
-
-  get humidity() {
-    return this._getCardAverage('humidity');
-  }
-
-  get pressure() {
-    return this._getCardAverage('pressure');
-  }
-
-  get clouds() {
-    return this._getCardAverage('clouds');
-  }
-
-  get wind() {
-    const getWindDirectionById = id => {
-      switch (id) {
-        case 1:
-          return 'North';
-        case 2:
-          return 'North-east';
-        case 3:
-          return 'East';
-        case 4:
-          return 'South-east';
-        case 5:
-          return 'South';
-        case 6:
-          return 'South-west';
-        case 7:
-          return 'West';
-        case 0:
-          return 'North-west';
-        default:
-          throw new Error('Cannot count wind directoin');
-      }
-    };
-
-    return {
-      speed: this._getCardAverage('windSpeed'),
-      direction: getWindDirectionById(this._getCardAverage('windDirection'))
     };
   }
 
