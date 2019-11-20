@@ -1,4 +1,4 @@
-const parseProp = (objList, prop) => objList.map(obj => obj[prop]);
+const parseProp = (parsedObj, prop) => parsedObj.map(obj => obj[prop]);
 
 const getCur = cardData => cardData[0];
 
@@ -114,6 +114,20 @@ const getWeather = cardData => {
   };
 };
 
+const getPackedSnatchesData = cardData => {
+  return cardData.map(({ date, weather, temp }) => {
+    return {
+      date,
+      weather,
+      temp
+    };
+  });
+};
+
+const minusCompensator = str => {
+  return str[0] === '-' ? `${str}&nbsp;` : str;
+};
+
 export default class WeatherCard {
   constructor(cardData) {
     this.temp = getRoundedCardAverage(cardData, 'temp');
@@ -127,92 +141,26 @@ export default class WeatherCard {
     };
     this.day = getDay(cardData);
     this.weather = getWeather(cardData);
-    this.cardId = getCur(cardData).id;
-    // Legacy
-    this._tempData = cardData;
-    this.tempId = cardData[0].id;
-  }
-
-  // get weather() {
-  //   if (this.tempId === 0) {
-  //     const { code, status, iconId } = this._tempData[0].weather;
-  //     return {
-  //       code,
-  //       status,
-  //       iconId
-  //     };
-  //   }
-
-  //   const getMostFrequentCode = codesList => {
-  //     let mostFrequentCode = '';
-  //     const getFollowingNumbers = i => {
-  //       return codesList
-  //         .filter(code => (i ? code[i - 1] === mostFrequentCode.slice(i - 1) : true))
-  //         .map(code => code[i]);
-  //     };
-
-  //     for (let i = 0; i < 3; i++) {
-  //       mostFrequentCode += this._getMostFrequent(getFollowingNumbers(i));
-  //     }
-
-  //     return +mostFrequentCode;
-  //   };
-
-  //   const codes = this._tempData.map(tempData => {
-  //     console.log(tempData.weather.code);
-  //     return tempData.weather.code.toString().match(/\d/g);
-  //   });
-
-  //   const cardWeatherCode = getMostFrequentCode(codes);
-  //   const cardWeather = this._tempData.find(tempData => tempData.weather.code === cardWeatherCode);
-
-  //   const { code, status, iconId } = cardWeather.weather;
-  //   return {
-  //     code,
-  //     status,
-  //     iconId
-  //   };
-  // }
-
-  _getMostFrequent(arr) {
-    const counterObj = {};
-    arr.forEach(number => {
-      if (number in counterObj) {
-        counterObj[number] += 1;
-      } else {
-        counterObj[number] = 1;
-      }
-    });
-
-    let mostFrequent;
-
-    Object.keys(counterObj).forEach(key => {
-      if (counterObj[key] > (counterObj[mostFrequent] || 0)) {
-        mostFrequent = key;
-      }
-    });
-
-    return mostFrequent;
-  }
-
-  minusCompensator(str) {
-    return str.slice(0, 1) === '-' ? `${str}&nbsp;` : str;
+    this.dataIds = parseProp(cardData, 'id');
+    this.snatchesData = getPackedSnatchesData(cardData);
+    this.isFirstCard = () => {
+      return isFirstCard(cardData);
+    };
   }
 
   buildSnatches() {
-    return this._tempData
-      .map(({ id, date, weather, temp }) => {
-        const time = id === 0 ? 'Now' : date.time;
+    return this.snatchesData
+      .map(({ date, weather, temp }) => {
         return `
           <li class="snatches__item">
             <p class="snatches__time">
-              ${time}
+              ${this.isFirstCard() ? 'Now' : date.time}
             </p>
             <span class="snatches__icon icon-weather-${weather.iconId}" aria-label="${
           weather.status
         }"></span>
             <div class="snatches__temp">
-              ${this.minusCompensator(`${temp}&deg;`)}
+              ${minusCompensator(`${temp}&deg;`)}
             </div>
           </li>              
         `;
@@ -281,7 +229,7 @@ export default class WeatherCard {
 
   build() {
     return `
-      <section class="card${this.tempId === 0 ? '' : ' side'}">
+      <section class="card${this.isFirstCard() ? '' : ' side'}">
       <header class="card__head">
           <span class="card__weather-icon icon-weather-${this.weather.iconId}" aria-label="${
       this.weather.status
@@ -290,7 +238,7 @@ export default class WeatherCard {
             ${this.day}
           </h2>
           <div class="card__temp">
-            ${this.minusCompensator(`${this.temp}&deg;`)}
+            ${minusCompensator(`${this.temp}&deg;`)}
           </div>
           <p class="card__weather-status">
             ${this.weather.status}
