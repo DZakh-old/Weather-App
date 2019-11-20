@@ -1,4 +1,3 @@
-// import { WeatherCard, Weather } from '..';
 import WeatherCard from '../WeatherCard';
 import Weather from '../Weather';
 import elements from '../../app-elements';
@@ -10,20 +9,30 @@ export default class WeatherService {
     app.classList.toggle('active');
   }
 
+  static disable() {
+    WeatherService.toggleAppState();
+    this.renderHtml('');
+  }
+
   static weatherIsShown() {
     return !!app.classList.contains('active');
   }
 
+  static renderHtml(html) {
+    container.innerHTML = html;
+  }
+
   static renderLoader() {
-    container.innerHTML = `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`;
+    this.renderHtml(`<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`);
   }
 
   static renderWeather(weatherData) {
     const getParsedWeatherList = weatherDataArr => {
-      return weatherDataArr.map((temp, i) => new Weather(temp, i));
+      return weatherDataArr.map((tempData, i) => new Weather(tempData, i));
     };
 
     const createWeatherCards = dataList => {
+      // TODO: Think about recursion or add a function
       const curHour = dataList[0].date.hour;
       let factor = Math.ceil((24 - curHour) / 3) || 8;
       const cards = [];
@@ -41,14 +50,15 @@ export default class WeatherService {
       const separator = `
         <div class="weather__separator" aria-disabled="true"></div>
       `;
-      container.innerHTML = cards.map(card => card.render()).join(separator);
+      const weatherHtml = cards.map(card => card.build()).join(separator);
+      this.renderHtml(weatherHtml);
     };
 
-    const addCardsSwitchListener = () => {
+    const addCardsSwitchListener = (className = 'card') => {
       const disableCards = cards => cards.forEach(card => card.classList.add('side'));
       const activateCard = card => card.classList.remove('side');
 
-      const cards = [...document.querySelectorAll('.card')];
+      const cards = [...document.querySelectorAll(`.${className}`)];
 
       cards.forEach(card => {
         card.addEventListener('mouseenter', () => {
@@ -64,10 +74,5 @@ export default class WeatherService {
 
     renderWeatherCards(cards);
     addCardsSwitchListener();
-  }
-
-  static disable() {
-    WeatherService.toggleAppState();
-    container.innerHTML = '';
   }
 }

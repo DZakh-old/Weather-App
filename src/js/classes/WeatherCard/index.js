@@ -141,7 +141,7 @@ export default class WeatherCard {
     return str.slice(0, 1) === '-' ? `${str}&nbsp;` : str;
   }
 
-  renderSnatches() {
+  buildSnatches() {
     return this._tempData
       .map(({ id, date, weather, temp }) => {
         const time = id === 0 ? 'Now' : date.time;
@@ -162,7 +162,7 @@ export default class WeatherCard {
       .join('');
   }
 
-  renderHumidity() {
+  buildHumidity() {
     return `
       <div class="humidity__value">
         ${this.humidity}%
@@ -178,7 +178,7 @@ export default class WeatherCard {
     `;
   }
 
-  renderWind() {
+  buildWind() {
     return `
       <div class="wind__speed">
         ${this.wind.speed}
@@ -197,7 +197,7 @@ export default class WeatherCard {
     `;
   }
 
-  renderPressure() {
+  buildPressure() {
     return `
       <div class="pressure__icon">
         <svg class="bg-icon pressure__icon-svg" viewBox="0 0 50 50" enable-background="new 0 0 50 50">
@@ -213,7 +213,7 @@ export default class WeatherCard {
     `;
   }
 
-  renderClouds() {
+  buildClouds() {
     return `
       <div class="clouds__value">
         ${this.clouds}
@@ -221,7 +221,7 @@ export default class WeatherCard {
     `;
   }
 
-  render() {
+  build() {
     return `
       <section class="card${this.tempId === 0 ? '' : ' side'}">
       <header class="card__head">
@@ -241,7 +241,7 @@ export default class WeatherCard {
         <main class="card__info">
           <div class="card__snatches snatches">
             <ul class="snatches__bar">
-              ${this.renderSnatches()}
+              ${this.buildSnatches()}
             </ul>
           </div>
           <ul class="card__details details">
@@ -250,7 +250,7 @@ export default class WeatherCard {
                 Humidity
               </h3>
               <div class="details__content humidity">
-                ${this.renderHumidity()}
+                ${this.buildHumidity()}
               </div>
             </li>
             <li class="details__block">
@@ -258,7 +258,7 @@ export default class WeatherCard {
                 Wind
               </h3>
               <div class="details__content wind">
-                ${this.renderWind()}
+                ${this.buildWind()}
               </div>
             </li>
             <li class="details__block">
@@ -266,7 +266,7 @@ export default class WeatherCard {
                 Pressure
               </h3>
               <div class="details__content pressure">
-                ${this.renderPressure()}
+                ${this.buildPressure()}
               </div>
             </li>
             <li class="details__block">
@@ -274,7 +274,7 @@ export default class WeatherCard {
                 Clouds
               </h3>
               <div class="details__content clouds">
-                ${this.renderClouds()}
+                ${this.buildClouds()}
               </div>
             </li>
           </ul>
