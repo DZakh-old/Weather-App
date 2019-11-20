@@ -55,6 +55,65 @@ const getDay = cardData => {
   return `${weekday}, ${day} ${month}`;
 };
 
+const getCardCodes = cardData => cardData.map(data => data.weather.code);
+
+const countDigits = digits => {
+  return digits.reduce((acc, cur) => {
+    acc[cur] = cur in acc ? acc[cur] + 1 : 1;
+    return acc;
+  }, {});
+};
+
+const getKeyWithMaxValue = obj => {
+  return Object.keys(obj).reduce((a, b) => (obj[a] > obj[b] ? a : b));
+};
+
+const getModeDigit = digits => {
+  const countedDigits = countDigits(digits);
+  const modeDigit = getKeyWithMaxValue(countedDigits);
+  return modeDigit;
+};
+
+const filterCodesWithoutModeDigit = (codes, curDigit, modeDigit) => {
+  return codes.filter(code => (code[curDigit] === modeDigit ? 1 : 0));
+};
+
+const getMoreLikelyModeWeatherCode = (codes, curDigit = 0) => {
+  while (codes[0].length < curDigit - 1) {
+    const checkingDigits = codes.map(code => code[curDigit]);
+    const modeCheckingDigit = getModeDigit(checkingDigits);
+    const currentlyModeCodes = filterCodesWithoutModeDigit(codes, curDigit, modeCheckingDigit);
+    return getMoreLikelyModeWeatherCode(currentlyModeCodes, curDigit + 1);
+  }
+  return codes[0];
+};
+
+const findCardWeatherByCode = (cardData, cardCode) => {
+  return cardData.find(data => data.weather.code === cardCode);
+};
+
+const getWeather = cardData => {
+  if (isFirstCard(cardData)) {
+    const { code, status, iconId } = getCur(cardData).weather;
+    return {
+      code,
+      status,
+      iconId
+    };
+  }
+
+  const codes = getCardCodes(cardData);
+  const cardWeatherCode = getMoreLikelyModeWeatherCode(codes);
+  const cardWeather = findCardWeatherByCode(cardData, cardWeatherCode);
+
+  const { code, status, iconId } = cardWeather.weather;
+  return {
+    code,
+    status,
+    iconId
+  };
+};
+
 export default class WeatherCard {
   constructor(cardData) {
     this.temp = getRoundedCardAverage(cardData, 'temp');
@@ -67,11 +126,53 @@ export default class WeatherCard {
       direction: getWindDirectionById(windDirectionId)
     };
     this.day = getDay(cardData);
-
+    this.weather = getWeather(cardData);
+    this.cardId = getCur(cardData).id;
     // Legacy
     this._tempData = cardData;
     this.tempId = cardData[0].id;
   }
+
+  // get weather() {
+  //   if (this.tempId === 0) {
+  //     const { code, status, iconId } = this._tempData[0].weather;
+  //     return {
+  //       code,
+  //       status,
+  //       iconId
+  //     };
+  //   }
+
+  //   const getMostFrequentCode = codesList => {
+  //     let mostFrequentCode = '';
+  //     const getFollowingNumbers = i => {
+  //       return codesList
+  //         .filter(code => (i ? code[i - 1] === mostFrequentCode.slice(i - 1) : true))
+  //         .map(code => code[i]);
+  //     };
+
+  //     for (let i = 0; i < 3; i++) {
+  //       mostFrequentCode += this._getMostFrequent(getFollowingNumbers(i));
+  //     }
+
+  //     return +mostFrequentCode;
+  //   };
+
+  //   const codes = this._tempData.map(tempData => {
+  //     console.log(tempData.weather.code);
+  //     return tempData.weather.code.toString().match(/\d/g);
+  //   });
+
+  //   const cardWeatherCode = getMostFrequentCode(codes);
+  //   const cardWeather = this._tempData.find(tempData => tempData.weather.code === cardWeatherCode);
+
+  //   const { code, status, iconId } = cardWeather.weather;
+  //   return {
+  //     code,
+  //     status,
+  //     iconId
+  //   };
+  // }
 
   _getMostFrequent(arr) {
     const counterObj = {};
@@ -92,44 +193,6 @@ export default class WeatherCard {
     });
 
     return mostFrequent;
-  }
-
-  get weather() {
-    if (this.tempId === 0) {
-      const { code, status, iconId } = this._tempData[0].weather;
-      return {
-        code,
-        status,
-        iconId
-      };
-    }
-
-    const codes = this._tempData.map(tempData => tempData.weather.code.toString().match(/\d/g));
-
-    const getMostFrequentCode = codesList => {
-      let mostFrequentCode = '';
-      const getFollowingNumbers = i => {
-        return codesList
-          .filter(code => (i ? code[i - 1] === mostFrequentCode.slice(i - 1) : true))
-          .map(code => code[i]);
-      };
-
-      for (let i = 0; i < 3; i++) {
-        mostFrequentCode += this._getMostFrequent(getFollowingNumbers(i));
-      }
-
-      return +mostFrequentCode;
-    };
-
-    const cardWeatherCode = getMostFrequentCode(codes);
-    const cardWeather = this._tempData.find(tempData => tempData.weather.code === cardWeatherCode);
-
-    const { code, status, iconId } = cardWeather.weather;
-    return {
-      code,
-      status,
-      iconId
-    };
   }
 
   minusCompensator(str) {
