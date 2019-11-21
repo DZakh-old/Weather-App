@@ -3,6 +3,19 @@ import SearchProcessing from '../SearchProcessing';
 
 const { autocomplete: container } = elements;
 
+const buildAutocomplete = predictions => {
+  const separator = `
+    <div class="search__autocomplete-separator" aria-disabled="true"></div>
+  `;
+  return predictions
+    .map(({ description }) => {
+      return `
+        <button class="search__autocomplete-prediction">${description}</button>
+      `;
+    })
+    .join(separator);
+};
+
 export default class Autocomplete {
   static renderPredictions(predictions) {
     const activatePredictionsEventListeners = () => {
@@ -21,23 +34,10 @@ export default class Autocomplete {
       });
     };
 
-    const renderPredictionsHtml = (/* predictions */) => {
-      const separator = `
-        <div class="search__autocomplete-separator" aria-disabled="true"></div>
-      `;
-      const predictionsHtml = predictions
-        .map(({ description }) => {
-          return `
-            <button class="search__autocomplete-prediction">${description}</button>
-          `;
-        })
-        .join(separator);
-      this.renderAutocomplete(predictionsHtml);
-    };
-
     /* ___ Main script ___ */
     this.show();
-    renderPredictionsHtml(container, predictions);
+    const autocompleteHtml = buildAutocomplete(predictions);
+    this.renderAutocomplete(autocompleteHtml);
     activatePredictionsEventListeners();
   }
 
