@@ -1,22 +1,27 @@
 const getDate = tempData => {
   const formatDate = (date, options, lang) => new Intl.DateTimeFormat(lang, options).format(date);
 
-  const getFormattedDate = options => {
+  const getFormattedDate = (date, options) => {
     const lang = 'en-US';
-    const date = new Date(tempData.dt_txt);
     return formatDate(date, options, lang);
   };
 
+  const isCurTime = date => date <= new Date();
+
+  const date = new Date(tempData.dt_txt);
+
   return {
-    month: getFormattedDate({ month: 'short' }),
-    weekday: getFormattedDate({ weekday: 'short' }),
-    day: getFormattedDate({ day: 'numeric' }),
-    time: getFormattedDate({
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    }),
-    hour: getFormattedDate({
+    month: getFormattedDate(date, { month: 'short' }),
+    weekday: getFormattedDate(date, { weekday: 'short' }),
+    day: getFormattedDate(date, { day: 'numeric' }),
+    time: isCurTime(date)
+      ? 'now'
+      : getFormattedDate(date, {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false
+        }),
+    hour: getFormattedDate(date, {
       hour: 'numeric',
       hour12: false
     })

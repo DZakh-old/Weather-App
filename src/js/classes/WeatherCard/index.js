@@ -154,7 +154,7 @@ export default class WeatherCard {
         return `
           <li class="snatches__item">
             <p class="snatches__time">
-              ${this.isFirstCard() ? 'Now' : date.time}
+              ${date.time}
             </p>
             <span class="snatches__icon icon-weather-${weather.iconId}" aria-label="${
           weather.status
