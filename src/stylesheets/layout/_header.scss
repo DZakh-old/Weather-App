@@ -10,12 +10,12 @@
     font-size: 20rem;
     letter-spacing: 1.8em;    
     margin-left: 1em;
-    transform: translateY(calc(20vh - 90rem));
+    transform: translateY(calc(var(--vh, 1vh) * 22.5 - var(--header-pt) - var(--control-h) / 2));
     transition: all 0.6s v(my-ease);
   }
 
   &__control {
-    transform: translateY(calc(45vh - 75rem));
+    transform: translateY(calc(var(--vh, 1vh) * 50 - var(--header-pt) - var(--control-h) / 2));
     transition: transform 0.5s v(my-ease);
   }
 
@@ -30,16 +30,6 @@
 @media (max-height: 700px) {
   :root {
     --header-pt: 35rem;
-  }
-
-  .header {
-    &__title {    
-      transform: translateY(calc(20vh - 50rem));
-    }
-
-    &__control {
-      transform: translateY(calc(45vh - 35rem));
-    }
   }
 }
 
