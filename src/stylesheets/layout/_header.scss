@@ -1,5 +1,6 @@
 .header {
   @include center;
+  z-index: 2;
   padding-top: v(header-pt);
   grid-area: header;
   position: relative;
@@ -18,25 +19,26 @@
     transition: transform 0.5s v(my-ease);
   }
 
-  @media (max-height: 700px) {
-    :root {
-      --header-pt: 35rem;
+  @include respond-above(sm) {
+    &__title {
+      font-size: 24rem;
+      padding-right: 140rem;
     }
-    padding-top: v(header-pt);
+  }
+}
 
+@media (max-height: 700px) {
+  :root {
+    --header-pt: 35rem;
+  }
+
+  .header {
     &__title {    
       transform: translateY(calc(20vh - 50rem));
     }
 
     &__control {
       transform: translateY(calc(45vh - 35rem));
-    }
-  }
-
-  @include respond-above(sm) {
-    &__title {
-      font-size: 24rem;
-      padding-right: 140rem;
     }
   }
 }

@@ -1,5 +1,10 @@
 .weather {
 
+  @media (max-width: 530px) {
+    position: absolute;
+    right: -180rem;
+    z-index: 0;
+  }
   @include center;
   align-items: stretch;
   width: 488rem;
@@ -17,7 +22,6 @@
     border-radius: 50%;
     background: v(brand-clr);
   }
-
 }
 
 .active {

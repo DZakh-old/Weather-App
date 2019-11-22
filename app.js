@@ -1,5 +1,4 @@
 const express = require('express');
-const createError = require('http-errors');
 const morgan = require('morgan');
 
 const { port } = require('./api/config');

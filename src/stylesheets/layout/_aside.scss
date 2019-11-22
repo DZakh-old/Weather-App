@@ -1,13 +1,13 @@
 .aside {
   display: none;
-  
+
   @include respond-above(sm) {
     grid-area: aside;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background: v(bg-clr);
-    padding: 90rem 10rem 40rem;
+    padding: calc(var(--header-pt) + var(--control-h) / 2 - 0.5em) 10rem 40rem;
     transition: box-shadow 1s;
 
     &__title {

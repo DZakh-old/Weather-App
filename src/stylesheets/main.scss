@@ -22,7 +22,6 @@
 
 // 4. Layout-related sections
 @import
-  'layout/app',
   'layout/content',
   'layout/header',
   'layout/main',
@@ -48,7 +47,7 @@
 
 // 6. Page-specific styles
 @import
-  'pages/page';
+  'pages/app';
 
 // 7. Themes
 @import

@@ -10,37 +10,34 @@
   <link rel="icon" href="./images/favicon.ico">
   <link href="//fonts.googleapis.com/css?family=Liu+Jian+Mao+Cao|Roboto:300,400&display=swap&subset=cyrillic" rel="stylesheet">
 </head>
-<body class="page">
-
-  <div id="app" class="app">
-    <div class="content">
-      <header class="header">
-        <h1 class="header__title title">
+<body id="app" class="app">
+  <div class="content">
+    <header class="header">
+      <h1 class="header__title title">
+        Weather
+      </h1>
+      <div class="header__control control">
+        <div class="control__search search">
+          <span class="search__icon icon-search"></span>
+          <input type="text" id="search-bar" autocomplete="off" aria-label="In your city" placeholder="In your city" class="search__input">
+          <ul class="search__autocomplete" id="autocomplete"></ul>
+        </div>
+        <button aria-label="Swithc dark mode" id="dark-mode" class="control__dark-mode">
+          <span class="control__dark-mode-icon icon-weather-01"></span>
+        </button>
+      </div>
+    </header>
+    <aside class="aside">
+        <h2 class="aside__title title" aria-disabled="true">
           Weather
-        </h1>
-        <div class="header__control control">
-          <div class="control__search search">
-            <span class="search__icon icon-search"></span>
-            <input type="text" id="search-bar" autocomplete="off" aria-label="In your city" placeholder="In your city" class="search__input">
-            <ul class="search__autocomplete" id="autocomplete"></ul>
-          </div>
-          <button aria-label="Swithc dark mode" id="dark-mode" class="control__dark-mode">
-            <span class="control__dark-mode-icon icon-weather-01"></span>
-          </button>
-        </div>
-      </header>
-      <aside class="aside">
-         <h2 class="aside__title title" aria-disabled="true">
-           Weather
-         </h2>
-         <a class="aside__creator" href="//dzakh.github.io">by DZakh</a>
-      </aside>
-      <main class="main">
-        <div class="weather" id="weather">
-          
-        </div>
-      </main>
-    </div>
+        </h2>
+        <a class="aside__creator" href="//dzakh.github.io">by DZakh</a>
+    </aside>
+    <main class="main">
+      <div class="weather" id="weather">
+        
+      </div>
+    </main>
   </div>
 
   <script src="./index.js"></script>
