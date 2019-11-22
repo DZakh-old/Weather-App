@@ -27,7 +27,7 @@ export default class SearchProcessing {
             case 204:
               return { weatherData: undefined, placeName: 'Not Found!' };
             case 429:
-              return { weatherData: undefined, placeName: 'Try in a day!' };
+              return { weatherData: undefined, placeName: 'Try later!' };
             default:
               return { weatherData: undefined, placeName: 'Error!' };
           }

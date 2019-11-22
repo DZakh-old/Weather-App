@@ -33,7 +33,7 @@ export default class Interface {
         await SearchProcessing.submit(mainPrediction, inputData);
         Autocomplete.clear();
       } else if (inputData.length > 3) {
-        // TODO: check if e.key is letter
+        // TODO: check if e.key is a letter
         // TODO: change focus if e.keyes are arrows
         const predictions = await getPredictions(inputData, session);
         if (!WeatherService.weatherIsShown()) {
@@ -56,7 +56,11 @@ export default class Interface {
         WeatherService.disable();
         session = new Date().getTime();
       }
-      if (searchBar.value === 'Not Found!' || searchBar.value === 'Error!') {
+      if (
+        searchBar.value === 'Not Found!' ||
+        searchBar.value === 'Error!' ||
+        searchBar.value === 'Try later!'
+      ) {
         searchBar.value = '';
         Autocomplete.clear();
       }

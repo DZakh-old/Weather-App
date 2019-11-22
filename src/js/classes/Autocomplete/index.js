@@ -52,12 +52,16 @@ export default class Autocomplete {
   static clear() {
     this.hide();
     while (this.hasPredictions()) {
-      container.removeChild(container.firstChild);
+      this.removePrediction();
     }
   }
 
   static hasPredictions() {
     return !!container.firstChild;
+  }
+
+  static removePrediction() {
+    container.removeChild(container.firstChild);
   }
 
   static renderAutocomplete(html) {

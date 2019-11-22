@@ -34,14 +34,14 @@ app.use('/api/detailsbyplaceid', detailsByPlaceIdRoutes);
 app.use('/api/autocomplete', autocompleteRoutes);
 
 app.use((req, res, next) => {
-  next(createError(404, 'Not Found!'));
+  res.redirect('/');
 });
 
 app.use((error, req, res, next) => {
   const { status } = error;
   console.error(error);
   // TODO: check if UserFacingError
-  res.status(status || 500).json({ error });
+  res.status(status || 500).end();
 });
 
 app.listen(port || 3000, () => console.log(`listening to http://localhost:${port || 3000}/`));
