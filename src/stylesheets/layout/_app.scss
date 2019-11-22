@@ -1,7 +1,5 @@
 .app {
-  // TODO: fix it \|/
-  @include real-vh-height(100);
-  min-height: 650rem;
+  overflow: hidden;
   background: v(bg-clr);
 }
 

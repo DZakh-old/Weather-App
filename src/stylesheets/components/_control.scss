@@ -1,53 +1,61 @@
 .control {
-  
-  @include respond-above(sm) {
+  display: flex;
+  position: relative;
+  margin-left: 85rem;
+  font-size: 1.3em;
+
+  &__search {
+    width: 220rem;
+  }
+
+  &__dark-mode {
+    @include center;
+    width: v(control-h);
+    margin: 0 15rem;
     position: relative;
-    display: flex;
-    font-size: 1.3em;
-    margin-left: -37rem;
-    
+    background: v(bg-clr);
+    border: 1rem solid v(strong-clr);
+    color: v(strong-clr);
+    border-radius: 50%;
+    transition: box-shadow 0.5s v(my-ease);
+
+    &:hover,
+    &:focus {
+      box-shadow: shadow-border();
+    }
+
+    &-icon {
+      font-size: 2.8em;
+      margin-bottom: 1rem;
+      margin-right: 1rem;
+    }
+  }
+
+  @include respond-above(sm) {
+    margin-left: -32rem;
+
     &__search {
       width: 360rem;
     }
 
     &__dark-mode {
-      @include center;
-      width: 54.5rem;
+      margin: 0;
       margin-left: 40rem;
-      position: relative;
-      background: v(bg-clr);
-      border: 1rem solid v(strong-clr);
-      color: v(strong-clr);
-      border-radius: 50%;
-      transition: box-shadow 0.5s v(my-ease);
-
-      &:hover,
-      &:focus {
-        box-shadow: shadow-border();
-      }
-
-      &-icon {
-        font-size: 2.8em;
-        margin-bottom: 1rem;
-        margin-right: 1rem;
-      }
     }
-  } 
+  }
 
 }
 
 .active {
   .control {
 
-    @include respond-above(sm) {
-      &__dark-mode {
-        border: none;
-        box-shadow: block-shadow();
+    &__dark-mode {
+      border: none;
+      box-shadow: block-shadow();
 
-        &:hover,
-        &:focus {
-          box-shadow: shadow-border(strong-clr, bg-clr), block-shadow();
-        }
+      &:hover,
+      &:focus {
+        box-shadow: shadow-border(strong-clr, bg-clr), block-shadow();
       }
     }
 

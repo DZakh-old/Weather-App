@@ -10,7 +10,6 @@ router.get('/:request', async (req, res, next) => {
     input
   )}&types=(cities)&offset=3&session=${session}`;
   const autocompleteRes = await GoogleApi.processAutocomplete(apiUrl);
-  console.log(handleResponse);
   handleResponse(autocompleteRes, res, next);
 });
 

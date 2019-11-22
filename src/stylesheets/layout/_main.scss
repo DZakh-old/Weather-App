@@ -1,4 +1,9 @@
 .main {
   grid-area: main;
+  height: calc(100% - var(--header-pt) - var(--control-h));
   @include center;
+
+  @include respond-above(sm) {
+    height: 100%;
+  }
 }

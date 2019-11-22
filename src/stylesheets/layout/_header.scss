@@ -1,52 +1,55 @@
 .header {
+  @include center;
+  padding-top: v(header-pt);
+  grid-area: header;
   position: relative;
 
-  @include respond-above(sm) {
-    @include center;
-    padding-top: 75rem;
-    grid-area: header;
+  &__title {
+    position: absolute;
+    font-size: 20rem;
+    letter-spacing: 1.8em;    
+    margin-left: 1em;
+    transform: translateY(calc(20vh - 90rem));
+    transition: all 0.6s v(my-ease);
+  }
 
-    &__title {
-      position: absolute;
-      font-size: 24rem;
-      letter-spacing: 1.8em;
-      padding-right: 140rem;
-      margin-left: 1em;      
-      transform: translateY(calc(20vh - 90rem));
-      transition: all 0.6s v(my-ease);
+  &__control {
+    transform: translateY(calc(45vh - 75rem));
+    transition: transform 0.5s v(my-ease);
+  }
+
+  @media (max-height: 700px) {
+    :root {
+      --header-pt: 35rem;
+    }
+    padding-top: v(header-pt);
+
+    &__title {    
+      transform: translateY(calc(20vh - 50rem));
     }
 
     &__control {
-      transform: translateY(calc(45vh - 75rem));
-      transition: transform 0.5s v(my-ease);
+      transform: translateY(calc(45vh - 35rem));
     }
+  }
 
-    @media (max-height: 700px) {
-      padding-top: 35rem;
-
-      &__title {    
-        transform: translateY(calc(20vh - 50rem));
-      }
-  
-      &__control {
-        transform: translateY(calc(45vh - 35rem));
-      }
+  @include respond-above(sm) {
+    &__title {
+      font-size: 24rem;
+      padding-right: 140rem;
     }
-  } 
-
+  }
 }
 
 .active {
   .header {
 
-    @include respond-above(sm) {
-      &__title {
-        transform: translateY(0);
-        opacity: 0;       
-      }
-      &__control {
-        transform: translateY(0); 
-      }
+    &__title {
+      transform: translateY(0);
+      opacity: 0;       
+    }
+    &__control {
+      transform: translateY(0); 
     }
 
   }

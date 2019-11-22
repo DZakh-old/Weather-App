@@ -1,23 +1,21 @@
 .weather {
 
-  @include respond-above(sm) {
-    @include center;
-    align-items: stretch;
-    width: 488rem;
-    height: 484rem;
-    padding: 4rem 0;
-    display: flex;
-    background: v(bg-clr);
-    color: v(brand-clr);
-    border-radius: 40rem;
-    transition: box-shadow 1s;
+  @include center;
+  align-items: stretch;
+  width: 488rem;
+  height: 484rem;
+  padding: 4rem 0;
+  display: flex;
+  background: v(bg-clr);
+  color: v(brand-clr);
+  border-radius: 40rem;
+  transition: box-shadow 1s;
 
-    &__separator {
-      margin: 20rem 0;
-      width: 2.2rem;
-      border-radius: 50%;
-      background: v(brand-clr);
-    }
+  &__separator {
+    margin: 20rem 0;
+    width: 2.2rem;
+    border-radius: 50%;
+    background: v(brand-clr);
   }
 
 }
@@ -25,9 +23,7 @@
 .active {
   .weather {
 
-    @include respond-above(sm) {
-      box-shadow: block-shadow();
-    }
+    box-shadow: block-shadow();
 
   }
 }

@@ -25,10 +25,15 @@ $v-globals: (
   
 
   /// Container's minimum width
-  min-width: 320px,
+  min-width: 420px,
   
 
   /// Fast start, slow finish - animation flow
   my-ease: cubic-bezier(0.2, 0.9, 0, 1),
+
+
+  /// Sizes
+  header-pt: 75rem,
+  control-h: 55rem
 
 ) !default;

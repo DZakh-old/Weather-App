@@ -1,5 +1,6 @@
 .aside {
-
+  display: none;
+  
   @include respond-above(sm) {
     grid-area: aside;
     display: flex;

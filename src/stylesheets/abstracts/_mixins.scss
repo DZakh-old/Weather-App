@@ -50,7 +50,7 @@
 /// @param {Number} $height
 @mixin real-vh-height($height: 100) {
   height: #{$height}vh; /* Fallback for browsers that do not support Custom Properties */
-  height: calc(v(vh, 1vh) * #{$height});
+  height: calc(var(--vh, 1vh) * #{$height});
 }
 
 @mixin v-init($vs) {

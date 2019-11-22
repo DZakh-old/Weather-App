@@ -1,14 +1,12 @@
-$height: 55rem;
-
 .search {
   position: relative;
 
   &__input {
-    height: $height;
+    height: v(control-h);
     padding: 1.2em 3.2em;
     width: 100%;
     border: 1rem solid v(strong-clr);
-    border-radius: $height / 2;
+    border-radius: calc(var(--control-h) / 2);
     color: v(strong-clr);
     background: v(bg-clr);
     letter-spacing: 0.05em;
@@ -41,9 +39,9 @@ $height: 55rem;
     right: 0;
     left: 0;
     width: 100%;
-    height: $height;
+    height: v(control-h);
     z-index: -1;
-    border-radius: $height / 2;  
+    border-radius: calc(var(--control-h) / 2);  
     transition: all 0.5s v(my-ease);  
     overflow: hidden;
     padding-top: 0;
@@ -102,7 +100,7 @@ $height: 55rem;
 
 .active-autocomplete {
   box-shadow: shadow-border();
-  padding-top: $height + 3rem;
+  padding-top: calc(var(--control-h) + 3rem);
   padding-bottom: 3rem;
   height: auto;
   background: v(bg-clr);
