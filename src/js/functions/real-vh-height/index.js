@@ -1,10 +1,12 @@
-function correctSizing() {
-  let vh = window.innerHeight;
-  if (vh > window.screen.height) vh /= window.devicePixelRatio;
+const correctSizing = () => {
+  // Bug fix
+  // let vh = window.innerHeight;
+  // if (vh > window.screen.height) vh /= window.devicePixelRatio;
+  const vh = window.innerHeight;
   document.documentElement.style.setProperty('--vh', `${vh * 0.01}px`);
-}
+};
 
-function firstViewportCorrection() {
+const firstViewportCorrection = () => {
   /* If mobile */
   if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     correctSizing();
@@ -16,6 +18,6 @@ function firstViewportCorrection() {
       window.addEventListener('resize', afterOrientationChange);
     });
   }
-}
+};
 
 setTimeout(firstViewportCorrection(), 0);
