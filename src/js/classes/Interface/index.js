@@ -4,20 +4,25 @@ import SearchProcessing from '../SearchProcessing';
 import Autocomplete from '../Autocomplete';
 import DarkMode from '../DarkMode';
 
+const isCurDataEventAsPrevious = e => {
+  return e.target.value.slice(-2, -1) === e.data;
+};
+
 export default class Interface {
   static activate() {
     DarkMode.activate();
 
-    let mainPrediction;
     let session = new Date().getTime();
 
-    SearchBar.addEventListener('keyup', async e => {
+    SearchBar.addEventListener('input', async e => {
       const inputData = SearchBar.getValue();
-      if (e.key === 'Enter') {
+      let mainPrediction;
+
+      if (e.data === 'Enter') {
         await SearchProcessing.submit(mainPrediction, inputData);
         Autocomplete.clear();
       } else if (inputData.length > 3) {
-        if (e.key.match(/^[\d\w]$/i)) {
+        if (e.data.match(/^[\d\w]$/i) && !isCurDataEventAsPrevious(e)) {
           const predictions = await Autocomplete.getPredictions(inputData, session);
           if (predictions && !WeatherService.weatherIsShown()) {
             [mainPrediction] = predictions;
@@ -50,4 +55,4 @@ export default class Interface {
     });
   }
 }
-// TODO: Would be nice to refactor it, but like this it's also ok -_-
+// TODO: Would be nice to refactor it, but for now it's also ok -_-
