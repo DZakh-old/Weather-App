@@ -7,7 +7,5 @@ import './js/functions';
 import './js/packedges';
 
 import Interface from './js/classes/Interface';
-import DarkMode from './js/classes/DarkMode';
 
 Interface.activate();
-DarkMode.activate();

@@ -1,5 +1,6 @@
 import elements from '../../app-elements';
 import SearchProcessing from '../SearchProcessing';
+import Ajax from '../Ajax';
 
 const { autocomplete: container } = elements;
 
@@ -66,5 +67,20 @@ export default class Autocomplete {
 
   static renderAutocomplete(html) {
     container.innerHTML = html;
+  }
+
+  static async getPredictions(inputData, session) {
+    try {
+      const encodedInputData = encodeURIComponent(inputData);
+      const apiUrl = `/api/autocomplete/${encodedInputData}&${session}`;
+      const apiRes = await Ajax.get(apiUrl);
+      const { status } = apiRes;
+      if (status !== 200) {
+        return undefined;
+      }
+      return apiRes.predictionList;
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 }

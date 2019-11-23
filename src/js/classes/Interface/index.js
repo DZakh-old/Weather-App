@@ -1,40 +1,24 @@
-import elements from '../../app-elements';
+import SearchBar from '../SearchBar';
 import WeatherService from '../WeatherService';
 import SearchProcessing from '../SearchProcessing';
 import Autocomplete from '../Autocomplete';
-import Ajax from '../Ajax';
-
-const { searchBar } = elements;
+import DarkMode from '../DarkMode';
 
 export default class Interface {
   static activate() {
-    const getPredictions = async (inputData, session) => {
-      try {
-        const encodedInputData = encodeURIComponent(inputData);
-        const apiUrl = `/api/autocomplete/${encodedInputData}&${session}`;
-        const apiRes = await Ajax.get(apiUrl);
-        const { status } = apiRes;
-        if (status !== 200) {
-          return undefined;
-        }
-        return apiRes.predictionList;
-      } catch (err) {
-        throw new Error(err);
-      }
-    };
+    DarkMode.activate();
 
-    /* ___ Main script ___ */
     let mainPrediction;
     let session = new Date().getTime();
 
-    searchBar.addEventListener('keyup', async e => {
-      const inputData = searchBar.value;
+    SearchBar.addEventListener('keyup', async e => {
+      const inputData = SearchBar.getValue();
       if (e.key === 'Enter') {
         await SearchProcessing.submit(mainPrediction, inputData);
         Autocomplete.clear();
       } else if (inputData.length > 3) {
         if (e.key.match(/^[\d\w]$/i)) {
-          const predictions = await getPredictions(inputData, session);
+          const predictions = await Autocomplete.getPredictions(inputData, session);
           if (predictions && !WeatherService.weatherIsShown()) {
             [mainPrediction] = predictions;
             Autocomplete.renderPredictions(predictions);
@@ -46,22 +30,18 @@ export default class Interface {
       }
     });
 
-    searchBar.addEventListener('blur', () => {
+    SearchBar.addEventListener('blur', () => {
       Autocomplete.hide();
     });
 
-    searchBar.addEventListener('focus', () => {
+    SearchBar.addEventListener('focus', () => {
       if (WeatherService.weatherIsShown()) {
-        searchBar.value = '';
+        SearchBar.clear();
         WeatherService.disable();
         session = new Date().getTime();
       }
-      if (
-        searchBar.value === 'Not Found!' ||
-        searchBar.value === 'Error!' ||
-        searchBar.value === 'Try later!'
-      ) {
-        searchBar.value = '';
+      if (SearchBar.isFailedValue()) {
+        SearchBar.clear();
         Autocomplete.clear();
       }
       if (Autocomplete.hasPredictions()) {
