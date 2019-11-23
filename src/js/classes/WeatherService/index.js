@@ -22,6 +22,10 @@ export default class WeatherService {
     container.innerHTML = html;
   }
 
+  static replaceClassName(regEx, replacement) {
+    container.className = container.className.replace(regEx, replacement);
+  }
+
   static renderLoader() {
     this.renderHtml(`<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`);
   }
@@ -57,13 +61,20 @@ export default class WeatherService {
     const addCardsSwitchListener = (className = 'card') => {
       const disableCards = cards => cards.forEach(card => card.classList.add('side'));
       const activateCard = card => card.classList.remove('side');
+      const switchActiveWeatherCardClass = i => {
+        this.replaceClassName(/active-card-\d/g, `active-card-${i}`);
+      };
+
+      this.replaceClassName(/active-card-\d/g, '');
+      container.classList.add('active-card-0');
 
       const cards = [...document.querySelectorAll(`.${className}`)];
 
-      cards.forEach(card => {
+      cards.forEach((card, i) => {
         card.addEventListener('mouseenter', () => {
           disableCards(cards);
           activateCard(card);
+          switchActiveWeatherCardClass(i);
         });
       });
     };

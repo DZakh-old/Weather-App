@@ -1,10 +1,5 @@
 .weather {
 
-  @media (max-width: 530px) {
-    position: absolute;
-    right: -90rem;
-    z-index: 0;
-  }
   @include center;
   align-items: stretch;
   width: 488rem;
@@ -14,7 +9,7 @@
   background: v(bg-clr);
   color: v(brand-clr);
   border-radius: 40rem;
-  transition: box-shadow 1s;
+  transition: box-shadow 1s, left 0.7s;
 
   &__separator {
     margin: 20rem 0;
@@ -22,12 +17,30 @@
     border-radius: 50%;
     background: v(brand-clr);
   }
+
+  @media (max-width: 530px) {
+    position: absolute;
+    z-index: 0;
+  }
+}
+
+@media (max-width: 530px) {
+  .active-card-0 {
+    left: 90rem;
+  }
+  .active-card-1 {
+    left: 0;
+  }
+  .active-card-2 {
+    left: -90rem;
+  }
+  .active-card-3 {
+    left: -180rem;
+  }
 }
 
 .active {
   .weather {
-
     box-shadow: block-shadow();
-
   }
 }
