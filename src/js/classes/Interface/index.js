@@ -33,12 +33,12 @@ export default class Interface {
         await SearchProcessing.submit(mainPrediction, inputData);
         Autocomplete.clear();
       } else if (inputData.length > 3) {
-        // TODO: check if e.key is a letter
-        // TODO: change focus if e.keyes are arrows
-        const predictions = await getPredictions(inputData, session);
-        if (!WeatherService.weatherIsShown()) {
-          [mainPrediction] = predictions;
-          Autocomplete.renderPredictions(predictions);
+        if (e.key.match(/^[\d\w]$/i)) {
+          const predictions = await getPredictions(inputData, session);
+          if (predictions && !WeatherService.weatherIsShown()) {
+            [mainPrediction] = predictions;
+            Autocomplete.renderPredictions(predictions);
+          }
         }
       } else {
         mainPrediction = undefined;
