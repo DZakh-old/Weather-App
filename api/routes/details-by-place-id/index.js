@@ -5,7 +5,7 @@ const router = express.Router();
 const { GoogleApi, handleResponse } = require('../../utilities');
 
 router.get('/:place_id', async (req, res, next) => {
-  const apiUrl = `//maps.googleapis.com/maps/api/place/details/json?place_id=${encodeURIComponent(
+  const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${encodeURIComponent(
     req.params.place_id
   )}&fields=geometry,name`;
   const weatherRes = await GoogleApi.getProcessedWeather(apiUrl);
