@@ -42,7 +42,7 @@
       font-weight: 100;
       color: v(strong-clr);
       text-shadow: 2rem 0 0 v(bg-clr);
-      
+
       &-end-letters {
         display: none;
       }
@@ -60,7 +60,7 @@
   }
 }
 
-.darkmode {
+.active.darkmode {
   .header__title {
     color: v(bg-clr);
     text-shadow: 2rem 0 0 v(strong-clr);
