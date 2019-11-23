@@ -19,14 +19,14 @@
     }
 
     &__creator {
-      position: relative;
-      margin: 0 auto;
+      position: fixed;
+      top: calc(var(--vh, 1vh) * 100 - 55rem);
+      margin: 0 10rem;
       padding: 0.5em 0.9em 0.7em;
-      font-family: 'Liu Jian Mao Cao', cursive;
+      width: 100rem;
       border-radius: 666rem;
       text-align: center;
-      font-size: 1.2em;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.2em;
 
       &::after {
         content: '';
