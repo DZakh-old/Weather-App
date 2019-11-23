@@ -37,9 +37,8 @@ app.use((req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
-  const { status } = error;
   console.error(error);
-  // TODO: check if UserFacingError
+  const { status } = error;
   res.status(status || 500).end();
 });
 

@@ -81,7 +81,6 @@ class GoogleApi {
       const { lat, lng: lon } = geometry.location;
 
       const { cod, list } = await WeatherApi.get(lat, lon);
-      // TODO: Error 406 - Weather api limit
       return { statusCode: +cod || cod || 406, weatherData: list, placeName: name };
     } catch (err) {
       throw createError(err);

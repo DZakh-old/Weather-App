@@ -88,6 +88,7 @@
     &__autocomplete {
       box-shadow: block-shadow();
     }
+    
     &__input:hover ~ .search__autocomplete {
       box-shadow: shadow-border(strong-clr, bg-clr), block-shadow();
     }

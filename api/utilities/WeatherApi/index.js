@@ -10,7 +10,6 @@ class WeatherApi {
         'x-rapidapi-key': weatherApiKey
       };
       const res = await Ajax.get(url, headers);
-      // TODO: Check error for limited quote
       return res;
     } catch (err) {
       throw new Error(err);

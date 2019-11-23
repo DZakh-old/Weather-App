@@ -1,7 +1,7 @@
 .main {
+  @include center;
   position: relative;
   height: calc(100% - var(--header-pt) - var(--control-h));
-  @include center;
   
   @include respond-above(sm) {
     grid-area: main;

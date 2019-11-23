@@ -16,14 +16,13 @@
     border-radius: 50%;
     background: v(brand-clr);
   }
-
-  @media (max-width: 530px) {
-    position: absolute;
-    z-index: 0;
-  }
 }
 
 @media (max-width: 530px) {
+  .weather {
+    position: absolute;
+    z-index: 0;
+  }
   .active-card-0 {
     right: -92rem;
   }
