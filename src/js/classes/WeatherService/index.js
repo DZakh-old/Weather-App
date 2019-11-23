@@ -36,15 +36,17 @@ export default class WeatherService {
     };
 
     const createWeatherCards = dataList => {
-      // TODO: Think about recursion or add a function
+      const createWeatherCardFromDataIndex = index => {
+        return new WeatherCard(dataList.slice(index, index + 8 + 1));
+      };
+
       const curHour = dataList[0].date.hour;
-      let factor = Math.ceil((24 - curHour) / 3) || 8;
+      const factor = Math.ceil((24 - curHour) / 3) || 8;
       const cards = [];
 
-      cards.push(new WeatherCard(dataList.slice(0, 9)));
-      for (let i = 1; i <= 3; i++) {
-        cards.push(new WeatherCard(dataList.slice(factor, factor + 9)));
-        factor += 8;
+      cards.push(createWeatherCardFromDataIndex(0));
+      for (let i = factor; i < factor + 3 * 8; i += 8) {
+        cards.push(createWeatherCardFromDataIndex(i));
       }
 
       return cards;
