@@ -8,20 +8,24 @@ const isCurDataEventAsPrevious = e => {
   return e.target.value.slice(-2, -1) === e.data;
 };
 
+// TODO: Would be nice to refactor it, but for now it's also ok -_-
 export default class Interface {
   static activate() {
     DarkMode.activate();
 
     let session = new Date().getTime();
+    let mainPrediction;
+
+    SearchBar.addEventListener('keydown', async e => {
+      if (e.keyCode === 13 && SearchBar.getValue().length > 0) {
+        await SearchProcessing.submit(mainPrediction, SearchBar.getValue());
+        Autocomplete.clear();
+      }
+    });
 
     SearchBar.addEventListener('input', async e => {
       const inputData = SearchBar.getValue();
-      let mainPrediction;
-
-      if (e.data === 'Enter') {
-        await SearchProcessing.submit(mainPrediction, inputData);
-        Autocomplete.clear();
-      } else if (inputData.length > 3) {
+      if (inputData.length > 3) {
         if (e.data.match(/^[\d\w]$/i) && !isCurDataEventAsPrevious(e)) {
           const predictions = await Autocomplete.getPredictions(inputData, session);
           if (predictions && !WeatherService.weatherIsShown()) {
@@ -55,4 +59,3 @@ export default class Interface {
     });
   }
 }
-// TODO: Would be nice to refactor it, but for now it's also ok -_-
