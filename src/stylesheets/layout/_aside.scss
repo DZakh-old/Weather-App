@@ -4,7 +4,6 @@
   top: 0;
   min-height: v(min-height);
   height: calc(var(--vh) * 100);
-  z-index: 1;
 
   &__title {
     opacity: 0;

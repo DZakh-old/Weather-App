@@ -10,6 +10,7 @@ export default class Ajax {
         return { status };
       }
       const data = await res.json();
+
       return { status, ...data };
     } catch (err) {
       throw new Error(err);

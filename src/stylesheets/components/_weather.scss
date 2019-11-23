@@ -9,7 +9,7 @@
   background: v(bg-clr);
   color: v(brand-clr);
   border-radius: 40rem;
-  transition: box-shadow 1s, left 0.7s;
+  transition: box-shadow 1s, right 0.7s v(my-ease);
 
   &__separator {
     margin: 20rem 0;
@@ -26,16 +26,16 @@
 
 @media (max-width: 530px) {
   .active-card-0 {
-    left: 90rem;
+    right: -92rem;
   }
   .active-card-1 {
-    left: 0;
+    right: 0;
   }
   .active-card-2 {
-    left: -90rem;
+    right: 92rem;
   }
   .active-card-3 {
-    left: -180rem;
+    right: 180rem;
   }
 }
 

@@ -27,7 +27,6 @@ const getWeatherData = async (prediction, inputData) => {
           return { weatherData: undefined, placeName: 'Error!' };
       }
     }
-
     return apiRes;
   } catch (err) {
     throw new Error(err);
