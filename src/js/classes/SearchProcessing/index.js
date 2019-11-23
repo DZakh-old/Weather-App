@@ -20,6 +20,7 @@ const getWeatherData = async (prediction, inputData) => {
       switch (status) {
         case 204:
           return { weatherData: undefined, placeName: 'Not Found!' };
+        case 406:
         case 429:
           return { weatherData: undefined, placeName: 'Try later!' };
         default:

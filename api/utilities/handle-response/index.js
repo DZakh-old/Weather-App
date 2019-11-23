@@ -7,6 +7,7 @@ const handleResponse = (apiResponse, res, next) => {
       case 200:
         return res.status(200).json(apiResponse);
       case 204:
+      case 406:
       case 429:
         return res.status(statusCode).end();
       default:

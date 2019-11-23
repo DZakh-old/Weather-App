@@ -6,7 +6,7 @@ export default class Ajax {
         headers
       });
       const { status } = res;
-      if (status === 204 || status === 429) {
+      if (status !== 200) {
         return { status };
       }
       const data = await res.json();
