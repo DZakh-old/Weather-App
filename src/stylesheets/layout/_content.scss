@@ -13,4 +13,8 @@
       "aside header"
       "aside main";
   }
+
+  @media (min-width: 1200px) {
+    padding-right: 65px;
+  }
 }
