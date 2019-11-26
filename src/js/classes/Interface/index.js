@@ -26,7 +26,7 @@ export default class Interface {
     SearchBar.addEventListener('input', async e => {
       const inputData = SearchBar.getValue();
       if (inputData.length > 3) {
-        if (e.data.match(/^[\d\w]$/i) && !isCurDataEventAsPrevious(e)) {
+        if (e.data && e.data.match(/^[ёа-я\d\w]$/i) && !isCurDataEventAsPrevious(e)) {
           const predictions = await Autocomplete.getPredictions(inputData, session);
           if (predictions && !WeatherService.weatherIsShown()) {
             [mainPrediction] = predictions;
