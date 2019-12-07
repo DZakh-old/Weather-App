@@ -1,4 +1,4 @@
-const elementsAndThereIdsFromTemplate = {
+const elementsAndTheirIdsFromTemplate = {
   app: 'app',
   weather: 'weather',
   searchBar: 'search-bar',
@@ -6,7 +6,7 @@ const elementsAndThereIdsFromTemplate = {
 };
 
 export default Object.fromEntries(
-  Object.entries(elementsAndThereIdsFromTemplate).map(([name, id]) => [
+  Object.entries(elementsAndTheirIdsFromTemplate).map(([name, id]) => [
     name,
     document.getElementById(id)
   ])

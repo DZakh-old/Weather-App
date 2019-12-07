@@ -1,11 +1,11 @@
 import './stylesheets/main.scss';
 
 import '@babel/polyfill';
+import './js/packages/lazysizes';
 
-import './js/helpers'; // It's empty
-import './js/functions';
-import './js/packages';
+import { realVhHeight } from './js/functions';
 
 import Interface from './js/classes/Interface';
 
+realVhHeight();
 Interface.activate();
