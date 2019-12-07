@@ -4,4 +4,4 @@ module.exports = {
       grid: true
     })
   ]
-}
+};
