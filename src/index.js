@@ -4,7 +4,7 @@ import '@babel/polyfill';
 
 import './js/helpers'; // It's empty
 import './js/functions';
-import './js/packedges';
+import './js/packages';
 
 import Interface from './js/classes/Interface';
 
