@@ -106,7 +106,7 @@ export const createWeatherCard = weatherCardData => {
 
   const windDirectionId = getRoundedCardAverage(weatherCardData, 'windDirection');
 
-  return {
+  const weatherCardState = {
     temp: getRoundedCardAverage(weatherCardData, 'temp'),
     humidity: getRoundedCardAverage(weatherCardData, 'humidity'),
     pressure: getRoundedCardAverage(weatherCardData, 'pressure'),
@@ -121,9 +121,7 @@ export const createWeatherCard = weatherCardData => {
     snatchesData: getPackedSnatchesData(weatherCardData),
     isFirstCard: isFirstCard(weatherCardData)
   };
-};
 
-export const buildWeatherCard = weatherCard => {
   const buildSnatches = snatchesData => {
     return snatchesData
       .map(({ date, weather, temp }) => {
@@ -204,26 +202,27 @@ export const buildWeatherCard = weatherCard => {
     `;
   };
 
-  return `
-      <section class="card${weatherCard.isFirstCard ? '' : ' side'}">
+  return {
+    build: () => `
+      <section class="card${weatherCardState.isFirstCard ? '' : ' side'}">
       <header class="card__head">
-          <span class="card__weather-icon icon-weather-${weatherCard.weather.iconId}" aria-label="${
-    weatherCard.weather.status
-  }"></span>
+          <span class="card__weather-icon icon-weather-${
+            weatherCardState.weather.iconId
+          }" aria-label="${weatherCardState.weather.status}"></span>
           <h2 class="card__day">
-            ${weatherCard.day}
+            ${weatherCardState.day}
           </h2>
           <div class="card__temp">
-            ${minusCompensator(`${weatherCard.temp}&deg;`)}
+            ${minusCompensator(`${weatherCardState.temp}&deg;`)}
           </div>
           <p class="card__weather-status">
-            ${weatherCard.weather.status}
+            ${weatherCardState.weather.status}
           </p>
         </header>
         <main class="card__info">
           <div class="card__snatches snatches">
             <ul class="snatches__bar">
-              ${buildSnatches(weatherCard.snatchesData)}
+              ${buildSnatches(weatherCardState.snatchesData)}
             </ul>
           </div>
           <ul class="card__details details">
@@ -232,7 +231,7 @@ export const buildWeatherCard = weatherCard => {
                 Humidity
               </h3>
               <div class="details__content humidity">
-                ${buildHumidity(weatherCard.humidity)}
+                ${buildHumidity(weatherCardState.humidity)}
               </div>
             </li>
             <li class="details__block">
@@ -240,7 +239,7 @@ export const buildWeatherCard = weatherCard => {
                 Wind
               </h3>
               <div class="details__content wind">
-                ${buildWind(weatherCard.wind)}
+                ${buildWind(weatherCardState.wind)}
               </div>
             </li>
             <li class="details__block">
@@ -248,7 +247,7 @@ export const buildWeatherCard = weatherCard => {
                 Pressure
               </h3>
               <div class="details__content pressure">
-                ${buildPressure(weatherCard.pressure)}
+                ${buildPressure(weatherCardState.pressure)}
               </div>
             </li>
             <li class="details__block">
@@ -256,11 +255,12 @@ export const buildWeatherCard = weatherCard => {
                 Clouds
               </h3>
               <div class="details__content clouds">
-                ${buildClouds(weatherCard.clouds)}
+                ${buildClouds(weatherCardState.clouds)}
               </div>
             </li>
           </ul>
         </main>
       </section>
-    `;
+    `
+  };
 };

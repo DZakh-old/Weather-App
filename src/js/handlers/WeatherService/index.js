@@ -1,4 +1,4 @@
-import { createWeatherCard, buildWeatherCard } from '../weatherCardHandling';
+import { createWeatherCard, buildWeatherCard } from '../weatherCardFactory';
 import { createWeatherSnatch } from '../createWeatherSnatch';
 import elements from '../../app-elements';
 
@@ -54,9 +54,7 @@ export default class WeatherService {
       const separator = `
         <div class="weather__separator" aria-disabled="true"></div>
       `;
-      const weatherHtml = cards
-        .map(weatherCardData => buildWeatherCard(weatherCardData))
-        .join(separator);
+      const weatherHtml = cards.map(card => card.build()).join(separator);
       this.renderHtml(weatherHtml);
     };
 
