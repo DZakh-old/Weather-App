@@ -1,3 +1,5 @@
+import { getArrAverage } from '../../helpers/arrayHelpers';
+
 export const createWeatherCard = weatherCardData => {
   const parseProp = (parsedObj, prop) => parsedObj.map(obj => obj[prop]);
 
@@ -6,10 +8,6 @@ export const createWeatherCard = weatherCardData => {
   const isFirstCard = cardData => getCur(cardData).id === 0;
 
   const areFirstTwoCards = cardData => getCur(cardData).id <= 8;
-
-  const getArrSum = arr => arr.reduce((acc, cur) => acc + cur, 0);
-
-  const getArrAverage = arr => getArrSum(arr) / arr.length;
 
   const getWindDirectionById = id => {
     switch (id) {
