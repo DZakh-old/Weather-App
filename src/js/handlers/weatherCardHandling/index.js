@@ -1,8 +1,7 @@
 import { getArrAverage } from '../../helpers/arrayHelpers';
+import { parsePropsByKey } from '../../helpers/parsePropsByKey';
 
 export const createWeatherCard = weatherCardData => {
-  const parseProp = (parsedObj, prop) => parsedObj.map(obj => obj[prop]);
-
   const getCur = cardData => cardData[0];
 
   const isFirstCard = cardData => getCur(cardData).id === 0;
@@ -103,16 +102,15 @@ export const createWeatherCard = weatherCardData => {
   };
 
   const getPackedSnatchesData = cardData => {
-    return cardData.map(({ date, weather, temp }) => {
-      return {
-        date,
-        weather,
-        temp
-      };
-    });
+    return cardData.map(({ date, weather, temp }) => ({
+      date,
+      weather,
+      temp
+    }));
   };
+
   const getCardDataAverage = (cardData, prop) => {
-    const propCardDataList = parseProp(cardData, prop);
+    const propCardDataList = parsePropsByKey(cardData, prop);
     if (isFirstCard(cardData)) {
       return getCur(propCardDataList);
     }
