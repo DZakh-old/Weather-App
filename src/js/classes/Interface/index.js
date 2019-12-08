@@ -4,15 +4,11 @@ import SearchProcessing from '../SearchProcessing';
 import Autocomplete from '../Autocomplete';
 import DarkMode from '../DarkMode';
 
-const isCurDataEventAsPrevious = e => {
-  return e.target.value.slice(-2, -1) === e.data;
-};
-
-// TODO: Would be nice to refactor it, but for now it's also ok -_-
 export default class Interface {
   static activate() {
     DarkMode.activate();
 
+    // TODO: Would be nice to refactor it, but for now it's also ok -_-
     let session = new Date().getTime();
     let mainPrediction;
 
@@ -24,9 +20,14 @@ export default class Interface {
     });
 
     SearchBar.addEventListener('input', async e => {
+      const isCurInputEqualToPrev = event => {
+        return event.target.value.slice(-2, -1) === event.data;
+      };
+
       const inputData = SearchBar.getValue();
+
       if (inputData.length > 3) {
-        if (e.data.match(/^[\d\w]$/i) && !isCurDataEventAsPrevious(e)) {
+        if (e.data && e.data.match(/^[ёа-я\d\w]$/i) && !isCurInputEqualToPrev(e)) {
           const predictions = await Autocomplete.getPredictions(inputData, session);
           if (predictions && !WeatherService.weatherIsShown()) {
             [mainPrediction] = predictions;

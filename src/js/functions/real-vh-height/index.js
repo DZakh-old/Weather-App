@@ -1,5 +1,5 @@
 const correctSizing = () => {
-  // Bug fix
+  // Jump fix
   // let vh = window.innerHeight;
   // if (vh > window.screen.height) vh /= window.devicePixelRatio;
   const vh = window.innerHeight;
@@ -17,4 +17,6 @@ const firstViewportCorrection = () => {
   });
 };
 
-setTimeout(firstViewportCorrection(), 0);
+const realVhHeight = () => setTimeout(firstViewportCorrection(), 0);
+
+export default realVhHeight;
