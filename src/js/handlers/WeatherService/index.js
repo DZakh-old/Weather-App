@@ -2,9 +2,9 @@ import { createWeatherCard } from '../weatherCardFactory';
 import { createWeatherSnatch } from '../createWeatherSnatch';
 import { toggleAppState, appIsActive } from '../appHandler';
 
-import elements from '../../app-elements';
+import { elements } from '../../appElements';
 
-const { weather: container } = elements;
+const { weatherContainer } = elements;
 
 export default class WeatherService {
   static disable() {
@@ -17,11 +17,11 @@ export default class WeatherService {
   }
 
   static renderHtml(html) {
-    container.innerHTML = html;
+    weatherContainer.innerHTML = html;
   }
 
   static replaceClassName(regEx, replacement) {
-    container.className = container.className.replace(regEx, replacement);
+    weatherContainer.className = weatherContainer.className.replace(regEx, replacement);
   }
 
   static renderLoader() {
@@ -64,7 +64,7 @@ export default class WeatherService {
       };
 
       this.replaceClassName(/active-card-\d/g, '');
-      container.classList.add('active-card-0');
+      weatherContainer.classList.add('active-card-0');
 
       const cards = [...document.querySelectorAll(`.${className}`)];
 

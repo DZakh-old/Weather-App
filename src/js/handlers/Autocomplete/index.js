@@ -1,8 +1,8 @@
-import elements from '../../app-elements';
+import { elements } from '../../appElements';
 import SearchProcessing from '../SearchProcessing';
 import Ajax from '../Ajax';
 
-const { autocomplete: container } = elements;
+const { autocompleteContainer } = elements;
 
 const buildAutocomplete = predictions => {
   const separator = `
@@ -43,11 +43,11 @@ export default class Autocomplete {
   }
 
   static hide() {
-    container.classList.remove('active-autocomplete');
+    autocompleteContainer.classList.remove('active-autocomplete');
   }
 
   static show() {
-    container.classList.add('active-autocomplete');
+    autocompleteContainer.classList.add('active-autocomplete');
   }
 
   static clear() {
@@ -58,15 +58,15 @@ export default class Autocomplete {
   }
 
   static hasPredictions() {
-    return !!container.firstChild;
+    return !!autocompleteContainer.firstChild;
   }
 
   static removePrediction() {
-    container.removeChild(container.firstChild);
+    autocompleteContainer.removeChild(autocompleteContainer.firstChild);
   }
 
   static renderAutocomplete(html) {
-    container.innerHTML = html;
+    autocompleteContainer.innerHTML = html;
   }
 
   static async getPredictions(inputData, session) {

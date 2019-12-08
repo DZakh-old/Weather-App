@@ -1,4 +1,4 @@
-import elements from '../../app-elements';
+import { elements } from '../../appElements';
 
 const { searchBar } = elements;
 

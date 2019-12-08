@@ -1,11 +1,11 @@
 const elementsAndTheirIdsFromTemplate = {
   app: 'app',
-  weather: 'weather',
+  weatherContainer: 'weather',
   searchBar: 'search-bar',
-  autocomplete: 'autocomplete'
+  autocompleteContainer: 'autocomplete'
 };
 
-export default Object.fromEntries(
+export const elements = Object.fromEntries(
   Object.entries(elementsAndTheirIdsFromTemplate).map(([name, id]) => [
     name,
     document.getElementById(id)
