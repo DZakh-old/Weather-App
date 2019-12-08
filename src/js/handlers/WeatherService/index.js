@@ -1,5 +1,5 @@
 import WeatherCard from '../WeatherCard';
-import Weather from '../Weather';
+import { createWeatherSnatch } from '../createWeatherSnatch';
 import elements from '../../app-elements';
 
 const { app, weather: container } = elements;
@@ -32,7 +32,7 @@ export default class WeatherService {
 
   static renderWeather(weatherData) {
     const getParsedWeatherList = weatherDataArr => {
-      return weatherDataArr.map((tempData, i) => new Weather(tempData, i));
+      return weatherDataArr.map((tempData, i) => createWeatherSnatch(tempData, i));
     };
 
     const createWeatherCards = dataList => {
