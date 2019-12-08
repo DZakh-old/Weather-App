@@ -1,21 +1,19 @@
-import { createWeatherCard, buildWeatherCard } from '../weatherCardFactory';
+import { createWeatherCard } from '../weatherCardFactory';
 import { createWeatherSnatch } from '../createWeatherSnatch';
+import { toggleAppState, appIsActive } from '../appHandler';
+
 import elements from '../../app-elements';
 
-const { app, weather: container } = elements;
+const { weather: container } = elements;
 
 export default class WeatherService {
-  static toggleAppState() {
-    app.classList.toggle('active');
-  }
-
   static disable() {
-    WeatherService.toggleAppState();
+    toggleAppState();
     this.renderHtml('');
   }
 
   static weatherIsShown() {
-    return !!app.classList.contains('active');
+    return appIsActive();
   }
 
   static renderHtml(html) {

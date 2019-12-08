@@ -1,6 +1,7 @@
 import WeatherService from '../WeatherService';
 import Ajax from '../Ajax';
 import SearchBar from '../SearchBar';
+import { toggleAppState } from '../appHandler';
 
 const buildApiRequestUrl = (prediction, inputData) => {
   const apiType = prediction ? 'detailsbyplaceid' : 'findplacefromtext';
@@ -37,7 +38,7 @@ export default class SearchProcessing {
   static async submit(prediction, inputData = '') {
     SearchBar.blur();
     SearchBar.setValue(prediction ? prediction.description : '...');
-    WeatherService.toggleAppState();
+    toggleAppState();
     WeatherService.renderLoader();
 
     const { weatherData, placeName } = await getWeatherData(prediction, inputData);
