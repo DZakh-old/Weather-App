@@ -1,4 +1,4 @@
-import WeatherCard from '../WeatherCard';
+import { createWeatherCard, buildWeatherCard } from '../weatherCardHandling';
 import { createWeatherSnatch } from '../createWeatherSnatch';
 import elements from '../../app-elements';
 
@@ -36,9 +36,7 @@ export default class WeatherService {
     };
 
     const createWeatherCards = dataList => {
-      const createWeatherCardFromDataIndex = index => {
-        return new WeatherCard(dataList.slice(index, index + 8 + 1));
-      };
+      const createWeatherCardFromDataIndex = i => createWeatherCard(dataList.slice(i, i + 8 + 1));
 
       const curHour = dataList[0].date.hour;
       const factor = Math.ceil((24 - curHour) / 3) || 8;
@@ -56,7 +54,9 @@ export default class WeatherService {
       const separator = `
         <div class="weather__separator" aria-disabled="true"></div>
       `;
-      const weatherHtml = cards.map(card => card.build()).join(separator);
+      const weatherHtml = cards
+        .map(weatherCardData => buildWeatherCard(weatherCardData))
+        .join(separator);
       this.renderHtml(weatherHtml);
     };
 

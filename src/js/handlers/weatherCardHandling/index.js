@@ -1,155 +1,154 @@
-const parseProp = (parsedObj, prop) => parsedObj.map(obj => obj[prop]);
+export const createWeatherCard = weatherCardData => {
+  const parseProp = (parsedObj, prop) => parsedObj.map(obj => obj[prop]);
 
-const getCur = cardData => cardData[0];
+  const getCur = cardData => cardData[0];
 
-const isFirstCard = cardData => getCur(cardData).id === 0;
+  const isFirstCard = cardData => getCur(cardData).id === 0;
 
-const areFirstTwoCards = cardData => getCur(cardData).id <= 8;
+  const areFirstTwoCards = cardData => getCur(cardData).id <= 8;
 
-const getArrSum = arr => arr.reduce((acc, cur) => acc + cur, 0);
+  const getArrSum = arr => arr.reduce((acc, cur) => acc + cur, 0);
 
-const getArrAverage = arr => getArrSum(arr) / arr.length;
+  const getArrAverage = arr => getArrSum(arr) / arr.length;
 
-const getCardDataAverage = (cardData, prop) => {
-  const propList = parseProp(cardData, prop);
-  if (isFirstCard(cardData)) {
-    return getCur(propList);
-  }
-  const cardAverage = getArrAverage(propList);
-  return cardAverage;
-};
+  const getWindDirectionById = id => {
+    switch (id) {
+      case 1:
+        return 'North';
+      case 2:
+        return 'North-east';
+      case 3:
+        return 'East';
+      case 4:
+        return 'South-east';
+      case 5:
+        return 'South';
+      case 6:
+        return 'South-west';
+      case 7:
+        return 'West';
+      case 0:
+        return 'North-west';
+      default:
+        throw new Error("Can't find wind directoin");
+    }
+  };
 
-const getRoundedCardAverage = (cardData, prop) => Math.round(getCardDataAverage(cardData, prop));
+  const getDay = cardData => {
+    if (isFirstCard(cardData)) {
+      return 'Today';
+    }
+    if (areFirstTwoCards(cardData)) {
+      return 'Tomorrow';
+    }
+    const { weekday, day, month } = getCur(cardData).date;
+    return `${weekday}, ${day} ${month}`;
+  };
 
-const getWindDirectionById = id => {
-  switch (id) {
-    case 1:
-      return 'North';
-    case 2:
-      return 'North-east';
-    case 3:
-      return 'East';
-    case 4:
-      return 'South-east';
-    case 5:
-      return 'South';
-    case 6:
-      return 'South-west';
-    case 7:
-      return 'West';
-    case 0:
-      return 'North-west';
-    default:
-      throw new Error("Can't find wind directoin");
-  }
-};
+  const getCardCodes = cardData => cardData.map(data => data.weather.code);
 
-const getDay = cardData => {
-  if (isFirstCard(cardData)) {
-    return 'Today';
-  }
-  if (areFirstTwoCards(cardData)) {
-    return 'Tomorrow';
-  }
-  const { weekday, day, month } = getCur(cardData).date;
-  return `${weekday}, ${day} ${month}`;
-};
+  const countDigits = digits => {
+    return digits.reduce((acc, cur) => {
+      acc[cur] = cur in acc ? acc[cur] + 1 : 1;
+      return acc;
+    }, {});
+  };
 
-const getCardCodes = cardData => cardData.map(data => data.weather.code);
+  const getKeyWithMaxValue = obj => {
+    return Object.keys(obj).reduce((a, b) => (obj[a] > obj[b] ? a : b));
+  };
 
-const countDigits = digits => {
-  return digits.reduce((acc, cur) => {
-    acc[cur] = cur in acc ? acc[cur] + 1 : 1;
-    return acc;
-  }, {});
-};
+  const getModeDigit = digits => {
+    const countedDigits = countDigits(digits);
+    const modeDigit = getKeyWithMaxValue(countedDigits);
+    return modeDigit;
+  };
 
-const getKeyWithMaxValue = obj => {
-  return Object.keys(obj).reduce((a, b) => (obj[a] > obj[b] ? a : b));
-};
+  const filterCodesWithoutModeDigit = (codes, curDigit, modeDigit) => {
+    return codes.filter(code => (code[curDigit] === modeDigit ? 1 : 0));
+  };
 
-const getModeDigit = digits => {
-  const countedDigits = countDigits(digits);
-  const modeDigit = getKeyWithMaxValue(countedDigits);
-  return modeDigit;
-};
+  const getMoreLikelyModeWeatherCode = (codes, curDigit = 0) => {
+    while (codes[0].length < curDigit - 1) {
+      const checkingDigits = codes.map(code => code[curDigit]);
+      const modeCheckingDigit = getModeDigit(checkingDigits);
+      const currentlyModeCodes = filterCodesWithoutModeDigit(codes, curDigit, modeCheckingDigit);
+      return getMoreLikelyModeWeatherCode(currentlyModeCodes, curDigit + 1);
+    }
+    return codes[0];
+  };
 
-const filterCodesWithoutModeDigit = (codes, curDigit, modeDigit) => {
-  return codes.filter(code => (code[curDigit] === modeDigit ? 1 : 0));
-};
+  const findCardWeatherByCode = (cardData, cardCode) => {
+    return cardData.find(data => data.weather.code === cardCode);
+  };
 
-const getMoreLikelyModeWeatherCode = (codes, curDigit = 0) => {
-  while (codes[0].length < curDigit - 1) {
-    const checkingDigits = codes.map(code => code[curDigit]);
-    const modeCheckingDigit = getModeDigit(checkingDigits);
-    const currentlyModeCodes = filterCodesWithoutModeDigit(codes, curDigit, modeCheckingDigit);
-    return getMoreLikelyModeWeatherCode(currentlyModeCodes, curDigit + 1);
-  }
-  return codes[0];
-};
+  const getWeather = cardData => {
+    if (isFirstCard(cardData)) {
+      const { code, status, iconId } = getCur(cardData).weather;
+      return {
+        code,
+        status,
+        iconId
+      };
+    }
 
-const findCardWeatherByCode = (cardData, cardCode) => {
-  return cardData.find(data => data.weather.code === cardCode);
-};
+    const codes = getCardCodes(cardData);
+    const cardWeatherCode = getMoreLikelyModeWeatherCode(codes);
+    const cardWeather = findCardWeatherByCode(cardData, cardWeatherCode);
 
-const getWeather = cardData => {
-  if (isFirstCard(cardData)) {
-    const { code, status, iconId } = getCur(cardData).weather;
+    const { code, status, iconId } = cardWeather.weather;
     return {
       code,
       status,
       iconId
     };
-  }
+  };
 
-  const codes = getCardCodes(cardData);
-  const cardWeatherCode = getMoreLikelyModeWeatherCode(codes);
-  const cardWeather = findCardWeatherByCode(cardData, cardWeatherCode);
+  const getPackedSnatchesData = cardData => {
+    return cardData.map(({ date, weather, temp }) => {
+      return {
+        date,
+        weather,
+        temp
+      };
+    });
+  };
+  const getCardDataAverage = (cardData, prop) => {
+    const propCardDataList = parseProp(cardData, prop);
+    if (isFirstCard(cardData)) {
+      return getCur(propCardDataList);
+    }
+    return getArrAverage(propCardDataList);
+  };
 
-  const { code, status, iconId } = cardWeather.weather;
+  const getRoundedCardAverage = (cardData, prop) => Math.round(getCardDataAverage(cardData, prop));
+
+  const windDirectionId = getRoundedCardAverage(weatherCardData, 'windDirection');
+
   return {
-    code,
-    status,
-    iconId
+    temp: getRoundedCardAverage(weatherCardData, 'temp'),
+    humidity: getRoundedCardAverage(weatherCardData, 'humidity'),
+    pressure: getRoundedCardAverage(weatherCardData, 'pressure'),
+    clouds: getRoundedCardAverage(weatherCardData, 'clouds'),
+    wind: {
+      speed: getRoundedCardAverage(weatherCardData, 'windSpeed'),
+      direction: getWindDirectionById(windDirectionId)
+    },
+    day: getDay(weatherCardData),
+    weather: getWeather(weatherCardData),
+    dataIds: parseProp(weatherCardData, 'id'),
+    snatchesData: getPackedSnatchesData(weatherCardData),
+    isFirstCard: isFirstCard(weatherCardData)
   };
 };
 
-const getPackedSnatchesData = cardData => {
-  return cardData.map(({ date, weather, temp }) => {
-    return {
-      date,
-      weather,
-      temp
-    };
-  });
-};
+export const buildWeatherCard = weatherCard => {
+  const minusCompensator = str => {
+    return str[0] === '-' ? `${str}&nbsp;` : str;
+  };
 
-const minusCompensator = str => {
-  return str[0] === '-' ? `${str}&nbsp;` : str;
-};
-
-export default class WeatherCard {
-  constructor(cardData) {
-    this.temp = getRoundedCardAverage(cardData, 'temp');
-    this.humidity = getRoundedCardAverage(cardData, 'humidity');
-    this.pressure = getRoundedCardAverage(cardData, 'pressure');
-    this.clouds = getRoundedCardAverage(cardData, 'clouds');
-    const windDirectionId = getRoundedCardAverage(cardData, 'windDirection');
-    this.wind = {
-      speed: getRoundedCardAverage(cardData, 'windSpeed'),
-      direction: getWindDirectionById(windDirectionId)
-    };
-    this.day = getDay(cardData);
-    this.weather = getWeather(cardData);
-    this.dataIds = parseProp(cardData, 'id');
-    this.snatchesData = getPackedSnatchesData(cardData);
-    this.isFirstCard = () => {
-      return isFirstCard(cardData);
-    };
-  }
-
-  buildSnatches() {
-    return this.snatchesData
+  const buildSnatches = snatchesData => {
+    return snatchesData
       .map(({ date, weather, temp }) => {
         return `
           <li class="snatches__item">
@@ -166,28 +165,29 @@ export default class WeatherCard {
         `;
       })
       .join('');
-  }
+  };
 
-  buildHumidity() {
+  const buildHumidity = humidity => {
     return `
       <div class="humidity__value">
-        ${this.humidity}%
+        ${humidity}%
       </div>
       <div class="humidity__progress-bar progress-bar" aria-lable="Humidity progress bar">
         <svg class="progress-bar__svg" viewBox="-1 -1 34 34">
           <circle cx="16" cy="16" r="15.9155"
                   class="progress-bar__background" />
-          <circle cx="16" cy="16" r="15.9155" stroke-dashoffset="${100 - this.humidity}"
+          <circle cx="16" cy="16" r="15.9155" stroke-dashoffset="${100 - humidity}"
                   class="progress-bar__progress js-progress-bar" id="progress-bar"/>
         </svg>  
       </div>
     `;
-  }
+  };
 
-  buildWind() {
+  const buildWind = wind => {
+    const { speed, direction } = wind;
     return `
       <div class="wind__speed">
-        ${this.wind.speed}
+        ${speed}
         <span class="wind__speed-measure">
           km/h
         </span>
@@ -198,12 +198,12 @@ export default class WeatherCard {
         </svg>
       </div>
       <div class="wind__direction">
-        ${this.wind.direction}
+        ${direction}
       </div>
     `;
-  }
+  };
 
-  buildPressure() {
+  const buildPressure = pressure => {
     return `
       <div class="pressure__icon">
         <svg class="bg-icon pressure__icon-svg" viewBox="0 0 50 50" enable-background="new 0 0 50 50">
@@ -211,43 +211,42 @@ export default class WeatherCard {
         </svg>
       </div>
       <div class="pressure__value">
-        ${this.pressure}
+        ${pressure}
         <span class="pressure__value-measure">
           mb
         </span>
       </div>
     `;
-  }
+  };
 
-  buildClouds() {
+  const buildClouds = clouds => {
     return `
       <div class="clouds__value">
-        ${this.clouds}
+        ${clouds}
       </div>
     `;
-  }
+  };
 
-  build() {
-    return `
-      <section class="card${this.isFirstCard() ? '' : ' side'}">
+  return `
+      <section class="card${weatherCard.isFirstCard ? '' : ' side'}">
       <header class="card__head">
-          <span class="card__weather-icon icon-weather-${this.weather.iconId}" aria-label="${
-      this.weather.status
-    }"></span>
+          <span class="card__weather-icon icon-weather-${weatherCard.weather.iconId}" aria-label="${
+    weatherCard.weather.status
+  }"></span>
           <h2 class="card__day">
-            ${this.day}
+            ${weatherCard.day}
           </h2>
           <div class="card__temp">
-            ${minusCompensator(`${this.temp}&deg;`)}
+            ${minusCompensator(`${weatherCard.temp}&deg;`)}
           </div>
           <p class="card__weather-status">
-            ${this.weather.status}
+            ${weatherCard.weather.status}
           </p>
         </header>
         <main class="card__info">
           <div class="card__snatches snatches">
             <ul class="snatches__bar">
-              ${this.buildSnatches()}
+              ${buildSnatches(weatherCard.snatchesData)}
             </ul>
           </div>
           <ul class="card__details details">
@@ -256,7 +255,7 @@ export default class WeatherCard {
                 Humidity
               </h3>
               <div class="details__content humidity">
-                ${this.buildHumidity()}
+                ${buildHumidity(weatherCard.humidity)}
               </div>
             </li>
             <li class="details__block">
@@ -264,7 +263,7 @@ export default class WeatherCard {
                 Wind
               </h3>
               <div class="details__content wind">
-                ${this.buildWind()}
+                ${buildWind(weatherCard.wind)}
               </div>
             </li>
             <li class="details__block">
@@ -272,7 +271,7 @@ export default class WeatherCard {
                 Pressure
               </h3>
               <div class="details__content pressure">
-                ${this.buildPressure()}
+                ${buildPressure(weatherCard.pressure)}
               </div>
             </li>
             <li class="details__block">
@@ -280,12 +279,11 @@ export default class WeatherCard {
                 Clouds
               </h3>
               <div class="details__content clouds">
-                ${this.buildClouds()}
+                ${buildClouds(weatherCard.clouds)}
               </div>
             </li>
           </ul>
         </main>
       </section>
     `;
-  }
-}
+};
