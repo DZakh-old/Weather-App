@@ -1,5 +1,6 @@
 import { getArrAverage } from '../../helpers/arrayHelpers';
 import { parsePropsByKey } from '../../helpers/parsePropsByKey';
+import { getModeDigit } from '../../helpers/getModeDigit';
 
 export const createWeatherCard = weatherCardData => {
   const getCur = cardData => cardData[0];
@@ -44,33 +45,16 @@ export const createWeatherCard = weatherCardData => {
 
   const getCardCodes = cardData => cardData.map(data => data.weather.code);
 
-  const countDigits = digits => {
-    return digits.reduce((acc, cur) => {
-      acc[cur] = cur in acc ? acc[cur] + 1 : 1;
-      return acc;
-    }, {});
-  };
-
-  const getKeyWithMaxValue = obj => {
-    return Object.keys(obj).reduce((a, b) => (obj[a] > obj[b] ? a : b));
-  };
-
-  const getModeDigit = digits => {
-    const countedDigits = countDigits(digits);
-    const modeDigit = getKeyWithMaxValue(countedDigits);
-    return modeDigit;
-  };
-
   const filterCodesWithoutModeDigit = (codes, curDigit, modeDigit) => {
     return codes.filter(code => (code[curDigit] === modeDigit ? 1 : 0));
   };
 
-  const getMoreLikelyModeWeatherCode = (codes, curDigit = 0) => {
-    while (codes[0].length < curDigit - 1) {
+  const getMostPossibleWeatherCode = (codes, curDigit = 0) => {
+    if (codes[0].length + 1 < curDigit) {
       const checkingDigits = codes.map(code => code[curDigit]);
       const modeCheckingDigit = getModeDigit(checkingDigits);
       const currentlyModeCodes = filterCodesWithoutModeDigit(codes, curDigit, modeCheckingDigit);
-      return getMoreLikelyModeWeatherCode(currentlyModeCodes, curDigit + 1);
+      return getMostPossibleWeatherCode(currentlyModeCodes, curDigit + 1);
     }
     return codes[0];
   };
@@ -90,7 +74,7 @@ export const createWeatherCard = weatherCardData => {
     }
 
     const codes = getCardCodes(cardData);
-    const cardWeatherCode = getMoreLikelyModeWeatherCode(codes);
+    const cardWeatherCode = getMostPossibleWeatherCode(codes);
     const cardWeather = findCardWeatherByCode(cardData, cardWeatherCode);
 
     const { code, status, iconId } = cardWeather.weather;
@@ -132,7 +116,7 @@ export const createWeatherCard = weatherCardData => {
     },
     day: getDay(weatherCardData),
     weather: getWeather(weatherCardData),
-    dataIds: parseProp(weatherCardData, 'id'),
+    dataIds: parsePropsByKey(weatherCardData, 'id'),
     snatchesData: getPackedSnatchesData(weatherCardData),
     isFirstCard: isFirstCard(weatherCardData)
   };
