@@ -1,6 +1,7 @@
 import { getArrAverage } from '../../helpers/arrayHelpers';
 import { parsePropsByKey } from '../../helpers/parsePropsByKey';
 import { getModeDigit } from '../../helpers/getModeDigit';
+import { minusCompensator } from '../../helpers/minusCompensator';
 
 export const createWeatherCard = weatherCardData => {
   const getCur = cardData => cardData[0];
@@ -123,10 +124,6 @@ export const createWeatherCard = weatherCardData => {
 };
 
 export const buildWeatherCard = weatherCard => {
-  const minusCompensator = str => {
-    return str[0] === '-' ? `${str}&nbsp;` : str;
-  };
-
   const buildSnatches = snatchesData => {
     return snatchesData
       .map(({ date, weather, temp }) => {
