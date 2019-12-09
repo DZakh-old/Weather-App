@@ -1,5 +1,5 @@
 import { createWeatherCard } from '../weatherCardFactory';
-import { createWeatherSnatch } from '../createWeatherSnatch';
+import { createWeatherSnatch } from '../weatherSnatchFactory';
 import { toggleAppState, appIsActive } from '../appHandler';
 
 import { elements } from '../../appElements';
