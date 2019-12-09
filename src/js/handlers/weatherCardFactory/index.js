@@ -104,8 +104,6 @@ export const createWeatherCard = weatherCardData => {
 
   const getRoundedCardAverage = (cardData, prop) => Math.round(getCardDataAverage(cardData, prop));
 
-  const windDirectionId = getRoundedCardAverage(weatherCardData, 'windDirection');
-
   const weatherCardState = {
     temp: getRoundedCardAverage(weatherCardData, 'temp'),
     humidity: getRoundedCardAverage(weatherCardData, 'humidity'),
@@ -113,7 +111,7 @@ export const createWeatherCard = weatherCardData => {
     clouds: getRoundedCardAverage(weatherCardData, 'clouds'),
     wind: {
       speed: getRoundedCardAverage(weatherCardData, 'windSpeed'),
-      direction: getWindDirectionById(windDirectionId)
+      direction: getWindDirectionById(getRoundedCardAverage(weatherCardData, 'windDirectionId'))
     },
     day: getDay(weatherCardData),
     weather: getWeather(weatherCardData),

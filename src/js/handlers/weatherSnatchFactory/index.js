@@ -37,15 +37,11 @@ export const createWeatherSnatch = (tempData, tempId) => {
     };
   };
 
-  const getWindDirection = windDeg => {
-    const getWindDirectionId = deg => {
-      const numSides = 8;
-      const span = 360 / numSides;
+  const getWindDirectionId = windDeg => {
+    const numSides = 8;
+    const span = 360 / numSides;
 
-      return Math.ceil((deg + span / 2) / span) % numSides;
-    };
-
-    return getWindDirectionId(windDeg);
+    return Math.ceil((windDeg + span / 2) / span) % numSides;
   };
 
   return {
@@ -56,7 +52,7 @@ export const createWeatherSnatch = (tempData, tempId) => {
     weather: getWeatherObj(tempData.weather[0]),
     clouds: tempData.clouds.all,
     windSpeed: Math.round(tempData.wind.speed),
-    windDirection: getWindDirection(tempData.wind.deg),
+    windDirectionId: getWindDirectionId(tempData.wind.deg),
     id: tempId
   };
 };
