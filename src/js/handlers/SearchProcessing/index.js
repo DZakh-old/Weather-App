@@ -1,4 +1,7 @@
-import WeatherService, { switchOffWeather } from '../weatherHandler';
+import WeatherService, {
+  switchOffWeather,
+  renderLoaderInWeatherContainer
+} from '../weatherHandler';
 import Ajax from '../Ajax';
 import SearchBar from '../SearchBar';
 import { toggleAppState } from '../appHandler';
@@ -39,7 +42,7 @@ export default class SearchProcessing {
     SearchBar.blur();
     SearchBar.setValue(prediction ? prediction.description : '...');
     toggleAppState();
-    WeatherService.renderLoader();
+    renderLoaderInWeatherContainer();
 
     const { weatherData, placeName } = await getWeatherData(prediction, inputData);
 

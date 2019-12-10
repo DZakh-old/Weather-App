@@ -16,14 +16,13 @@ export const switchOffWeather = () => {
 
 export const isWeatherShown = isAppActive;
 
+export const renderLoaderInWeatherContainer = () => {
+  renderHtmlInContainer(
+    weatherContainer,
+    `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`
+  );
+};
 export default class WeatherService {
-  static renderLoader() {
-    renderHtmlInContainer(
-      weatherContainer,
-      `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`
-    );
-  }
-
   static renderWeather(weatherData) {
     const getParsedWeatherList = weatherDataArr => {
       return weatherDataArr.map((tempData, i) => createWeatherSnatch(tempData, i));
