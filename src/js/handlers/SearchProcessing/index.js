@@ -1,7 +1,4 @@
-import WeatherService, {
-  switchOffWeather,
-  renderLoaderInWeatherContainer
-} from '../weatherHandler';
+import { switchOffWeather, renderLoaderInWeatherContainer, renderWeather } from '../weatherHandler';
 import Ajax from '../Ajax';
 import SearchBar from '../SearchBar';
 import { toggleAppState } from '../appHandler';
@@ -51,7 +48,9 @@ export default class SearchProcessing {
     }
 
     if (weatherData) {
-      WeatherService.renderWeather(weatherData);
+      renderWeather(weatherData);
     }
+
+    // TODO: add exception
   }
 }
