@@ -2,7 +2,8 @@ import { createWeatherCard } from '../weatherCardFactory';
 import { createWeatherSnatch } from '../weatherSnatchFactory';
 import { toggleAppState, isAppActive } from '../appHandler';
 
-import { renderHtmlInContainer } from '../../helpers/render';
+import { renderHtmlInContainer } from '../../helpers/renderHelpers';
+import { replaceElClassName } from '../../helpers/classNameHelpers';
 
 import { elements } from '../../appElements';
 
@@ -16,10 +17,6 @@ export const switchOffWeather = () => {
 export const isWeatherShown = isAppActive;
 
 export default class WeatherService {
-  static replaceClassName(regEx, replacement) {
-    weatherContainer.className = weatherContainer.className.replace(regEx, replacement);
-  }
-
   static renderLoader() {
     renderHtmlInContainer(
       weatherContainer,
@@ -59,10 +56,10 @@ export default class WeatherService {
       const disableCards = cards => cards.forEach(card => card.classList.add('side'));
       const activateCard = card => card.classList.remove('side');
       const switchActiveWeatherCardClass = i => {
-        this.replaceClassName(/active-card-\d/g, `active-card-${i}`);
+        replaceElClassName(weatherContainer, /active-card-\d/g, `active-card-${i}`);
       };
 
-      this.replaceClassName(/active-card-\d/g, '');
+      replaceElClassName(weatherContainer, /active-card-\d/g, '');
       weatherContainer.classList.add('active-card-0');
 
       const cards = [...document.querySelectorAll(`.${className}`)];
