@@ -43,16 +43,16 @@ const getWindDirectionId = windDeg => {
   return Math.ceil((windDeg + span / 2) / span) % numSides;
 };
 
-export const createWeatherSnatch = (tempData, tempId) => {
+export const createWeatherSnatch = (weatherData, tempId) => {
   return {
-    date: getDateObj(tempData.dt_txt),
-    temp: Math.round(tempData.main.temp),
-    pressure: tempData.main.pressure,
-    humidity: tempData.main.humidity,
-    weather: getWeatherObj(tempData.weather[0]),
-    clouds: tempData.clouds.all,
-    windSpeed: Math.round(tempData.wind.speed),
-    windDirectionId: getWindDirectionId(tempData.wind.deg),
+    date: getDateObj(weatherData.dt_txt),
+    temp: Math.round(weatherData.main.temp),
+    pressure: weatherData.main.pressure,
+    humidity: weatherData.main.humidity,
+    weather: getWeatherObj(weatherData.weather[0]),
+    clouds: weatherData.clouds.all,
+    windSpeed: Math.round(weatherData.wind.speed),
+    windDirectionId: getWindDirectionId(weatherData.wind.deg),
     id: tempId
   };
 };

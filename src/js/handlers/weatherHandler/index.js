@@ -24,7 +24,7 @@ export const renderLoaderInWeatherContainer = () => {
 };
 
 const getParsedWeatherList = weatherDataArr => {
-  return weatherDataArr.map((tempData, i) => createWeatherSnatch(tempData, i));
+  return weatherDataArr.map((weatherData, i) => createWeatherSnatch(weatherData, i));
 };
 
 // TODO: Move the functions to the weatherCardsHandler
