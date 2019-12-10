@@ -2,6 +2,8 @@ import { createWeatherCard } from '../weatherCardFactory';
 import { createWeatherSnatch } from '../weatherSnatchFactory';
 import { toggleAppState, appIsActive } from '../appHandler';
 
+import { renderHtmlInContainer } from '../../helpers/render';
+
 import { elements } from '../../appElements';
 
 const { weatherContainer } = elements;
@@ -9,14 +11,14 @@ const { weatherContainer } = elements;
 export default class WeatherService {
   static disable() {
     toggleAppState();
-    this.renderHtml('');
+    renderHtmlInContainer(weatherContainer, '');
   }
 
   static weatherIsShown() {
     return appIsActive();
   }
 
-  static renderHtml(html) {
+  static renderHtmlInContainer(html) {
     weatherContainer.innerHTML = html;
   }
 
@@ -25,7 +27,10 @@ export default class WeatherService {
   }
 
   static renderLoader() {
-    this.renderHtml(`<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`);
+    renderHtmlInContainer(
+      weatherContainer,
+      `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`
+    );
   }
 
   static renderWeather(weatherData) {
@@ -53,7 +58,7 @@ export default class WeatherService {
         <div class="weather__separator" aria-disabled="true"></div>
       `;
       const weatherHtml = cards.map(card => card.build()).join(separator);
-      this.renderHtml(weatherHtml);
+      renderHtmlInContainer(weatherContainer, weatherHtml);
     };
 
     const addCardsSwitchListener = (className = 'card') => {

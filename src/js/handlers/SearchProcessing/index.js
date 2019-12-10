@@ -1,4 +1,4 @@
-import WeatherService from '../WeatherService';
+import WeatherService from '../weatherHandler';
 import Ajax from '../Ajax';
 import SearchBar from '../SearchBar';
 import { toggleAppState } from '../appHandler';

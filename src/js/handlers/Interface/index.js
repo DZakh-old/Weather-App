@@ -1,5 +1,5 @@
 import SearchBar from '../SearchBar';
-import WeatherService from '../WeatherService';
+import WeatherService from '../weatherHandler';
 import SearchProcessing from '../SearchProcessing';
 import Autocomplete from '../Autocomplete';
 import DarkMode from '../DarkMode';
