@@ -1,6 +1,6 @@
 import { createWeatherCard } from '../weatherCardFactory';
 import { createWeatherSnatch } from '../weatherSnatchFactory';
-import { toggleAppState, appIsActive } from '../appHandler';
+import { toggleAppState, isAppActive } from '../appHandler';
 
 import { renderHtmlInContainer } from '../../helpers/render';
 
@@ -13,7 +13,7 @@ export const switchOffWeather = () => {
   renderHtmlInContainer(weatherContainer, '');
 };
 
-export const isWeatherShown = appIsActive;
+export const isWeatherShown = isAppActive;
 
 export default class WeatherService {
   static replaceClassName(regEx, replacement) {

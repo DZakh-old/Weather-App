@@ -6,4 +6,4 @@ export const toggleAppState = () => {
   app.classList.toggle('active');
 };
 
-export const appIsActive = () => !!app.classList.contains('active');
+export const isAppActive = () => !!app.classList.contains('active');
