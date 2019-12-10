@@ -1,5 +1,5 @@
 import SearchBar from '../SearchBar';
-import WeatherService, { switchOffWeather } from '../weatherHandler';
+import { switchOffWeather, isWeatherShown } from '../weatherHandler';
 import SearchProcessing from '../SearchProcessing';
 import Autocomplete from '../Autocomplete';
 import DarkMode from '../DarkMode';
@@ -29,7 +29,7 @@ export default class Interface {
       if (inputData.length > 3) {
         if (e.data && e.data.match(/^[ёа-я\d\w]$/i) && !isCurInputEqualToPrev(e)) {
           const predictions = await Autocomplete.getPredictions(inputData, session);
-          if (predictions && !WeatherService.weatherIsShown()) {
+          if (predictions && !isWeatherShown()) {
             [mainPrediction] = predictions;
             Autocomplete.renderPredictions(predictions);
           }
@@ -45,7 +45,7 @@ export default class Interface {
     });
 
     SearchBar.addEventListener('focus', () => {
-      if (WeatherService.weatherIsShown()) {
+      if (isWeatherShown()) {
         SearchBar.clear();
         switchOffWeather();
         session = new Date().getTime();

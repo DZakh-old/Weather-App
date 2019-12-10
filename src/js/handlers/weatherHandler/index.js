@@ -13,16 +13,9 @@ export const switchOffWeather = () => {
   renderHtmlInContainer(weatherContainer, '');
 };
 
+export const isWeatherShown = appIsActive;
+
 export default class WeatherService {
-  static disable() {
-    toggleAppState();
-    renderHtmlInContainer(weatherContainer, '');
-  }
-
-  static weatherIsShown() {
-    return appIsActive();
-  }
-
   static replaceClassName(regEx, replacement) {
     weatherContainer.className = weatherContainer.className.replace(regEx, replacement);
   }
