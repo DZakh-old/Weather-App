@@ -8,6 +8,11 @@ import { elements } from '../../appElements';
 
 const { weatherContainer } = elements;
 
+export const switchOffWeather = () => {
+  toggleAppState();
+  renderHtmlInContainer(weatherContainer, '');
+};
+
 export default class WeatherService {
   static disable() {
     toggleAppState();
@@ -16,10 +21,6 @@ export default class WeatherService {
 
   static weatherIsShown() {
     return appIsActive();
-  }
-
-  static renderHtmlInContainer(html) {
-    weatherContainer.innerHTML = html;
   }
 
   static replaceClassName(regEx, replacement) {

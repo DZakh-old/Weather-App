@@ -1,4 +1,4 @@
-import WeatherService from '../weatherHandler';
+import WeatherService, { switchOffWeather } from '../weatherHandler';
 import Ajax from '../Ajax';
 import SearchBar from '../SearchBar';
 import { toggleAppState } from '../appHandler';
@@ -16,7 +16,7 @@ const getWeatherData = async (prediction, inputData) => {
     const apiRes = await Ajax.get(apiUrl);
     const { status } = apiRes;
     if (status !== 200) {
-      WeatherService.disable();
+      switchOffWeather();
       SearchBar.setValue('...');
       switch (status) {
         case 204:

@@ -1,5 +1,5 @@
 import SearchBar from '../SearchBar';
-import WeatherService from '../weatherHandler';
+import WeatherService, { switchOffWeather } from '../weatherHandler';
 import SearchProcessing from '../SearchProcessing';
 import Autocomplete from '../Autocomplete';
 import DarkMode from '../DarkMode';
@@ -47,7 +47,7 @@ export default class Interface {
     SearchBar.addEventListener('focus', () => {
       if (WeatherService.weatherIsShown()) {
         SearchBar.clear();
-        WeatherService.disable();
+        switchOffWeather();
         session = new Date().getTime();
       }
       if (SearchBar.isFailedValue()) {
