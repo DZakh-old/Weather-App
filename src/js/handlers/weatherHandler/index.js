@@ -27,37 +27,59 @@ const getParsedWeatherList = weatherDataArr => {
   return weatherDataArr.map((weatherData, i) => createWeatherSnatch(weatherData, i));
 };
 
-// TODO: Move the functions to the weatherCardsHandler
-const createWeatherCards = dataList => {
-  const createWeatherCardFromDataIndex = i => createWeatherCard(dataList.slice(i, i + 8 + 1));
+const createWeatherCardByNextCardIndex = (dataList, snatchesInDay, nextCardIndex) => {
+  const isFirstCard = nextCardIndex <= snatchesInDay;
+  const curCardIndex = isFirstCard ? 0 : nextCardIndex - snatchesInDay;
 
-  const curHour = dataList[0].date.hour;
-  const factor = Math.ceil((24 - curHour) / 3) || 8;
-  const cards = [];
+  return createWeatherCard(dataList.slice(curCardIndex, curCardIndex + snatchesInDay + 1));
+};
 
-  cards.push(createWeatherCardFromDataIndex(0));
-  for (let i = factor; i < factor + 3 * 8; i += 8) {
-    cards.push(createWeatherCardFromDataIndex(i));
+const processCreationWeatherCards = (
+  dataList,
+  snatchesInDay,
+  restNumberOfCards,
+  nextCardIndex,
+  cards = []
+) => {
+  if (restNumberOfCards === 0) {
+    return cards;
   }
 
-  return cards;
+  return processCreationWeatherCards(
+    dataList,
+    snatchesInDay,
+    restNumberOfCards - 1,
+    nextCardIndex + snatchesInDay,
+    [...cards, createWeatherCardByNextCardIndex(dataList, snatchesInDay, nextCardIndex)]
+  );
+};
+
+const createWeatherCards = dataList => {
+  const NUMBER_OF_CARDS = 4;
+  const SNATCHES_IN_DAY = 8;
+  const curHour = dataList[0].date.hour;
+  const secondCardIndex = Math.ceil((24 - curHour) / 3) || SNATCHES_IN_DAY;
+
+  return processCreationWeatherCards(dataList, SNATCHES_IN_DAY, NUMBER_OF_CARDS, secondCardIndex);
 };
 
 const renderWeatherCards = cards => {
   const separator = `
-      <div class="weather__separator" aria-disabled="true"></div>
-    `;
+    <div class="weather__separator" aria-disabled="true"></div>
+  `;
   const weatherHtml = cards.map(card => card.build()).join(separator);
   renderHtmlInContainer(weatherContainer, weatherHtml);
 };
 
-const addCardsSwitchListener = (className = 'card') => {
-  const disableCards = cards => cards.forEach(card => card.classList.add('side'));
-  const activateCard = card => card.classList.remove('side');
-  const switchActiveWeatherCardClass = i => {
-    replaceElClassName(weatherContainer, /active-card-\d/g, `active-card-${i}`);
-  };
+const disableCards = cards => cards.forEach(card => card.classList.add('side'));
 
+const activateCard = card => card.classList.remove('side');
+
+const switchActiveWeatherCardClass = i => {
+  replaceElClassName(weatherContainer, /active-card-\d/g, `active-card-${i}`);
+};
+
+const addCardsSwitchListener = (className = 'card') => {
   replaceElClassName(weatherContainer, /active-card-\d/g, '');
   weatherContainer.classList.add('active-card-0');
 
