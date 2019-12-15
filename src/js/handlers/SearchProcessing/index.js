@@ -1,6 +1,10 @@
 import { switchOffWeather, renderLoaderInWeatherContainer, renderWeather } from '../weatherHandler';
+import {
+  setSearchBarValue,
+  blurSearchBar,
+  isIntermediateValueInSearchBar
+} from '../searchBarHandler';
 import Ajax from '../Ajax';
-import SearchBar from '../SearchBar';
 import { toggleAppState } from '../appHandler';
 
 const buildApiRequestUrl = (prediction, inputData) => {
@@ -17,7 +21,7 @@ const getWeatherData = async (prediction, inputData) => {
     const { status } = apiRes;
     if (status !== 200) {
       switchOffWeather();
-      SearchBar.setValue('...');
+      setSearchBarValue('...');
       switch (status) {
         case 204:
           return { weatherData: undefined, placeName: 'Not Found!' };
@@ -36,15 +40,15 @@ const getWeatherData = async (prediction, inputData) => {
 
 export default class SearchProcessing {
   static async submit(prediction, inputData = '') {
-    SearchBar.blur();
-    SearchBar.setValue(prediction ? prediction.description : '...');
+    blurSearchBar();
+    setSearchBarValue(prediction ? prediction.description : '...');
     toggleAppState();
     renderLoaderInWeatherContainer();
 
     const { weatherData, placeName } = await getWeatherData(prediction, inputData);
 
-    if (SearchBar.isIntermediateValue()) {
-      SearchBar.setValue(placeName);
+    if (isIntermediateValueInSearchBar()) {
+      setSearchBarValue(placeName);
     }
 
     if (weatherData) {

@@ -1,4 +1,9 @@
-import SearchBar from '../SearchBar';
+import {
+  getSearchBarValue,
+  clearSearchBarValue,
+  isFailedValueInSearchBar,
+  addSearchBarEventListener
+} from '../searchBarHandler';
 import { switchOffWeather, isWeatherShown } from '../weatherHandler';
 import SearchProcessing from '../SearchProcessing';
 import Autocomplete from '../Autocomplete';
@@ -12,19 +17,19 @@ export default class Interface {
     let session = new Date().getTime();
     let mainPrediction;
 
-    SearchBar.addEventListener('keydown', async e => {
-      if (e.keyCode === 13 && SearchBar.getValue().length > 0) {
-        await SearchProcessing.submit(mainPrediction, SearchBar.getValue());
+    addSearchBarEventListener('keydown', async e => {
+      if (e.keyCode === 13 && getSearchBarValue().length > 0) {
+        await SearchProcessing.submit(mainPrediction, getSearchBarValue());
         Autocomplete.clear();
       }
     });
 
-    SearchBar.addEventListener('input', async e => {
+    addSearchBarEventListener('input', async e => {
       const isCurInputEqualToPrev = event => {
         return event.target.value.slice(-2, -1) === event.data;
       };
 
-      const inputData = SearchBar.getValue();
+      const inputData = getSearchBarValue();
 
       if (inputData.length > 3) {
         if (e.data && e.data.match(/^[ёа-я\d\w]$/i) && !isCurInputEqualToPrev(e)) {
@@ -40,18 +45,18 @@ export default class Interface {
       }
     });
 
-    SearchBar.addEventListener('blur', () => {
+    addSearchBarEventListener('blur', () => {
       Autocomplete.hide();
     });
 
-    SearchBar.addEventListener('focus', () => {
+    addSearchBarEventListener('focus', () => {
       if (isWeatherShown()) {
-        SearchBar.clear();
+        clearSearchBarValue();
         switchOffWeather();
         session = new Date().getTime();
       }
-      if (SearchBar.isFailedValue()) {
-        SearchBar.clear();
+      if (isFailedValueInSearchBar()) {
+        clearSearchBarValue();
         Autocomplete.clear();
       }
       if (Autocomplete.hasPredictions()) {

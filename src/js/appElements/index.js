@@ -1,7 +1,7 @@
 const elementsAndTheirIdsFromTemplate = {
   app: 'app',
   weatherContainer: 'weather',
-  searchBar: 'search-bar',
+  searchBarContainer: 'search-bar',
   autocompleteContainer: 'autocomplete'
 };
 
