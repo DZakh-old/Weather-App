@@ -7,11 +7,11 @@ import {
 import { switchOffWeather, isWeatherShown } from '../weatherHandler';
 import { submitCitySearch } from '../searchProcessing';
 import Autocomplete from '../Autocomplete';
-import DarkMode from '../DarkMode';
+import { activateDarkMode } from '../darkModeHandling';
 
 export default class Interface {
   static activate() {
-    DarkMode.activate();
+    activateDarkMode();
 
     // TODO: Would be nice to refactor it, but for now it's also ok -_-
     let session = new Date().getTime();

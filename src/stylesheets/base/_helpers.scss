@@ -6,7 +6,7 @@
   overflow: hidden;
 }
 
-.darkmode {
+.dark-mode {
   @include v-init((  
     bg-clr: rgb(21, 21, 21),
     second-bg-clr: rgb(20, 30, 40),
