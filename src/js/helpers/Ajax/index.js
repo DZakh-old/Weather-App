@@ -1,5 +1,5 @@
-export default class Ajax {
-  static async get(url, headers = {}) {
+export const Ajax = {
+  get: async (url, headers = {}) => {
     try {
       const res = await fetch(url, {
         method: 'GET',
@@ -16,4 +16,4 @@ export default class Ajax {
       throw new Error(err);
     }
   }
-}
+};

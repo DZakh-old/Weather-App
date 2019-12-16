@@ -1,6 +1,7 @@
 import { elements } from '../../utils/app-elements';
 import { submitCitySearch } from '../searchProcessing';
-import Ajax from '../../helpers/Ajax';
+
+import { Ajax } from '../../helpers/Ajax';
 
 const { autocompleteContainer } = elements;
 
@@ -70,17 +71,13 @@ export default class Autocomplete {
   }
 
   static async getPredictions(inputData, session) {
-    try {
-      const encodedInputData = encodeURIComponent(inputData);
-      const apiUrl = `/api/autocomplete/${encodedInputData}&${session}`;
-      const apiRes = await Ajax.get(apiUrl);
-      const { status } = apiRes;
-      if (status !== 200) {
-        return undefined;
-      }
-      return apiRes.predictionList;
-    } catch (err) {
-      throw new Error(err);
+    const encodedInputData = encodeURIComponent(inputData);
+    const apiUrl = `/api/autocomplete/${encodedInputData}&${session}`;
+    const apiRes = await Ajax.get(apiUrl);
+    const { status } = apiRes;
+    if (status !== 200) {
+      return undefined;
     }
+    return apiRes.predictionList;
   }
 }
