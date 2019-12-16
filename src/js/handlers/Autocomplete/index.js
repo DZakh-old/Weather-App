@@ -1,6 +1,6 @@
 import { elements } from '../../appElements';
-import SearchProcessing from '../SearchProcessing';
-import Ajax from '../Ajax';
+import { submitCitySearch } from '../searchProcessing';
+import Ajax from '../../helpers/Ajax';
 
 const { autocompleteContainer } = elements;
 
@@ -29,7 +29,7 @@ export default class Autocomplete {
           this.show();
         });
         prediction.addEventListener('click', () => {
-          SearchProcessing.submit(predictions[i]);
+          submitCitySearch(predictions[i]);
           Autocomplete.clear();
         });
       });

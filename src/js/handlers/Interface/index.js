@@ -5,7 +5,7 @@ import {
   addSearchBarEventListener
 } from '../searchBarHandler';
 import { switchOffWeather, isWeatherShown } from '../weatherHandler';
-import SearchProcessing from '../SearchProcessing';
+import { submitCitySearch } from '../searchProcessing';
 import Autocomplete from '../Autocomplete';
 import DarkMode from '../DarkMode';
 
@@ -19,7 +19,7 @@ export default class Interface {
 
     addSearchBarEventListener('keydown', async e => {
       if (e.keyCode === 13 && getSearchBarValue().length > 0) {
-        await SearchProcessing.submit(mainPrediction, getSearchBarValue());
+        await submitCitySearch(mainPrediction, getSearchBarValue());
         Autocomplete.clear();
       }
     });

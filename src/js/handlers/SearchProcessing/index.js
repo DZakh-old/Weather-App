@@ -4,8 +4,9 @@ import {
   blurSearchBar,
   isIntermediateValueInSearchBar
 } from '../searchBarHandler';
-import Ajax from '../Ajax';
 import { toggleAppState } from '../appHandler';
+
+import Ajax from '../../helpers/Ajax';
 
 const buildApiRequestUrl = (prediction, inputData) => {
   const apiType = prediction ? 'detailsbyplaceid' : 'findplacefromtext';
@@ -38,23 +39,21 @@ const getWeatherData = async (prediction, inputData) => {
   }
 };
 
-export default class SearchProcessing {
-  static async submit(prediction, inputData = '') {
-    blurSearchBar();
-    setSearchBarValue(prediction ? prediction.description : '...');
-    toggleAppState();
-    renderLoaderInWeatherContainer();
+export const submitCitySearch = async (prediction, inputData = '') => {
+  blurSearchBar();
+  setSearchBarValue(prediction ? prediction.description : '...');
+  toggleAppState();
+  renderLoaderInWeatherContainer();
 
-    const { weatherData, placeName } = await getWeatherData(prediction, inputData);
+  const { weatherData, placeName } = await getWeatherData(prediction, inputData);
 
-    if (isIntermediateValueInSearchBar()) {
-      setSearchBarValue(placeName);
-    }
-
-    if (weatherData) {
-      renderWeather(weatherData);
-    }
-
-    // TODO: add exception
+  if (isIntermediateValueInSearchBar()) {
+    setSearchBarValue(placeName);
   }
-}
+
+  if (weatherData) {
+    renderWeather(weatherData);
+  }
+
+  // TODO: add exception
+};
