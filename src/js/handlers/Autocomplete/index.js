@@ -1,4 +1,4 @@
-import { elements } from '../../appElements';
+import { elements } from '../../utils/app-elements';
 import { submitCitySearch } from '../searchProcessing';
 import Ajax from '../../helpers/Ajax';
 

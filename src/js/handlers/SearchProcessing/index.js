@@ -1,10 +1,7 @@
 import { switchOffWeather, renderLoaderInWeatherContainer, renderWeather } from '../weatherHandler';
-import {
-  setSearchBarValue,
-  blurSearchBar,
-  isIntermediateValueInSearchBar
-} from '../searchBarHandler';
+import { setSearchBarValue, blurSearchBar, isInterimValueInSearchBar } from '../searchBarHandler';
 import { toggleAppState } from '../appHandler';
+import { messages } from '../../utils/messages';
 
 import Ajax from '../../helpers/Ajax';
 
@@ -22,15 +19,16 @@ const getWeatherData = async (prediction, inputData) => {
     const { status } = apiRes;
     if (status !== 200) {
       switchOffWeather();
-      setSearchBarValue('...');
+      setSearchBarValue(messages.interim);
+
       switch (status) {
         case 204:
-          return { weatherData: undefined, placeName: 'Not Found!' };
+          return { weatherData: undefined, placeName: messages.error204 };
         case 406:
         case 429:
-          return { weatherData: undefined, placeName: 'Try later!' };
+          return { weatherData: undefined, placeName: messages.error406 };
         default:
-          return { weatherData: undefined, placeName: 'Error!' };
+          return { weatherData: undefined, placeName: messages.error429 };
       }
     }
     return apiRes;
@@ -41,19 +39,17 @@ const getWeatherData = async (prediction, inputData) => {
 
 export const submitCitySearch = async (prediction, inputData = '') => {
   blurSearchBar();
-  setSearchBarValue(prediction ? prediction.description : '...');
+  setSearchBarValue(prediction ? prediction.description : messages.interim);
   toggleAppState();
   renderLoaderInWeatherContainer();
 
   const { weatherData, placeName } = await getWeatherData(prediction, inputData);
 
-  if (isIntermediateValueInSearchBar()) {
+  if (isInterimValueInSearchBar()) {
     setSearchBarValue(placeName);
   }
 
   if (weatherData) {
     renderWeather(weatherData);
   }
-
-  // TODO: add exception
 };

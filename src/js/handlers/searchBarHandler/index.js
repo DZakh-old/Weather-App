@@ -1,4 +1,5 @@
-import { elements } from '../../appElements';
+import { elements } from '../../utils/app-elements';
+import { messages } from '../../utils/messages';
 
 const { searchBarContainer } = elements;
 
@@ -22,14 +23,15 @@ export const isSearchBarValue = value => {
   return getSearchBarValue() === value;
 };
 
-// TODO: Maybe move it to interface
-export const isIntermediateValueInSearchBar = (intermediateValue = '...') => {
-  return isSearchBarValue(intermediateValue);
+export const isInterimValueInSearchBar = () => {
+  return isSearchBarValue(messages.interim);
 };
 
 export const isFailedValueInSearchBar = () => {
   return (
-    isSearchBarValue('Not Found!') || isSearchBarValue('Error!') || isSearchBarValue('Try later!')
+    isSearchBarValue(messages.error204) ||
+    isSearchBarValue(messages.error406) ||
+    isSearchBarValue(messages.error429)
   );
 };
 

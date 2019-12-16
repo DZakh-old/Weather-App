@@ -5,7 +5,7 @@ import { toggleAppState, isAppActive } from '../appHandler';
 import { renderHtmlInContainer } from '../../helpers/renderHelpers';
 import { replaceElClassName } from '../../helpers/classNameHelpers';
 
-import { elements } from '../../appElements';
+import { elements } from '../../utils/app-elements';
 
 const { weatherContainer } = elements;
 
