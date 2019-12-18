@@ -7,11 +7,11 @@ import { renderHtmlInContainer } from '../../helpers/renderHelpers';
 
 const { autocompleteContainer } = elements;
 
-const hideAutocomplete = () => {
+export const hideAutocompletePredictions = () => {
   autocompleteContainer.classList.remove('active-autocomplete');
 };
 
-const showAutocomplete = () => {
+export const showAutocompletePredictions = () => {
   autocompleteContainer.classList.add('active-autocomplete');
 };
 
@@ -19,12 +19,12 @@ const removePrediction = () => {
   autocompleteContainer.removeChild(autocompleteContainer.firstChild);
 };
 
-const hasAutocompletePredictions = () => {
+export const hasAutocompletePredictions = () => {
   return !!autocompleteContainer.firstChild;
 };
 
-const cleanAutocomplete = () => {
-  hideAutocomplete();
+export const clearAutocomplete = () => {
+  hideAutocompletePredictions();
   while (hasAutocompletePredictions()) {
     removePrediction();
   }
@@ -48,27 +48,27 @@ const activatePredictionsEventListeners = predictions => {
   const predictionElems = [...document.querySelectorAll('.search__autocomplete-prediction')];
   predictionElems.forEach((predictionElem, i) => {
     predictionElem.addEventListener('blur', () => {
-      hideAutocomplete();
+      hideAutocompletePredictions();
     });
     predictionElem.addEventListener('focus', () => {
-      showAutocomplete();
+      showAutocompletePredictions();
     });
     predictionElem.addEventListener('click', () => {
       submitCitySearch(predictions[i]);
-      cleanAutocomplete();
+      clearAutocomplete();
     });
   });
 };
 
-export const renderPredictions = predictions => {
+export const renderAutocompletePredictions = predictions => {
   const autocompleteHtml = buildAutocompleteHtml(predictions);
 
-  showAutocomplete();
+  showAutocompletePredictions();
   renderHtmlInContainer(autocompleteContainer, autocompleteHtml);
   activatePredictionsEventListeners(predictions);
 };
 
-export const getPredictions = async (inputData, session) => {
+export const getAutocompletePredictions = async (inputData, session) => {
   const encodedInputData = encodeURIComponent(inputData);
   const apiUrl = `/api/autocomplete/${encodedInputData}&${session}`;
   const apiRes = await Ajax.get(apiUrl);

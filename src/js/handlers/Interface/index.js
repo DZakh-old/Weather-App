@@ -4,9 +4,16 @@ import {
   isFailedValueInSearchBar,
   addSearchBarEventListener
 } from '../searchBarHandler';
+import {
+  clearAutocomplete,
+  getAutocompletePredictions,
+  renderAutocompletePredictions,
+  showAutocompletePredictions,
+  hideAutocompletePredictions,
+  hasAutocompletePredictions
+} from '../autocompleteHandler';
 import { switchOffWeather, isWeatherShown } from '../weatherHandler';
 import { submitCitySearch } from '../searchProcessing';
-import Autocomplete from '../Autocomplete';
 import { activateDarkMode } from '../darkModeHandling';
 
 export default class Interface {
@@ -20,7 +27,7 @@ export default class Interface {
     addSearchBarEventListener('keydown', async e => {
       if (e.keyCode === 13 && getSearchBarValue().length > 0) {
         await submitCitySearch(mainPrediction, getSearchBarValue());
-        Autocomplete.clear();
+        clearAutocomplete();
       }
     });
 
@@ -33,20 +40,20 @@ export default class Interface {
 
       if (inputData.length > 3) {
         if (e.data && e.data.match(/^[ёа-я\d\w]$/i) && !isCurInputEqualToPrev(e)) {
-          const predictions = await Autocomplete.getPredictions(inputData, session);
+          const predictions = await getAutocompletePredictions(inputData, session);
           if (predictions && !isWeatherShown()) {
             [mainPrediction] = predictions;
-            Autocomplete.renderPredictions(predictions);
+            renderAutocompletePredictions(predictions);
           }
         }
       } else {
         mainPrediction = undefined;
-        Autocomplete.clear();
+        clearAutocomplete();
       }
     });
 
     addSearchBarEventListener('blur', () => {
-      Autocomplete.hide();
+      hideAutocompletePredictions();
     });
 
     addSearchBarEventListener('focus', () => {
@@ -57,10 +64,10 @@ export default class Interface {
       }
       if (isFailedValueInSearchBar()) {
         clearSearchBarValue();
-        Autocomplete.clear();
+        clearAutocomplete();
       }
-      if (Autocomplete.hasPredictions()) {
-        Autocomplete.show();
+      if (hasAutocompletePredictions()) {
+        showAutocompletePredictions();
       }
     });
   }
