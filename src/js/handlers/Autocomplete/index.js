@@ -1,14 +1,40 @@
-import { elements } from '../../utils/app-elements';
 import { submitCitySearch } from '../searchProcessing';
 
+import { elements } from '../../utils/app-elements';
+
 import { Ajax } from '../../helpers/Ajax';
+import { renderHtmlInContainer } from '../../helpers/renderHelpers';
 
 const { autocompleteContainer } = elements;
 
-const buildAutocomplete = predictions => {
+const hideAutocomplete = () => {
+  autocompleteContainer.classList.remove('active-autocomplete');
+};
+
+const showAutocomplete = () => {
+  autocompleteContainer.classList.add('active-autocomplete');
+};
+
+const removePrediction = () => {
+  autocompleteContainer.removeChild(autocompleteContainer.firstChild);
+};
+
+const hasAutocompletePredictions = () => {
+  return !!autocompleteContainer.firstChild;
+};
+
+const cleanAutocomplete = () => {
+  hideAutocomplete();
+  while (hasAutocompletePredictions()) {
+    removePrediction();
+  }
+};
+
+const buildAutocompleteHtml = predictions => {
   const separator = `
     <div class="search__autocomplete-separator" aria-disabled="true"></div>
   `;
+
   return predictions
     .map(({ description }) => {
       return `
@@ -18,66 +44,37 @@ const buildAutocomplete = predictions => {
     .join(separator);
 };
 
-export default class Autocomplete {
-  static renderPredictions(predictions) {
-    const activatePredictionsEventListeners = () => {
-      const predictionElements = [...document.querySelectorAll('.search__autocomplete-prediction')];
-      predictionElements.forEach((prediction, i) => {
-        prediction.addEventListener('blur', () => {
-          this.hide();
-        });
-        prediction.addEventListener('focus', () => {
-          this.show();
-        });
-        prediction.addEventListener('click', () => {
-          submitCitySearch(predictions[i]);
-          Autocomplete.clear();
-        });
-      });
-    };
+const activatePredictionsEventListeners = predictions => {
+  const predictionElems = [...document.querySelectorAll('.search__autocomplete-prediction')];
+  predictionElems.forEach((predictionElem, i) => {
+    predictionElem.addEventListener('blur', () => {
+      hideAutocomplete();
+    });
+    predictionElem.addEventListener('focus', () => {
+      showAutocomplete();
+    });
+    predictionElem.addEventListener('click', () => {
+      submitCitySearch(predictions[i]);
+      cleanAutocomplete();
+    });
+  });
+};
 
-    /* ___ Main script ___ */
-    this.show();
-    const autocompleteHtml = buildAutocomplete(predictions);
-    this.renderAutocomplete(autocompleteHtml);
-    activatePredictionsEventListeners();
-  }
+export const renderPredictions = predictions => {
+  const autocompleteHtml = buildAutocompleteHtml(predictions);
 
-  static hide() {
-    autocompleteContainer.classList.remove('active-autocomplete');
-  }
+  showAutocomplete();
+  renderHtmlInContainer(autocompleteContainer, autocompleteHtml);
+  activatePredictionsEventListeners(predictions);
+};
 
-  static show() {
-    autocompleteContainer.classList.add('active-autocomplete');
+export const getPredictions = async (inputData, session) => {
+  const encodedInputData = encodeURIComponent(inputData);
+  const apiUrl = `/api/autocomplete/${encodedInputData}&${session}`;
+  const apiRes = await Ajax.get(apiUrl);
+  const { status } = apiRes;
+  if (status !== 200) {
+    return undefined;
   }
-
-  static clear() {
-    this.hide();
-    while (this.hasPredictions()) {
-      this.removePrediction();
-    }
-  }
-
-  static hasPredictions() {
-    return !!autocompleteContainer.firstChild;
-  }
-
-  static removePrediction() {
-    autocompleteContainer.removeChild(autocompleteContainer.firstChild);
-  }
-
-  static renderAutocomplete(html) {
-    autocompleteContainer.innerHTML = html;
-  }
-
-  static async getPredictions(inputData, session) {
-    const encodedInputData = encodeURIComponent(inputData);
-    const apiUrl = `/api/autocomplete/${encodedInputData}&${session}`;
-    const apiRes = await Ajax.get(apiUrl);
-    const { status } = apiRes;
-    if (status !== 200) {
-      return undefined;
-    }
-    return apiRes.predictionList;
-  }
-}
+  return apiRes.predictionList;
+};
