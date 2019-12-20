@@ -1,10 +1,10 @@
-import { switchOffWeather, renderLoaderInWeatherContainer, renderWeather } from '../weatherHandler';
-import { setSearchBarValue, blurSearchBar, isInterimValueInSearchBar } from '../searchBarHandler';
-import { toggleAppState } from '../appHandler';
+import { switchOffWeather, renderLoaderInWeatherContainer, renderWeather } from './weatherHandler';
+import { setSearchBarValue, blurSearchBar, isInterimValueInSearchBar } from './searchBarHandler';
+import { toggleAppState } from './appHandler';
 
-import { messages } from '../../utils/messages';
+import { messages } from '../utils/messages';
 
-import { Ajax } from '../../helpers/Ajax';
+import { Ajax } from '../helpers/Ajax';
 
 const buildApiRequestUrl = (prediction, inputData) => {
   const apiType = prediction ? 'detailsbyplaceid' : 'findplacefromtext';

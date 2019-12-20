@@ -1,9 +1,9 @@
-import { submitCitySearch } from '../searchProcessing';
+import { submitCitySearch } from './searchProcessing';
 
-import { elements } from '../../utils/app-elements';
+import { elements } from '../utils/app-elements';
 
-import { Ajax } from '../../helpers/Ajax';
-import { renderHtmlInContainer } from '../../helpers/renderHelpers';
+import { Ajax } from '../helpers/Ajax';
+import { renderHtmlInContainer } from '../helpers/renderHelper';
 
 const { autocompleteContainer } = elements;
 

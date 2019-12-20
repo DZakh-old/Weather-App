@@ -1,5 +1,5 @@
-import { elements } from '../../utils/app-elements';
-import { messages } from '../../utils/messages';
+import { elements } from '../utils/app-elements';
+import { messages } from '../utils/messages';
 
 const { searchBarContainer } = elements;
 

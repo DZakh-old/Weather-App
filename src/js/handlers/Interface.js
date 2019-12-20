@@ -3,7 +3,7 @@ import {
   clearSearchBarValue,
   isFailedValueInSearchBar,
   addSearchBarEventListener
-} from '../searchBarHandler';
+} from './searchBarHandler';
 import {
   clearAutocomplete,
   getAutocompletePredictions,
@@ -11,10 +11,10 @@ import {
   showAutocompletePredictions,
   hideAutocompletePredictions,
   hasAutocompletePredictions
-} from '../autocompleteHandler';
-import { switchOffWeather, isWeatherShown } from '../weatherHandler';
-import { submitCitySearch } from '../searchProcessing';
-import { activateDarkMode } from '../darkModeHandling';
+} from './autocompleteHandler';
+import { switchOffWeather, isWeatherShown } from './weatherHandler';
+import { submitCitySearch } from './searchProcessing';
+import { activateDarkMode } from './darkModeHandling';
 
 export default class Interface {
   static activate() {
