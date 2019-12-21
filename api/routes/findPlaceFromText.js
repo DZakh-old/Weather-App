@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const { GoogleApi, handleResponse } = require('../../utilities');
+const { GoogleApi, handleResponse } = require('../handlers');
 
 router.get('/:input', async (req, res, next) => {
   const apiUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(

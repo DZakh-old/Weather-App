@@ -1,9 +1,9 @@
 const createError = require('http-errors');
-const Ajax = require('../Ajax');
-const WeatherApi = require('../WeatherApi');
-const { sleep } = require('../../helpers');
+const Ajax = require('./Ajax');
+const WeatherApi = require('./WeatherApi');
+const { sleep } = require('../helpers');
 
-const { googleApiKey } = require('../../config');
+const { googleApiKey } = require('../config');
 
 /* --- Functions --- */
 const getGoogleUrlWithKey = url => {

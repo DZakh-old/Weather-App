@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const { GoogleApi, handleResponse } = require('../../utilities');
+const { GoogleApi, handleResponse } = require('../handlers');
 
 router.get('/:request', async (req, res, next) => {
   const [input, session] = req.params.request.split('&');

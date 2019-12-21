@@ -1,5 +1,5 @@
-const { weatherApiKey } = require('../../config');
-const Ajax = require('../Ajax');
+const { weatherApiKey } = require('../config');
+const Ajax = require('./Ajax');
 
 class WeatherApi {
   static async get(lat, lon) {
