@@ -3,7 +3,7 @@ import { submitCitySearch } from './searchProcessing';
 import { elements } from '../utils/app-elements';
 
 import { Ajax } from '../helpers/Ajax';
-import { renderHtmlInContainer } from '../helpers/renderHelper';
+import { renderHtmlInContainer } from '../helpers/renderHelpers';
 
 const { autocompleteContainer } = elements;
 

@@ -1,7 +1,7 @@
 import { getArrAverage } from '../helpers/arrayHelpers';
-import { parsePropsByKey } from '../helpers/parsePropsByKey';
-import { getModeDigit } from '../helpers/getModeDigit';
-import { minusCompensator } from '../helpers/minusCompensator';
+import { parsePropsByKey } from '../functions/parsePropsByKey';
+import { getModeDigit } from '../functions/getModeDigit';
+import { minusCompensator } from '../functions/minusCompensator';
 
 const getCur = cardData => cardData[0];
 

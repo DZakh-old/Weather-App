@@ -2,7 +2,7 @@ import { createWeatherCard } from './weatherCardFactory';
 import { createWeatherSnatch } from './weatherSnatchFactory';
 import { toggleAppState, isAppActive } from './appHandler';
 
-import { renderHtmlInContainer } from '../helpers/renderHelper';
+import { renderHtmlInContainer } from '../helpers/renderHelpers';
 import { replaceElClassName } from '../helpers/classNameHelpers';
 
 import { elements } from '../utils/app-elements';

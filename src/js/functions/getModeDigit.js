@@ -1,4 +1,4 @@
-import { getKeyWithMaxValue } from './objectHelpers';
+import { getKeyWithMaxValue } from '../helpers/objectHelpers';
 
 const countDigits = digitsList => {
   return digitsList.reduce((acc, cur) => {
