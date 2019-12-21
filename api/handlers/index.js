@@ -1,4 +1,4 @@
-const WeatherApi = require('./WeatherApi');
+const WeatherApi = require('./weatherApiGetRequest');
 const GoogleApi = require('./GoogleApi');
 const handleResponse = require('./handleResponse');
 

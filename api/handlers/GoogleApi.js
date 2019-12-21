@@ -1,5 +1,5 @@
 const createError = require('http-errors');
-const WeatherApi = require('./WeatherApi');
+const weatherApiGetRequest = require('./weatherApiGetRequest');
 const { sleep, Ajax } = require('../helpers');
 
 const { googleApiKey } = require('../config');
@@ -79,7 +79,7 @@ class GoogleApi {
       const { geometry, name } = curPlaceData;
       const { lat, lng: lon } = geometry.location;
 
-      const { cod, list } = await WeatherApi.get(lat, lon);
+      const { cod, list } = await weatherApiGetRequest({ lat, lon });
       return { statusCode: +cod || cod || 406, weatherData: list, placeName: name };
     } catch (err) {
       throw createError(err);
