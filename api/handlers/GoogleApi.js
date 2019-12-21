@@ -1,7 +1,6 @@
 const createError = require('http-errors');
-const Ajax = require('./Ajax');
 const WeatherApi = require('./WeatherApi');
-const { sleep } = require('../helpers');
+const { sleep, Ajax } = require('../helpers');
 
 const { googleApiKey } = require('../config');
 

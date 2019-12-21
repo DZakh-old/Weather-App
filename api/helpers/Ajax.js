@@ -1,8 +1,8 @@
 const fetch = require('node-fetch');
 const createError = require('http-errors');
 
-class Ajax {
-  static async get(url, headers = {}) {
+const Ajax = {
+  get: async (url, headers = {}) => {
     try {
       const res = await fetch(url, {
         method: 'GET',
@@ -13,6 +13,6 @@ class Ajax {
       throw createError(err);
     }
   }
-}
+};
 
 module.exports = Ajax;
