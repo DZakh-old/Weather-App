@@ -1,10 +1,14 @@
-const WeatherApi = require('./weatherApiGetRequest');
-const GoogleApi = require('./GoogleApi');
+const weatherApiGetRequest = require('./weatherApiGetRequest');
+const googleApiGetRequest = require('./googleApiGetRequest');
+const processAutocomplete = require('./processAutocomplete');
+const processWeather = require('./processWeather');
 const handleResponse = require('./handleResponse');
 
 const utilities = {
-  WeatherApi,
-  GoogleApi,
+  processAutocomplete,
+  googleApiGetRequest,
+  weatherApiGetRequest,
+  processWeather,
   handleResponse
 };
 
