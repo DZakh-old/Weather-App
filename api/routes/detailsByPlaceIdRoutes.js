@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const { processWeather, handleResponse } = require('../handlers');
+const { processWeather, handleResponse } = require('../handlers').handlers;
 
 router.get('/:place_id', async (req, res, next) => {
   const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${encodeURIComponent(
@@ -12,4 +12,4 @@ router.get('/:place_id', async (req, res, next) => {
   handleResponse(weatherRes, res, next);
 });
 
-module.exports = router;
+module.exports.detailsByPlaceIdRoutes = router;

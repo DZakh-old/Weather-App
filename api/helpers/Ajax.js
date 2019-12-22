@@ -15,4 +15,4 @@ const Ajax = {
   }
 };
 
-module.exports = Ajax;
+module.exports.Ajax = Ajax;

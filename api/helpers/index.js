@@ -1,9 +1,9 @@
-const sleep = require('./sleep');
-const Ajax = require('./Ajax');
+const { sleep } = require('./sleep');
+const { Ajax } = require('./Ajax');
 
 const helpers = {
   sleep,
   Ajax
 };
 
-module.exports = helpers;
+module.exports.helpers = helpers;

@@ -1,6 +1,6 @@
-const { googleApiKey } = require('../config');
+const { googleApiKey } = require('../config').config;
 
-const { sleep, Ajax } = require('../helpers');
+const { sleep, Ajax } = require('../helpers').helpers;
 
 const getGoogleUrlWithKey = url => {
   return `${url}&key=${googleApiKey}`;
@@ -30,4 +30,4 @@ const googleApiGetRequest = async (url, timesRepeated = 0, delay = 200) => {
   return data;
 };
 
-module.exports = googleApiGetRequest;
+module.exports.googleApiGetRequest = googleApiGetRequest;

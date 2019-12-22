@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const { processAutocomplete, handleResponse } = require('../handlers');
+const { processAutocomplete, handleResponse } = require('../handlers').handlers;
 
 router.get('/:request', async (req, res, next) => {
   const [input, session] = req.params.request.split('&');
@@ -13,4 +13,4 @@ router.get('/:request', async (req, res, next) => {
   handleResponse(autocompleteRes, res, next);
 });
 
-module.exports = router;
+module.exports.autocompleteRoutes = router;

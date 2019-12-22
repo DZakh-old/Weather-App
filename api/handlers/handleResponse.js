@@ -18,4 +18,4 @@ const handleResponse = (apiResponse, res, next) => {
   }
 };
 
-module.exports = handleResponse;
+module.exports.handleResponse = handleResponse;

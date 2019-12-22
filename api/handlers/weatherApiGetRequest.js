@@ -1,5 +1,5 @@
-const { weatherApiKey } = require('../config');
-const { Ajax } = require('../helpers');
+const { weatherApiKey } = require('../config').config;
+const { Ajax } = require('../helpers').helpers;
 
 const weatherApiGetRequest = async ({ lat, lon }) => {
   const url = `https://community-open-weather-map.p.rapidapi.com/forecast?lat=${lat}&lon=${lon}&units=metric`;
@@ -10,4 +10,4 @@ const weatherApiGetRequest = async ({ lat, lon }) => {
   return Ajax.get(url, headers);
 };
 
-module.exports = weatherApiGetRequest;
+module.exports.weatherApiGetRequest = weatherApiGetRequest;

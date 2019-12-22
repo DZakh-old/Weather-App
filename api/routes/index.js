@@ -1,6 +1,6 @@
-const findPlaceFromTextRoutes = require('./findPlaceFromText');
-const detailsByPlaceIdRoutes = require('./detailsByPlaceId');
-const autocompleteRoutes = require('./autocomplete');
+const { findPlaceFromTextRoutes } = require('./findPlaceFromTextRoutes');
+const { detailsByPlaceIdRoutes } = require('./detailsByPlaceIdRoutes');
+const { autocompleteRoutes } = require('./autocompleteRoutes');
 
 module.exports = {
   findPlaceFromTextRoutes,

@@ -1,5 +1,5 @@
-const weatherApiGetRequest = require('./weatherApiGetRequest');
-const googleApiGetRequest = require('./googleApiGetRequest');
+const { weatherApiGetRequest } = require('./weatherApiGetRequest');
+const { googleApiGetRequest } = require('./googleApiGetRequest');
 
 const unifyDifferentApiPlaceData = place => {
   return place.candidates ? place.candidates[0] : place.result;
@@ -22,4 +22,4 @@ const processWeather = async url => {
   return { statusCode: +cod || cod || 406, weatherData: list, placeName: name };
 };
 
-module.exports = processWeather;
+module.exports.processWeather = processWeather;

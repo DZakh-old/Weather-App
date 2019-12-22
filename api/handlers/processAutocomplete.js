@@ -1,4 +1,4 @@
-const googleApiGetRequest = require('./googleApiGetRequest');
+const { googleApiGetRequest } = require('./googleApiGetRequest');
 
 const processAutocomplete = async url => {
   const autocompleteData = await googleApiGetRequest(url);
@@ -16,4 +16,4 @@ const processAutocomplete = async url => {
   return { statusCode, predictionList };
 };
 
-module.exports = processAutocomplete;
+module.exports.processAutocomplete = processAutocomplete;
