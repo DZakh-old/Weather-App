@@ -1,13 +1,13 @@
 const express = require('express');
 const morgan = require('morgan');
 
-const { port } = require('./api/config');
+const { port } = require('./api/config').config;
 
 const {
   findPlaceFromTextRoutes,
   detailsByPlaceIdRoutes,
   autocompleteRoutes
-} = require('./api/routes');
+} = require('./api/routes').routes;
 
 const app = express();
 
