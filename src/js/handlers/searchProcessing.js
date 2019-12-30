@@ -23,12 +23,12 @@ const getWeatherData = async (prediction, inputData) => {
 
     switch (status) {
       case 204:
-        return { weatherData: undefined, placeName: messages.error204 };
+        return { weatherData: null, placeName: messages.error204 };
       case 406:
       case 429:
-        return { weatherData: undefined, placeName: messages.error406 };
+        return { weatherData: null, placeName: messages.error406 };
       default:
-        return { weatherData: undefined, placeName: messages.error429 };
+        return { weatherData: null, placeName: messages.error429 };
     }
   }
   return apiRes;

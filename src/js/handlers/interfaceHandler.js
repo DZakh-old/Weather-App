@@ -18,8 +18,6 @@ import { activateDarkMode } from './darkModeHandler';
 
 export const activateInterface = () => {
   activateDarkMode();
-
-  // TODO: Would be nice to refactor it, but for now it's also ok -_-
   let session = new Date().getTime();
   let mainPrediction;
 
@@ -37,7 +35,7 @@ export const activateInterface = () => {
 
     const inputData = getSearchBarValue();
 
-    if (inputData.length > 3) {
+    if (inputData.length > 2) {
       if (e.data && e.data.match(/^[ёа-я\d\w]$/i) && !isCurInputEqualToPrev(e)) {
         const predictions = await getAutocompletePredictions(inputData, session);
         if (predictions && !isWeatherShown()) {
@@ -46,7 +44,7 @@ export const activateInterface = () => {
         }
       }
     } else {
-      mainPrediction = undefined;
+      mainPrediction = null;
       clearAutocomplete();
     }
   });

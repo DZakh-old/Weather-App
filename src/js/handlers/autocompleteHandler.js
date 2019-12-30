@@ -74,7 +74,7 @@ export const getAutocompletePredictions = async (inputData, session) => {
   const apiRes = await Ajax.get(apiUrl);
   const { status } = apiRes;
   if (status !== 200) {
-    return undefined;
+    return null;
   }
   return apiRes.predictionList;
 };
