@@ -8,13 +8,17 @@ I didn't use any fancy things for the project. Pure simplicity:
 - REST API on node.js
 
 ## API
-
 What about APIs, there are some of them in the project, here is the list:
 
 - Open Weather Map
 - Google Places Autocomplete
 - Google Places Find Place From Text
 - Google Places Get Details By Place ID
+
+## Versions
+
+- v0.1 - First working version with spaghetti OOP
+- v0.2 - Removing the nasty classes mess. Only functions, only hard-core
 
 ### Finally
 I don't know what to add more, just try the project by your-self [[link]](https://weather.dzakh.dev/).
