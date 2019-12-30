@@ -2,8 +2,8 @@ import './stylesheets/main.scss';
 
 import '@babel/polyfill';
 
-import { realVhHeight } from './js/functions';
-import Interface from './js/classes/Interface';
+import { realVhHeight } from './js/functions/realVhHeight';
+import { activateInterface } from './js/handlers/interfaceHandler';
 
 realVhHeight();
-Interface.activate();
+activateInterface();
