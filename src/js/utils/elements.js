@@ -7,9 +7,10 @@ const elementsAndTheirIdsFromTemplate = {
   darkModeBtn: 'dark-mode-btn'
 };
 
-export const elements = Object.fromEntries(
-  Object.entries(elementsAndTheirIdsFromTemplate).map(([name, id]) => [
-    name,
-    document.getElementById(id)
-  ])
+export const elements = Object.entries(elementsAndTheirIdsFromTemplate).reduce(
+  (acc, [name, id]) => ({
+    ...acc,
+    [name]: document.getElementById(id)
+  }),
+  {}
 );

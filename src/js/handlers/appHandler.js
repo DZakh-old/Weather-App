@@ -1,4 +1,4 @@
-import { elements } from '../utils/app-elements';
+import { elements } from '../utils/elements';
 
 const { app } = elements;
 

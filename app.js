@@ -11,10 +11,9 @@ const {
 
 const app = express();
 
-app.use(express.static('dist'));
-
 app.use(morgan('dev'));
 
+// TODO: replace with npm
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'https://weather.dzakh.dev');
   res.header(
@@ -27,6 +26,8 @@ app.use((req, res, next) => {
   }
   return next();
 });
+
+app.use(express.static('dist'));
 
 app.use('/api/findplacefromtext', findPlaceFromTextRoutes);
 app.use('/api/detailsbyplaceid', detailsByPlaceIdRoutes);
