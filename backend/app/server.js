@@ -1,13 +1,14 @@
 const express = require('express');
 const morgan = require('morgan');
+const path = require('path');
 
-const { port } = require('./api/config').config;
+const { port } = require('./config').config;
 
 const {
   findPlaceFromTextRoutes,
   detailsByPlaceIdRoutes,
   autocompleteRoutes
-} = require('./api/routes').routes;
+} = require('./routes').routes;
 
 const app = express();
 
@@ -27,7 +28,7 @@ app.use((req, res, next) => {
   return next();
 });
 
-app.use(express.static('dist'));
+app.use(express.static(path.join(__dirname, '../../frontend/dist')));
 
 app.use('/api/findplacefromtext', findPlaceFromTextRoutes);
 app.use('/api/detailsbyplaceid', detailsByPlaceIdRoutes);
