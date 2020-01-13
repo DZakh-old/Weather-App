@@ -55,12 +55,10 @@
       margin-left: 40rem;
     }
   }
-
 }
 
 .active {
   .control {
-
     &__dark-mode {
       border: none;
       box-shadow: block-shadow();
@@ -70,6 +68,5 @@
         box-shadow: shadow-border(strong-clr, bg-clr), block-shadow();
       }
     }
-
   }
 }

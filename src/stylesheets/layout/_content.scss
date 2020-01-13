@@ -9,9 +9,9 @@
     display: grid;
     grid-template-rows: auto 1fr;
     grid-template-columns: 140px 1fr;
-    grid-template-areas: 
-      "aside header"
-      "aside main";
+    grid-template-areas:
+      'aside header'
+      'aside main';
   }
 
   @media (min-width: 1200px) {

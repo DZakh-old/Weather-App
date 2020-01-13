@@ -1,5 +1,5 @@
 .aside {
-  padding: calc(var(--header-pt) + var(--control-h) / 2 - 0.5em) 10rem 40rem;;
+  padding: calc(var(--header-pt) + var(--control-h) / 2 - 0.5em) 10rem 40rem;
   position: absolute;
   top: 0;
   min-height: v(min-height);
@@ -12,7 +12,7 @@
     margin-left: 0.5em;
     transition: opacity 1s;
   }
-  
+
   &__creator {
     position: fixed;
     z-index: 3;
@@ -41,7 +41,6 @@
     &:focus::after {
       opacity: 0.1;
     }
-
   }
 
   @include respond-above(sm) {
@@ -56,7 +55,6 @@
 
 .active {
   .aside {
-
     &__creator {
       position: absolute;
       top: calc(100% - 55rem);
@@ -69,7 +67,6 @@
         opacity: 1;
       }
     }
-
   }
 }
 

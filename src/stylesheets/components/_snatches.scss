@@ -3,7 +3,7 @@
   border-top: 1px solid v(brand-clr);
   border-bottom: 1px solid v(brand-clr);
   pointer-events: none;
-  
+
   &::after {
     @extend %pseudo;
     position: absolute;
@@ -12,7 +12,13 @@
     height: 100%;
     width: 100%;
     background: v(bg-clr);
-    background: linear-gradient(90deg, v(bg-clr) 0%, transparent 20%, transparent 80%, v(bg-clr) 100%);
+    background: linear-gradient(
+      90deg,
+      v(bg-clr) 0%,
+      transparent 20%,
+      transparent 80%,
+      v(bg-clr) 100%
+    );
   }
 
   &__bar {
@@ -21,7 +27,7 @@
     margin: 0 1rem;
     pointer-events: auto;
 
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       height: 0;
       width: 0;
       background: v(bg-clr);

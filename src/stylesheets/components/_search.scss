@@ -10,7 +10,7 @@
     color: v(strong-clr);
     background: v(bg-clr);
     letter-spacing: 0.05em;
-    
+
     &::placeholder {
       color: v(strong-clr);
       opacity: 0.6;
@@ -26,7 +26,7 @@
     @include center;
     pointer-events: none;
     font-family: 'icomoon';
-    content: "\e900";
+    content: '\e900';
     position: absolute;
     height: 100%;
     margin-left: 0.5em;
@@ -41,8 +41,8 @@
     width: 100%;
     height: v(control-h);
     z-index: -1;
-    border-radius: calc(var(--control-h) / 2);  
-    transition: all 0.5s v(my-ease);  
+    border-radius: calc(var(--control-h) / 2);
+    transition: all 0.5s v(my-ease);
     overflow: hidden;
     padding-top: 0;
 
@@ -60,7 +60,7 @@
       &::before {
         position: absolute;
         font-family: 'icomoon';
-        content: "\e903";
+        content: '\e903';
         display: block;
         left: 1em;
         top: 0.75em;
@@ -88,7 +88,7 @@
     &__autocomplete {
       box-shadow: block-shadow();
     }
-    
+
     &__input:hover ~ .search__autocomplete {
       box-shadow: shadow-border(strong-clr, bg-clr), block-shadow();
     }

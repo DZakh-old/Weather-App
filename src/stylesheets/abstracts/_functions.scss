@@ -8,7 +8,7 @@
 /// @param {String} $path - asset path
 /// @return {Url}
 @function asset($base, $type, $path) {
-  @return url($base + $type + $path);
+  @return url($base+$type+$path);
 }
 
 /// Returns URL to an image based on its path
@@ -29,7 +29,6 @@
   @return asset($base, 'fonts/', $path);
 }
 
-
 @function v($var, $callback: '_') {
   @if ($callback != '_') {
     @return var(--#{$var}, $callback);
@@ -42,7 +41,7 @@
   @if $v-map != '_' {
     @if map-has-key($v-map, $var) {
       @return map-get($v-map, $var);
-    } 
+    }
     @error 'Local variable #{$var} doesn\'t exist';
   }
   @if map-has-key($v-globals, $var) {

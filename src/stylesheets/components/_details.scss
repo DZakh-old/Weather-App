@@ -4,9 +4,9 @@
   gap: 0.8em 1em;
   grid-template-rows: auto auto;
   grid-template-columns: 1fr 1fr;
-  grid-template-areas: 
-    "humidity wind"
-    "pressure clouds";
+  grid-template-areas:
+    'humidity wind'
+    'pressure clouds';
 
   &__block {
     padding: 0.7em 0.5em 0;
