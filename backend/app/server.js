@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+const cors = require('cors');
 
 const { port } = require('./config').config;
 
@@ -14,19 +15,12 @@ const app = express();
 
 app.use(morgan('dev'));
 
-// TODO: replace with npm
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://weather.dzakh.dev');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Access, Authorizatinon'
-  );
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Method', 'GET');
-    return res.status(200).json({ data: [] });
-  }
-  return next();
-});
+const corsOptions = {
+  origin: 'https://weather.dzakh.dev',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.static(path.join(__dirname, '../../frontend/dist')));
 
