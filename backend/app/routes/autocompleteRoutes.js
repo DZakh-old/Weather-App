@@ -1,10 +1,8 @@
-const express = require('express');
-
-const router = express.Router();
+const app = (module.exports = require('express')());
 
 const { processAutocomplete, handleResponse } = require('../handlers').handlers;
 
-router.get('/:request', async (req, res, next) => {
+app.get('/:request', async (req, res, next) => {
   const [input, session] = req.params.request.split('&');
   const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
     input
@@ -12,5 +10,3 @@ router.get('/:request', async (req, res, next) => {
   const autocompleteRes = await processAutocomplete(apiUrl);
   handleResponse(autocompleteRes, res, next);
 });
-
-module.exports.autocompleteRoutes = router;

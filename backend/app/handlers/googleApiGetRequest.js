@@ -1,4 +1,4 @@
-const { googleApiKey } = require('../config').config;
+const { googleApiKey } = require('../../config').config;
 
 const { sleep, Ajax } = require('../helpers').helpers;
 

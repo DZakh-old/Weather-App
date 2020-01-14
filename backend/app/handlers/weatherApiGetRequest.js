@@ -1,4 +1,4 @@
-const { weatherApiKey } = require('../config').config;
+const { weatherApiKey } = require('../../config').config;
 const { Ajax } = require('../helpers').helpers;
 
 const weatherApiGetRequest = async ({ lat, lon }) => {
