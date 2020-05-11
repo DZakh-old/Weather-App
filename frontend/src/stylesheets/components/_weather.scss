@@ -1,0 +1,44 @@
+.weather {
+  @include center;
+  align-items: stretch;
+  width: 488rem;
+  height: 484rem;
+  padding: 4rem 0;
+  display: flex;
+  background: v(bg-clr);
+  color: v(brand-clr);
+  border-radius: 40rem;
+  transition: box-shadow 1s, right 0.7s v(my-ease);
+
+  &__separator {
+    margin: 20rem 0;
+    width: 2.2rem;
+    border-radius: 50%;
+    background: v(brand-clr);
+  }
+}
+
+@media (max-width: 530px) {
+  .weather {
+    position: absolute;
+    z-index: 0;
+  }
+  .active-card-0 {
+    right: -92rem;
+  }
+  .active-card-1 {
+    right: 0;
+  }
+  .active-card-2 {
+    right: 92rem;
+  }
+  .active-card-3 {
+    right: 180rem;
+  }
+}
+
+.active {
+  .weather {
+    box-shadow: block-shadow();
+  }
+}

@@ -1,0 +1,40 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+$v-globals: (
+
+  /// Regular font family
+  text-font-stack: ('Roboto', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif),
+  
+  /// Code (monospace) font family
+  code-font-stack: ('Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', monospace),
+  
+  
+  /// Base font size
+  base-font-size: 16rem,
+  
+  
+  /// Colors
+  bg-clr: #ffffff,
+  second-bg-clr: #122a44,
+  brand-clr: #1d4371,
+  second-brand-clr: #7dacc0,
+  strong-clr: #151515,
+  soft-clr: #e6e6e6,
+  
+
+  /// Container's minimum width
+  min-width: 488px,
+  min-height: 750px,
+  
+
+  /// Fast start, slow finish - animation flow
+  my-ease: cubic-bezier(0.2, 0.9, 0, 1),
+
+
+  /// Sizes
+  header-pt: 75rem,
+  control-h: 55rem
+
+) !default;

@@ -1,0 +1,10 @@
+.main {
+  @include center;
+  position: relative;
+  height: calc(100% - var(--header-pt) - var(--control-h));
+
+  @include respond-above(sm) {
+    grid-area: main;
+    height: 100%;
+  }
+}

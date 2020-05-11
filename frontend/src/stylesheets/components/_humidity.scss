@@ -1,0 +1,16 @@
+.humidity {
+  position: relative;
+
+  &__value {
+    position: absolute;
+    font-size: 1.5em;
+    top: calc(50% - 0.55em);
+    right: 0;
+    left: 0.25em;
+    margin: auto;
+  }
+
+  &__progress-bar {
+    padding: 0.5em 0.1em 0;
+  }
+}

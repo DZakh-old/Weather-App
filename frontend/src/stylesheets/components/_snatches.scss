@@ -1,0 +1,55 @@
+.snatches {
+  position: relative;
+  border-top: 1px solid v(brand-clr);
+  border-bottom: 1px solid v(brand-clr);
+  pointer-events: none;
+
+  &::after {
+    @extend %pseudo;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background: v(bg-clr);
+    background: linear-gradient(
+      90deg,
+      v(bg-clr) 0%,
+      transparent 20%,
+      transparent 80%,
+      v(bg-clr) 100%
+    );
+  }
+
+  &__bar {
+    display: flex;
+    overflow-x: scroll;
+    margin: 0 1rem;
+    pointer-events: auto;
+
+    &::-webkit-scrollbar {
+      height: 0;
+      width: 0;
+      background: v(bg-clr);
+    }
+  }
+
+  &__item {
+    padding: 6rem 7rem;
+    line-height: 0.92em;
+  }
+
+  &__time {
+    font-size: 0.8em;
+  }
+
+  &__icon {
+    display: block;
+    padding: 1rem 0 3rem;
+    font-size: 2.2em;
+  }
+
+  &__temp {
+    padding-left: 0.3em;
+  }
+}
